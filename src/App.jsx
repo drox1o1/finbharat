@@ -54,7 +54,7 @@ function Hero() {
   return <>
     <ScrollVideoHero>
       <div className="cinematic-content container">
-        <p className="eyebrow hero-enter">Keeping wealth simple. For everyone in Bharat.</p>
+        <p className="eyebrow hero-enter">Built for the way Bharat moves.</p>
         <BharatWord />
         <p className="cinematic-description hero-enter">A clearer path to your financial future.<br /> Thoughtful tools. Human understanding. Your own way forward.</p>
         <div className="hero-actions hero-enter"><a className="button button-ivory" href="#explore">Explore Finbharat <ArrowUpRight size={18} aria-hidden="true" /></a><a className="button button-glass" href="#calculators">Try a calculator <ArrowRight size={18} aria-hidden="true" /></a></div>
