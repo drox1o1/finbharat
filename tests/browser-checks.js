@@ -1,0 +1,178 @@
+async (page) => {
+  const report = { responsive: [], accessibility: [], interactions: [], consoleErrors: [] };
+  page.on('pageerror', error => report.consoleErrors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') report.consoleErrors.push(message.text()); });
+  const assert = (condition, message) => { if (!condition) throw new Error(message); };
+  const origin = 'http://localhost:4173';
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const routes = ['/', '/calculators/fd/', '/calculators/sip/', '/calculators/goal/', '/mutual-funds/', '/fixed-deposits/', '/inclusion/', '/about/', '/contact/', '/privacy/', '/terms/'];
+  for (const width of [320, 390, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const route of routes.slice(0, 8)) {
+      await page.goto(origin + route);
+      await page.evaluate(() => document.fonts.ready);
+      const layout = await page.evaluate(() => ({ overflow: document.documentElement.scrollWidth > innerWidth, headings: document.querySelectorAll('h1').length, font: getComputedStyle(document.querySelector('h1')).fontFamily, pins: document.querySelectorAll('.pin-spacer').length, width: innerWidth }));
+      assert(!layout.overflow, `Horizontal overflow: ${route} at ${width}px`);
+      assert(layout.headings === 1, `Wrong H1 count: ${route}`);
+      assert(layout.font.includes('Noto Sans'), `Wrong font: ${route}`);
+      assert(layout.pins === 0, `Pinning active with reduced motion: ${route}`);
+      if (route === '/' || route === '/mutual-funds/' || route === '/fixed-deposits/') {
+        const lines = await page.locator('h1').evaluate(el => Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)));
+        assert(lines <= 3, `Hero heading wraps to ${lines} lines at ${width}px`);
+      }
+      report.responsive.push({ width, route, ...layout });
+    }
+  }
+  for (const route of routes) {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto(origin + route);
+    await page.evaluate(() => document.fonts.ready);
+    const metadata = await page.evaluate(() => ({ title: document.title, canonical: document.querySelector('link[rel=canonical]')?.href, description: document.querySelector('meta[name=description]')?.content, graph: JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)['@graph'] }));
+    assert(metadata.canonical.endsWith(route), `Incorrect canonical: ${route}`);
+    assert(metadata.description.length > 30, `Missing page description: ${route}`);
+    assert(metadata.graph.find(node => node['@type'] === 'Organization').founder.length === 2, `Missing founder metadata: ${route}`);
+    await page.addScriptTag({ path: 'node_modules/axe-core/axe.min.js' });
+    const violations = await page.evaluate(async () => (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } })).violations.map(v => ({ id: v.id, impact: v.impact, description: v.description, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) })));
+    report.accessibility.push({ route, violations });
+    assert(violations.length === 0, `Accessibility violations on ${route}: ${JSON.stringify(violations)}`);
+  }
+  await page.goto(origin + '/calculators/fd/');
+  await page.getByLabel('Principal amount', { exact: true }).fill('100000');
+  await page.getByLabel('Annual interest rate', { exact: true }).fill('10');
+  await page.getByLabel('Tenure', { exact: true }).fill('2');
+  await page.getByLabel('Compounding frequency').selectOption('1');
+  assert((await page.locator('output').textContent()).includes('1,21,000'), 'FD annual compounding output mismatch');
+  await page.getByLabel('Principal amount', { exact: true }).fill('-1');
+  assert(await page.getByLabel('Principal amount', { exact: true }).getAttribute('aria-invalid') === 'true', 'FD error state missing');
+  assert((await page.getByRole('status').textContent()).includes('Check the highlighted fields'), 'Invalid results not suppressed');
+  report.interactions.push('FD formula, keyboard entry, validation and invalid-result state');
+  await page.goto(origin + '/calculators/sip/');
+  await page.getByLabel('Monthly investment', { exact: true }).fill('1000');
+  await page.getByLabel('Expected annual return', { exact: true }).fill('0');
+  await page.getByLabel('Investment duration', { exact: true }).fill('1');
+  await page.getByLabel('Initial investment (optional)', { exact: true }).fill('5000');
+  assert((await page.locator('output').textContent()).includes('17,000'), 'SIP zero-rate estimate mismatch');
+  await page.getByLabel('Monthly investment slider').focus();
+  await page.keyboard.press('ArrowRight');
+  assert(await page.getByLabel('Monthly investment', { exact: true }).inputValue() === '1001', 'Slider keyboard entry failed');
+  report.interactions.push('SIP zero-return formula, initial savings and keyboard slider');
+  await page.goto(origin + '/calculators/goal/');
+  await page.getByLabel('Current goal cost', { exact: true }).fill('12000');
+  await page.getByLabel('Current savings', { exact: true }).fill('0');
+  await page.getByLabel('Years until your goal', { exact: true }).fill('1');
+  await page.getByLabel('Expected annual inflation', { exact: true }).fill('0');
+  await page.getByLabel('Expected annual return', { exact: true }).fill('0');
+  assert((await page.locator('output').textContent()).includes('1,000'), 'Goal zero-rate monthly estimate mismatch');
+  report.interactions.push('Goal zero-rate formula and inflation assumptions');
+  await page.goto(origin + '/mutual-funds/');
+  assert(await page.locator('.desktop-nav [aria-current=page]').textContent() === 'Mutual funds', 'Mutual fund navigation is not active');
+  await page.getByRole('tab', { name: 'A one-time investment', exact: true }).click();
+  assert(await page.getByRole('tabpanel').isVisible(), 'Learning panel missing');
+  assert((await page.getByRole('tabpanel').textContent()).includes('One contribution.'), 'Incorrect learning panel');
+  await page.getByRole('tab', { name: 'A one-time investment', exact: true }).focus();
+  await page.keyboard.press('ArrowRight');
+  assert(await page.getByRole('tab', { name: 'Risk & understanding', exact: true }).getAttribute('aria-selected') === 'true', 'Learning tab keyboard navigation failed');
+  await page.getByLabel('Monthly investment', { exact: true }).fill('1000');
+  await page.getByLabel('Expected annual return', { exact: true }).fill('0');
+  await page.getByLabel('Investment duration', { exact: true }).fill('1');
+  await page.getByLabel('Initial investment (optional)', { exact: true }).fill('5000');
+  assert((await page.locator('output').textContent()).includes('17,000'), 'Embedded SIP output mismatch');
+  report.interactions.push('Mutual fund learning tabs, keyboard navigation, active route and embedded SIP calculator');
+  await page.locator('.desktop-nav').getByRole('link', { name: 'Fixed deposits', exact: true }).click();
+  await page.waitForURL(origin + '/fixed-deposits/');
+  assert((await page.locator('h1').textContent()).includes('Fixed deposits.'), 'Multipage navigation failed');
+  await page.getByRole('tab', { name: 'Compounding', exact: true }).click();
+  assert((await page.getByRole('tabpanel').textContent()).includes('Understand what happens'), 'FD learning panel mismatch');
+  await page.getByLabel('Principal amount', { exact: true }).fill('100000');
+  await page.getByLabel('Annual interest rate', { exact: true }).fill('10');
+  await page.getByLabel('Tenure', { exact: true }).fill('2');
+  await page.getByLabel('Compounding frequency').selectOption('1');
+  assert((await page.locator('output').textContent()).includes('1,21,000'), 'Embedded FD output mismatch');
+  report.interactions.push('Cross-document product navigation, FD learning panel and embedded FD calculator');
+  await page.locator('.desktop-nav').getByRole('link', { name: 'About', exact: true }).click();
+  await page.waitForURL(origin + '/about/');
+  assert(await page.getByRole('heading', { name: 'D. Ramanathan', exact: true }).count() === 1, 'Founder name missing');
+  assert(await page.getByRole('heading', { name: 'Rakesh K', exact: true }).count() === 1, 'Founder name missing');
+  assert(await page.getByRole('link', { name: 'D. Ramanathan on LinkedIn' }).getAttribute('href') === 'https://www.linkedin.com/in/d-ramanathan-cfp-cm-791b151b/', 'Founder LinkedIn mismatch');
+  assert(await page.getByRole('link', { name: 'Rakesh K on LinkedIn' }).getAttribute('href') === 'https://www.linkedin.com/in/rakeshkgogetter/', 'Founder LinkedIn mismatch');
+  assert((await page.locator('main').textContent()).includes('CFP CM'), 'Founder credential missing');
+  report.interactions.push('About page has both supplied cofounders, credentials and correct LinkedIn profiles');
+  await page.goto(origin + '/');
+  await page.getByRole('button', { name: 'Access', exact: true }).click();
+  assert(await page.getByRole('button', { name: 'Access', exact: true }).getAttribute('aria-expanded') === 'true', 'Accordion did not open');
+  await page.getByRole('tab', { name: 'Mutual fund / SIP' }).focus();
+  await page.keyboard.press('ArrowRight');
+  assert(await page.getByRole('tab', { name: 'Fixed deposit' }).getAttribute('aria-selected') === 'true', 'Arrow key tab navigation failed');
+  await page.getByText('Are calculator results guaranteed?', { exact: true }).click();
+  assert(await page.locator('.faq-item[open]').count() === 1, 'FAQ did not open');
+  report.interactions.push('Accordion, keyboard calculator tabs and native FAQ');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole('button', { name: 'Open navigation' }).click();
+  assert(await page.locator('#mobile-navigation').isVisible(), 'Mobile menu failed');
+  await page.locator('#mobile-navigation a').first().focus();
+  await page.keyboard.press('Escape');
+  assert(!(await page.locator('#mobile-navigation').isVisible()), 'Escape did not close mobile menu');
+  report.interactions.push('Mobile navigation and Escape focus restoration');
+  await page.goto(origin + '/');
+  await page.evaluate(async () => { for (const img of document.images) img.loading = 'eager'; await Promise.all(Array.from(document.images).map(img => img.decode())); });
+  await page.screenshot({ path: 'output/playwright/home-mobile.png', fullPage: true });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await page.screenshot({ path: 'output/playwright/home-desktop-full.png', fullPage: true });
+  await page.locator('.gallery-section').screenshot({ path: 'output/playwright/gallery-desktop.png' });
+  await page.locator('.download-section').screenshot({ path: 'output/playwright/download-desktop.png' });
+  const badges = await page.locator('.store-button img').evaluateAll(images => images.map(img => ({ width: img.naturalWidth, height: img.naturalHeight })));
+  assert(badges.length === 2 && badges.every(img => img.width > 0), 'Official store badges missing');
+  await page.goto(origin + '/calculators/goal/');
+  await page.locator('.calculator-workspace').screenshot({ path: 'output/playwright/goal-desktop.png' });
+  const imageStatus = await page.evaluate(() => Array.from(document.images).filter(img => img.complete && img.naturalWidth === 0).map(img => img.src));
+  assert(imageStatus.length === 0, `Broken images: ${imageStatus.join(', ')}`);
+  const badgeSizes = await page.locator('.store-button img').evaluateAll(images => images.map(img => ({ src: img.src, width: img.naturalWidth, height: img.naturalHeight })));
+  assert(badgeSizes.every(img => img.width > 0), 'Store badge missing');
+  for (const route of ['/mutual-funds/', '/fixed-deposits/', '/inclusion/', '/about/']) {
+    const slug = route.replaceAll('/', '');
+    await page.goto(origin + route);
+    await page.evaluate(async () => { for (const img of document.images) img.loading = 'eager'; await Promise.all(Array.from(document.images).map(img => img.decode())); });
+    await page.screenshot({ path: `output/playwright/${slug}-desktop.png` });
+    if (route === '/about/') await page.locator('.founder-profiles').screenshot({ path: 'output/playwright/cofounders-desktop.png' });
+    if (route === '/mutual-funds/') await page.locator('.learning-tabs').screenshot({ path: 'output/playwright/learning-desktop.png' });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.screenshot({ path: `output/playwright/${slug}-mobile.png`, fullPage: true });
+    await page.setViewportSize({ width: 1440, height: 1000 });
+  }
+  assert(report.consoleErrors.length === 0, `Console errors: ${report.consoleErrors.join('\n')}`);
+  await page.goto(origin + '/');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  assert(await page.locator('.pin-spacer').count() === 1, 'Desktop explanatory section should pin');
+  await page.waitForFunction(() => Array.from(document.querySelectorAll('.hero-enter')).every(el => Number(getComputedStyle(el).opacity) >= 0.999));
+  await page.addScriptTag({ path: 'node_modules/axe-core/axe.min.js' });
+  const motionViolations = await page.evaluate(async () => (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } })).violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) })));
+  assert(motionViolations.length === 0, `Normal-motion accessibility violations: ${JSON.stringify(motionViolations)}`);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  assert(await page.locator('.pin-spacer').count() === 0, 'Pinning did not clean up on reduced motion change');
+  report.interactions.push('Live reduced-motion change removes desktop pinning');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  for (const route of ['/mutual-funds/', '/fixed-deposits/', '/inclusion/', '/about/']) {
+    await page.goto(origin + route);
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('.page-enter')).every(el => Number(getComputedStyle(el).opacity) >= 0.999));
+    if (route === '/mutual-funds/' || route === '/fixed-deposits/') {
+      const tabs = page.locator('.learning-tablist button');
+      await tabs.nth(1).click();
+      await tabs.nth(2).click();
+      await tabs.nth(0).click();
+      await page.waitForFunction(() => Number(getComputedStyle(document.querySelector('.learning-panel:not([hidden]) .learning-panel-content')).opacity) >= 0.999);
+      assert(await tabs.nth(0).getAttribute('aria-selected') === 'true', 'Interrupted click animation left wrong panel selected');
+    }
+    await page.addScriptTag({ path: 'node_modules/axe-core/axe.min.js' });
+    const violations = await page.evaluate(async () => (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } })).violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) })));
+    assert(violations.length === 0, `Normal-motion accessibility on ${route}: ${JSON.stringify(violations)}`);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('.page-enter, .scroll-reveal')).every(el => !el.style.transform));
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+  }
+  report.interactions.push('Four new pages: animated entrances, interrupted tab clicks, normal-motion accessibility and live reduced-motion cleanup');
+  assert(report.consoleErrors.length === 0, `Console errors: ${report.consoleErrors.join('\n')}`);
+  return report;
+}

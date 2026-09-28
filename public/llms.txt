@@ -1,0 +1,33 @@
+# Finbharat
+
+Finbharat is building thoughtful technology for a more understandable and inclusive financial future for people across India.
+
+Company: FinBharat Technology Private Limited.
+Motto: Keeping wealth simple. For everyone in Bharat.
+
+## Cofounders
+
+- D. Ramanathan, CFP CM: cofounder, Managing Director & CEO, Greater Chennai Area. https://www.linkedin.com/in/d-ramanathan-cfp-cm-791b151b/
+- Rakesh K: cofounder, IIMC alumnus, Chennai, Tamil Nadu, India. https://www.linkedin.com/in/rakeshkgogetter/
+
+Founder information was supplied by the website owner. Founder portraits have not been supplied.
+
+## Audience and direction
+
+The direction considers different regions and languages, income levels, abilities, access needs, digital confidence, and both first-time and experienced investors. Design principles include clarity, trust, privacy, accessibility and human agency.
+
+## Website calculators
+
+- /mutual-funds/: educational mutual fund explanations and an embedded SIP calculator.
+- /fixed-deposits/: educational fixed deposit explanations and an embedded FD calculator.
+- /inclusion/: inclusion principles.
+- /about/: company purpose and cofounder profiles.
+- /calculators/fd/: compound-interest fixed deposit calculator.
+- /calculators/sip/: beginning-of-month SIP calculator with optional initial investment.
+- /calculators/goal/: inflation-adjusted goal calculator with current savings, monthly contribution estimate and an alternative additional one-time investment.
+
+Calculators run in the browser using user-provided assumptions. Results are illustrative and not financial advice. Actual returns, rates, taxes and outcomes may vary.
+
+## Information awaiting verification
+
+Official company contact details, company social links, app store URLs, app availability and specific AI capabilities have not been supplied. No regulatory, partnership, product availability, user count or impact claims are made. This website does not accept investments or open deposits.

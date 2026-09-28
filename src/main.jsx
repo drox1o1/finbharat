@@ -1,0 +1,24 @@
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import '@fontsource/noto-sans/latin-400.css';
+import '@fontsource/noto-sans/latin-500.css';
+import '@fontsource/noto-sans/latin-600.css';
+import '@fontsource/noto-sans/latin-700.css';
+import '@fontsource/noto-sans/devanagari-700.css';
+import '@fontsource/noto-sans-tamil/700.css';
+import '@fontsource/noto-sans-telugu/700.css';
+import '@fontsource/noto-sans-kannada/700.css';
+import '@fontsource/noto-sans/devanagari-400.css';
+import '@fontsource/noto-sans-tamil/400.css';
+import '@fontsource/noto-sans-telugu/400.css';
+import '@fontsource/noto-sans-kannada/400.css';
+import App from './App';
+import './styles.css';
+import './pages.css';
+import './cinematic.css';
+import './refinements.css';
+
+const path = window.location.pathname === '/' ? '/' : `${window.location.pathname.replace(/\/+$/, '')}/`;
+const root = document.getElementById('root');
+const app = <App path={path} />;
+if (root.querySelector('main')) hydrateRoot(root, app);
+else createRoot(root).render(app);
