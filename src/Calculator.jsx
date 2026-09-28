@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react';
-import { ArrowUpRight, CircleHelp, Landmark, Target, TrendingUp } from 'lucide-react';
+import { ArrowUpRight, CarFront, CircleHelp, GraduationCap, Landmark, Sunrise, Target, TrendingUp } from 'lucide-react';
 import { AnimatedAmount } from './AnimatedAmount';
 import { MotionDetails } from './Interactive';
 import { calculateFD, calculateSIP, calculateGoal, formatINR } from './calculations.mjs';
@@ -8,13 +8,19 @@ export const disclaimer = 'These calculations are illustrative and not financial
 export const calculatorInfo = {
   sip: { title: 'Mutual Fund / SIP Calculator', label: 'Mutual fund / SIP', path: '/calculators/sip/', Icon: TrendingUp, intro: 'See how regular investments could build over time. Explore the balance between what you put in and what it could become.' },
   fd: { title: 'FD Calculator', label: 'Fixed deposit', path: '/calculators/fd/', Icon: Landmark, intro: 'Estimate your fixed deposit maturity amount and interest, using the rate, tenure and compounding frequency you choose.' },
-  goal: { title: 'Goal-Based Calculator', label: 'Goal-based planning', path: '/calculators/goal/', Icon: Target, intro: 'Put a plan behind something that matters to you. Account for inflation, your savings and the time you have.' },
+  goal: { title: 'Goal-Based Calculator', label: 'Goal-based planning', path: '/calculators/goal/', Icon: Target, intro: 'Start with child education, a car or financial freedom. Make the goal your own, then explore how time, inflation and current savings could shape your plan.' },
 };
+
+const goalPresets = [
+  { id: 'education', label: 'Child education', Icon: GraduationCap, description: 'Make room for their next chapter.', hint: 'Enter the education cost in today’s rupees.', values: { name: 'Child education', cost: '1000000', years: '10', inflation: '6', savings: '100000', rate: '10' } },
+  { id: 'car', label: 'Car', Icon: CarFront, description: 'Plan for the journeys ahead.', hint: 'Enter the car’s estimated cost in today’s rupees.', values: { name: 'Car', cost: '800000', years: '5', inflation: '5', savings: '100000', rate: '8' } },
+  { id: 'freedom', label: 'Financial freedom', Icon: Sunrise, description: 'Create more room to choose your future.', hint: 'Enter your desired savings target in today’s rupees. This estimates a corpus, not a future income.', values: { name: 'Financial freedom', cost: '10000000', years: '20', inflation: '6', savings: '500000', rate: '10' } },
+];
 
 const initialValues = {
   sip: { monthly: '5000', rate: '10', years: '10', initial: '0' },
   fd: { principal: '100000', rate: '7', years: '5', frequency: '4' },
-  goal: { name: 'A home of my own', cost: '1000000', years: '10', inflation: '6', savings: '100000', rate: '10' },
+  goal: goalPresets[0].values,
 };
 
 function NumberField({ label, value, onChange, min = 0, max, step = 1, suffix, prefix, hint }) {
@@ -30,32 +36,43 @@ function NumberField({ label, value, onChange, min = 0, max, step = 1, suffix, p
 }
 
 function validValues(type, values) {
-  const bounds = type === 'fd' ? { principal: [0, 10000000], rate: [0, 20], years: [1, 30], frequency: [1, 12] } : type === 'sip' ? { monthly: [0, 100000], rate: [0, 30], years: [1, 40], initial: [0, 10000000] } : { cost: [1, 10000000], years: [1, 40], inflation: [0, 20], savings: [0, 10000000], rate: [0, 30] };
+  const bounds = type === 'fd' ? { principal: [0, 10000000], rate: [0, 20], years: [1, 30], frequency: [1, 12] } : type === 'sip' ? { monthly: [0, 100000], rate: [0, 30], years: [1, 40], initial: [0, 10000000] } : { cost: [1, 100000000], years: [1, 40], inflation: [0, 20], savings: [0, 100000000], rate: [0, 30] };
   return Object.entries(bounds).every(([key, [min, max]]) => values[key] !== '' && Number.isFinite(Number(values[key])) && Number(values[key]) >= min && Number(values[key]) <= max && (!['years', 'monthly', 'principal', 'initial', 'cost', 'savings'].includes(key) || Number.isInteger(Number(values[key]))));
 }
 
 export function Calculator({ type = 'sip', embedded = false }) {
-  const [values, setValues] = useState(initialValues[type]);
+  const [inputs, setInputs] = useState(initialValues[type]);
+  const [goalId, setGoalId] = useState(goalPresets[0].id);
+  const [goalDrafts, setGoalDrafts] = useState(() => Object.fromEntries(goalPresets.map(goal => [goal.id, goal.values])));
+  const prefix = useId();
+  const selectedGoal = goalPresets.find(goal => goal.id === goalId);
+  const values = type === 'goal' ? goalDrafts[goalId] : inputs;
   const resultRef = useRef(null);
   const valid = validValues(type, values);
   const numbers = Object.fromEntries(Object.entries(values).filter(([key]) => key !== 'name').map(([key, value]) => [key, Number(value)]));
   const result = valid ? (type === 'fd' ? calculateFD(numbers) : type === 'sip' ? calculateSIP(numbers) : calculateGoal(numbers)) : null;
-  const set = key => value => setValues(previous => ({ ...previous, [key]: value }));
+  const set = key => value => {
+    if (type === 'goal') setGoalDrafts(previous => ({ ...previous, [goalId]: { ...previous[goalId], [key]: value } }));
+    else setInputs(previous => ({ ...previous, [key]: value }));
+  };
   const field = (key, label, props) => <NumberField key={key} label={label} value={values[key]} onChange={set(key)} {...props} />;
   const contribution = result && result.final > 0 ? Math.min(100, result.invested / result.final * 100) : 100;
   return <div className={`calculator-workspace ${embedded ? 'embedded' : ''}`}>
     <form className="calculator-form" onSubmit={e => e.preventDefault()} aria-label={calculatorInfo[type].title}>
       <div className="form-topline"><h3>Your {type === 'goal' ? 'goal' : 'numbers'}. Your possibilities.</h3><CircleHelp size={18} aria-hidden="true" /></div>
-      {type === 'goal' && <div className="goal-name"><label htmlFor="goal-name">Goal name</label><input id="goal-name" type="text" value={values.name} maxLength={80} onChange={e => set('name')(e.target.value)} placeholder="What are you planning for?" /></div>}
+      {type === 'goal' && <>
+        <fieldset className="goal-picker" aria-describedby={`${prefix}-goal-note`}><legend>What are you planning for?</legend><div className="goal-choices">{goalPresets.map(({ id, label, Icon }) => <label className="goal-choice" key={id}><Icon size={22} strokeWidth={1.5} aria-hidden="true" /><input type="radio" name={`${prefix}-goal`} value={id} checked={goalId === id} onChange={() => setGoalId(id)} /><span>{label}</span></label>)}</div><p className="goal-description">{selectedGoal.description}</p><p id={`${prefix}-goal-note`} className="goal-example-note">Start with example numbers. Edit every assumption to reflect your goal. Each goal keeps your edits while this calculator is open.</p></fieldset>
+        <div className="goal-name"><label htmlFor={`${prefix}-goal-name`}>Goal name</label><input id={`${prefix}-goal-name`} type="text" value={values.name} maxLength={80} onChange={e => set('name')(e.target.value)} placeholder="What are you planning for?" /></div>
+      </>}
       {type === 'sip' && field('monthly', 'Monthly investment', { max: 100000, prefix: '₹' })}
       {type === 'sip' && field('initial', 'Initial investment (optional)', { max: 10000000, prefix: '₹' })}
       {type === 'fd' && field('principal', 'Principal amount', { max: 10000000, prefix: '₹' })}
-      {type === 'goal' && field('cost', 'Current goal cost', { min: 1, max: 10000000, prefix: '₹' })}
-      {type === 'goal' && field('savings', 'Current savings', { max: 10000000, prefix: '₹' })}
+      {type === 'goal' && field('cost', 'Current goal cost', { min: 1, max: 100000000, prefix: '₹', hint: selectedGoal.hint })}
+      {type === 'goal' && field('savings', 'Current savings', { max: 100000000, prefix: '₹' })}
       {field('years', type === 'goal' ? 'Years until your goal' : type === 'fd' ? 'Tenure' : 'Investment duration', { min: 1, max: type === 'fd' ? 30 : 40, suffix: ' yr' })}
       {type === 'goal' && field('inflation', 'Expected annual inflation', { max: 20, step: 0.1, suffix: '%' })}
       {field('rate', type === 'fd' ? 'Annual interest rate' : 'Expected annual return', { max: type === 'fd' ? 20 : 30, step: 0.1, suffix: '%', hint: type === 'fd' ? 'Use the rate applicable to your deposit.' : 'An assumption you choose, not a promised return.' })}
-      {type === 'fd' && <div className="select-field"><label htmlFor="compounding">Compounding frequency</label><select id="compounding" value={values.frequency} onChange={e => set('frequency')(e.target.value)}><option value="1">Annually</option><option value="2">Half-yearly</option><option value="4">Quarterly</option><option value="12">Monthly</option></select></div>}
+      {type === 'fd' && <div className="select-field"><label htmlFor={`${prefix}-compounding`}>Compounding frequency</label><select id={`${prefix}-compounding`} value={values.frequency} onChange={e => set('frequency')(e.target.value)}><option value="1">Annually</option><option value="2">Half-yearly</option><option value="4">Quarterly</option><option value="12">Monthly</option></select></div>}
       <p className="input-note">Your numbers stay in your browser. No account needed.</p>
     </form>
     <div className="calculator-result" ref={resultRef}>

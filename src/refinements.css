@@ -61,6 +61,19 @@
 .founder-visual { padding: 0; height: auto; min-height: 0; aspect-ratio: 1.16; overflow: hidden; background: #f1ece4; }
 .founder-visual img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 10%; }
 .result-total { font-variant-numeric: tabular-nums; }
+.goal-picker { min-width: 0; padding: 0 0 26px; margin: 0 0 26px; border: 0; border-bottom: 1px solid var(--border); }
+.goal-picker legend { padding: 0; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+.goal-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.goal-choice { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 15px 8px; padding: 16px 12px; min-height: 106px; border: 1px solid var(--border); border-radius: 12px; background: var(--canvas); color: var(--secondary); cursor: pointer; transition: background 180ms ease-out, border-color 180ms ease-out; }
+.goal-choice input { accent-color: var(--brand); margin: 0; width: 16px; height: 16px; }
+.goal-choice span { grid-column: 1 / -1; font-size: 12px; font-weight: 500; line-height: 1.4; }
+.goal-choice:has(input:checked) { background: var(--brand-subtle); border-color: var(--brand); color: var(--brand); }
+.goal-choice:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 3px; }
+.goal-description { color: var(--brand); font-size: 13px; margin-top: 16px; }
+.goal-example-note { color: var(--secondary); font-size: 11px; line-height: 1.7; margin-top: 6px; }
+@media (hover: hover) { .goal-choice:hover { border-color: var(--brand); } }
+@media (max-width: 370px) { .goal-choices { gap: 6px; }.goal-choice { padding: 13px 8px; }.goal-choice span { font-size: 11px; } }
+@media (prefers-reduced-motion: reduce) { .goal-choice { transition: none; } }
 .result-context { margin-top: 24px; border-top: 1px solid #ffffff26; padding-top: 18px; }
 .result-assumption { font-size: 11px; color: #c6d9d9; margin: 0 0 14px; }
 .result-insight { border: 1px solid #ffffff30; border-radius: 12px; background: #ffffff07; }
