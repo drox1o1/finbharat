@@ -5,7 +5,7 @@ export async function checkCalculators(tab, origin = 'http://localhost:4173') {
   const ui = tab.playwright;
   const fill = (label, value) => ui.getByLabel(label, { exact: true }).fill(value);
   const amount = () => ui.locator('output .sr-only').textContent();
-  const goal = name => ui.getByRole('radio', { name, exact: true });
+  const goal = name => ui.locator('.goal-choice').filter({ hasText: name });
   await tab.goto(`${origin}/`);
   await ui.getByRole('tab', { name: 'Fixed deposit', exact: true }).click();
   assert(await ui.getByLabel('Principal amount', { exact: true }).isVisible(), 'Switching from SIP to FD must leave a working calculator');
@@ -31,15 +31,15 @@ export async function checkCalculators(tab, origin = 'http://localhost:4173') {
   await fill('Expected annual inflation', '0');
   await fill('Expected annual return', '0');
   assert.equal(await amount(), '₹1,000');
-  await goal('Car').check();
+  await goal('Car').click();
   assert.notEqual(await amount(), '₹1,000', 'Choosing another goal must recalculate');
   await fill('Current goal cost', '600000');
-  await goal('Financial freedom').check();
+  await goal('Financial freedom').click();
   await fill('Current goal cost', '20000000');
   assert.equal(await ui.getByLabel('Current goal cost', { exact: true }).getAttribute('aria-invalid'), 'false', 'Larger financial freedom targets must be supported');
-  await goal('Car').check();
+  await goal('Car').click();
   assert.equal(await ui.getByLabel('Current goal cost', { exact: true }).getAttribute('value'), '600000', 'Each goal must preserve edited inputs');
-  await goal('Child education').check();
+  await goal('Child education').click();
   assert.equal(await amount(), '₹1,000', 'Returning to a goal must restore its estimate');
   await fill('Current goal cost', '');
   assert.equal(await ui.locator('output').count(), 0);
@@ -57,7 +57,7 @@ export async function checkCalculators(tab, origin = 'http://localhost:4173') {
   await fill('Annual interest rate', '0');
   assert.equal(await amount(), '₹2,00,000');
   await tab.goto(`${origin}/calculators/goal/`);
-  await goal('Financial freedom').check();
+  await goal('Financial freedom').click();
   await fill('Current savings', '100000000');
   assert.equal(await amount(), '₹0', 'A funded goal must not require a negative contribution');
   assert(await ui.getByText('These calculations are illustrative and not financial advice. Actual returns, rates, taxes, and outcomes may vary.', { exact: true }).isVisible());
