@@ -16,9 +16,11 @@ import './styles.css';
 import './pages.css';
 import './cinematic.css';
 import './refinements.css';
+import './editorial.css';
 
 const path = window.location.pathname === '/' ? '/' : `${window.location.pathname.replace(/\/+$/, '')}/`;
 const root = document.getElementById('root');
-const app = <App path={path} />;
+const content = import.meta.env.DEV ? (await import('./generated/content.json')).default : JSON.parse(document.getElementById('finbharat-content').textContent);
+const app = <App path={path} content={content} />;
 if (root.querySelector('main')) hydrateRoot(root, app);
 else createRoot(root).render(app);

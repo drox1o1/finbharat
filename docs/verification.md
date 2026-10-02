@@ -1,5 +1,22 @@
 # Verification
 
+## Client CMS expansion — 2 October 2026
+
+- Lint and build pass; thirteen fixed pages are prerendered, plus every published article.
+- Fourteen Node tests pass: seven independent calculator/formula checks and seven content, sanitizer, pagination, publication filtering, production approval and failed-fetch checks. The failed-fetch test preserves a prior content snapshot and deployment fixture.
+- Real local WordPress integration passes: Editor permissions without administrator access; homepage, FAQ and legal edits; blog publish/unpublish; future-post scheduling and publication callback; post/page revisions; newsroom source fields; publication-triggered hook dispatch; retry on a simulated failed hook; draft and hook-secret exclusion. Hook requests are intercepted test requests, not actual Netlify deployments.
+- Browser baseline: 40 responsive layouts (320–1440px), 13 automated WCAG scans, 10 calculator/navigation/motion interaction groups; zero detected violations and no application console errors. Normal-motion scans wait for entrance/reveal transitions to finish. The mobile hero remains three visual lines; line-count checks subtract the designed line padding.
+- Published-CMS fixtures: 15 additional responsive article/list/legal layouts and 15 WCAG scans; direct blog/newsroom routes, homepage/FAQ/legal edits, article metadata/schema, source attribution and root-relative links verified. Draft fixture is excluded from the sitemap.
+- Intro-dialog fixture: initial focus, forward keyboard containment, Escape, close button, focus return, paused playback, captions and native controls verified. All fixture articles, page edits and intro approval are restored afterward. The default preview has no intro trigger or invented editorial entries.
+- Discover dropdown remains readable over the hero, including hovered links; automated contrast checks pass with it open.
+- Missing article URL returns HTTP 404 with the branded not-found page in the static preview. Netlify uses the same generated `404.html` without a successful SPA fallback.
+- PHP syntax check passes; installable plugin ZIP contains only the plugin, editor assets and imported seed/labels.
+- Original Figma logo geometry, Noto Sans, warm surfaces and brand colours retained. Hero, human-photo cards, Blog empty state and footer visually inspected. Photograph permissions and source credits documented in `assets-provenance.md`.
+
+Production WordPress.com/Netlify connections, real client invitations, managed cron execution, publication latency and failed-deployment retention on the client host still require the actual accounts. Approved legal/contact content and the production domain remain pending; production builds enforce these requirements. No live deployment has been claimed. Automated checks do not replace manual screen-reader or assistive-device testing. See `cms-setup.md` for handover and launch checks.
+
+## Earlier foundation verification
+
 Verified on 28 September 2026 against the production static build.
 
 - `npm run lint`: passed.
@@ -11,8 +28,8 @@ Verified on 28 September 2026 against the production static build.
 - Calculator browser checks: FD annual compounding, SIP with zero return and initial savings, goal with zero inflation/return, validation and suppressed invalid results passed.
 - Embedded product calculator checks: FD maturity ₹1,21,000 for ₹1,00,000 at 10% for two years compounded annually; SIP zero-return total ₹17,000 from ₹1,000 monthly for one year plus ₹5,000 initially.
 - Mutual fund and FD learning panels respond to clicks and keyboard arrows. Rapid tab changes settle on the correct panel without stale animations. Cross-document navigation leads to the correct page and highlights its active navigation item.
-- About includes D. Ramanathan and Rakesh K with supplied credentials, roles and exact LinkedIn profile URLs. Portraits are labelled placeholders.
-- Live preference change: desktop explanatory pin present under normal motion, removed when reduced motion enabled.
+- About includes D. Ramanathan and Rakesh K with supplied credentials, roles and exact LinkedIn profile URLs. Portraits were placeholders at this earlier verification. Supplied portraits are now used.
+- Live preference change: earlier desktop explanatory pin removed when reduced motion enabled; the current simplified accordion has no pinning.
 - The four new pages clean up GSAP transforms when reduced motion is enabled during use. View Transition movement is disabled by the same preference.
 - No browser console errors during verification.
 - All local artwork decoded successfully; original official badges were loaded. Original Figma quick-action SVGs rendered in their intended preview slots.

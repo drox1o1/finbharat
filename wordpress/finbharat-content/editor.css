@@ -1,0 +1,8 @@
+.fb-editor { max-width: 1100px; }
+.fb-editor textarea { width: 100%; max-width: 800px; font: inherit; }
+.fb-field { margin: 20px 0; }
+.fb-field > label { display: block; font-weight: 600; margin-bottom: 8px; }
+.fb-field > button { margin-top: 8px; }
+.fb-group { background: #fff; border: 1px solid #d7ddd8; border-radius: 8px; padding: 16px; margin: 14px 0; }
+.fb-group > summary { font-weight: 600; cursor: pointer; color: #114c5a; }
+.fb-repeat-row { padding: 16px; margin: 16px 0; border: 1px solid #d7ddd8; border-radius: 8px; }

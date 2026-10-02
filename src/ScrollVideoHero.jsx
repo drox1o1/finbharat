@@ -1,3 +1,4 @@
+import { useContent } from './cms/Content';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -6,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function ScrollVideoHero({ children }) {
+  const { assets } = useContent().site;
   const scene = useRef(null);
   const video = useRef(null);
 
@@ -47,7 +49,7 @@ export function ScrollVideoHero({ children }) {
       element.addEventListener('seeked', scheduleSeek);
       element.addEventListener('error', failure);
       element.muted = true;
-      element.src = '/video/hero-scroll-from-1s.mp4';
+      element.src = assets.heroVideo;
       element.load();
       return () => {
         disposed = true;
@@ -64,13 +66,13 @@ export function ScrollVideoHero({ children }) {
       };
     });
     return () => media.revert();
-  }, { scope: scene });
+  }, { scope: scene, dependencies: [assets.heroVideo], revertOnUpdate: true });
 
   return <div className="video-scroll-scene" ref={scene}>
     <section className="cinematic-hero" aria-labelledby="hero-heading">
       <div className="cinematic-backdrop" aria-hidden="true">
-        <img src="/video/hero-poster-1s.jpg" alt="" width="1920" height="1080" fetchPriority="high" />
-        <video ref={video} className="hero-scroll-video" muted playsInline preload="auto" poster="/video/hero-poster-1s.jpg" disablePictureInPicture tabIndex={-1} />
+        <img src={assets.heroPoster} alt="" width="1920" height="1080" fetchPriority="high" />
+        <video ref={video} className="hero-scroll-video" muted playsInline preload="auto" poster={assets.heroPoster} disablePictureInPicture tabIndex={-1} />
         <div className="cinematic-wash" />
       </div>
       {children}

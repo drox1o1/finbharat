@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 
 const words = [['Bharat', 'en'], ['भारत', 'hi'], ['பாரதம்', 'ta'], ['భారత్', 'te'], ['ಭಾರತ', 'kn']];
 
-export function BharatWord() {
+export function BharatWord({ title = 'Wealth Simplified.', prefix = 'For everyone in' }) {
   const root = useRef(null);
   const text = useRef(null);
   const timeline = useRef(null);
@@ -66,5 +66,5 @@ export function BharatWord() {
     });
     return () => media.revert();
   }, { scope: root });
-  return <div ref={root} className="hero-heading-group"><h1 id="hero-heading" aria-label="Wealth Simplified. For everyone in Bharat" className="max-w-6xl"><span className="hero-line"><span>Wealth Simplified.</span></span><span className="hero-line"><span>For everyone<span className="hero-mobile-break"> </span>in <span className="bharat-word"><span className="sr-only">Bharat</span><strong aria-hidden="true" className="bharat-typed"><span ref={text} lang="en">Bharat</span><span ref={cursor} className="typewriter-cursor" /></strong></span></span></span></h1></div>;
+  return <div ref={root} className="hero-heading-group"><h1 id="hero-heading" aria-label={`${title} ${prefix} Bharat`} className="max-w-6xl"><span className="hero-line"><span>{title}</span></span><span className="hero-line"><span>{prefix.split(/\s+/).slice(0, -1).join(' ')}<span className="hero-mobile-break"> </span>{prefix.split(/\s+/).at(-1)} <span className="bharat-word"><span className="sr-only">Bharat</span><strong aria-hidden="true" className="bharat-typed"><span ref={text} lang="en">Bharat</span><span ref={cursor} className="typewriter-cursor" /></strong></span></span></span></h1></div>;
 }

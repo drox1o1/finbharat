@@ -1,6 +1,6 @@
 # Finbharat web
 
-A responsive, prerendered static React website based on the Finbharat Figma brand system. No backend, accounts, tracking or calculator data submission.
+A responsive, prerendered static React website based on the Finbharat Figma brand system. Optional headless WordPress supplies editorial content at build time. Calculator data stays in the browser; the public website has no accounts or transaction backend.
 
 ## Run
 
@@ -24,10 +24,10 @@ Browser verification expects the production preview on port 4173 and Chromium ma
 ## Publish
 
 ```sh
-SITE_URL=https://your-confirmed-domain.in npm run build
+CMS_URL=https://your-cms-host SITE_URL=https://your-confirmed-domain.in PRODUCTION_LAUNCH=1 npm run build
 ```
 
-Upload `dist/` to a static host. All eleven pages have fully rendered HTML directories and individual metadata. No SPA fallback is required. The default domain is the reserved placeholder `https://finbharat.example`, with indexing disabled until an actual domain is supplied. Canonical URLs, sitemap, social metadata and JSON-LD are generated from `SITE_URL`.
+Upload `dist/` to a static host. All thirteen fixed pages and published articles have fully rendered HTML directories and individual metadata. No SPA fallback is required. The default domain is the reserved placeholder `https://finbharat.example`, with indexing disabled until an actual domain, approved legal/contact content and production configuration are supplied. Canonical URLs, sitemap, social metadata and JSON-LD are generated from `SITE_URL`.
 
 ## Routes
 
@@ -42,6 +42,8 @@ Upload `dist/` to a static host. All eleven pages have fully rendered HTML direc
 - `/privacy/`
 - `/terms/`
 - `/contact/`
+- `/blog/` and `/blog/{slug}/`
+- `/media/` and `/media/{slug}/`
 
 ## Design provenance
 
@@ -93,3 +95,15 @@ The homepage product cards use image-first layouts. Shared backgrounds and short
 The hero headline is regular Noto Sans, with bold Bharat typed in English, Hindi, Tamil, Telugu and Kannada. Grapheme segmentation preserves compound characters. Offscreen/hidden-tab pausing and a static reduced-motion variant are included. The language pause control was removed at the owner’s request.
 
 Calculator amounts count smoothly to the latest value, with a separate static screen-reader value. Ask Finbharat is a local, deterministic explanation of the entered assumptions, explicitly labelled as not an AI recommendation. Its app CTA links to the existing availability section. Founder images are the owner's original supplied PNGs. The footer uses the existing risograph artwork.
+
+## Client-managed WordPress content
+
+The current website supports a build-time headless WordPress source. Blog and Media routes, fixed website content, structured FAQs, founder profiles, approved links and SEO are editor-managed through the versioned plugin in `wordpress/finbharat-content/`. Layout, motion and calculators remain in React. The site uses authentic Figma logo exports and licensed human imagery with three labelled illustrative scenarios.
+
+- `npm run cms:package` produces the installable plugin at `output/cms/finbharat-content.zip`.
+- `CMS_URL=https://your-cms-host npm run build` fetches published content and prerenders all fixed and article routes.
+- Set `SITE_URL` to the actual public origin for canonicals. Netlify uses `netlify.toml`.
+- With no CMS configured, local development/preview uses the imported editorial defaults and empty Blog/Media states. Production builds require the CMS, approved Contact/Terms/Privacy and a confirmed domain.
+- Published content is sanitized and embedded per route for consistent hydration. Build errors never silently substitute stale or default CMS data. Netlify retains the last successful deployment on failure.
+
+See [the administrator and editor handover](docs/cms-setup.md) for hosting setup, roles, scheduled publishing, hook configuration, rollback and pending launch inputs. See [asset provenance](docs/assets-provenance.md) for exact Figma components and photograph licences. Production hosting accounts, live Editor invitations, legal approval and official contact details remain client-owned setup steps. No live WordPress.com or Netlify deployment is claimed by this repository.

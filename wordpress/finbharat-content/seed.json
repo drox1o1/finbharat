@@ -1,0 +1,815 @@
+{
+  "schemaVersion": 1,
+  "site": {
+    "tagline": "Building wealth, Strengthening Bharat",
+    "mission": "To democratize wealth creation for the next 100 million Indians by making financial participation simple, accessible and inclusive.",
+    "missionEyebrow": "Our mission",
+    "missionHeading": [
+      "More people.",
+      "More possibility."
+    ],
+    "missionNote": "Our ambition for the future. Built around clarity, access and the agency to choose.",
+    "missionLinkLabel": "The purpose behind Finbharat",
+    "scenariosEyebrow": "Built around real lives",
+    "scenariosHeading": [
+      "Different lives.",
+      "A place to begin."
+    ],
+    "scenariosIntroduction": [
+      "Three illustrative scenarios.",
+      "Your circumstances make your plan your own."
+    ],
+    "scenariosNote": "Illustrative situations, not customer stories or financial recommendations. Photographs do not imply endorsement by the people depicted.",
+    "legalName": "Finbharat Technology Private Limited",
+    "arn": "366696",
+    "contact": {
+      "email": "",
+      "phone": "",
+      "address": "",
+      "linkedin": "",
+      "instagram": ""
+    },
+    "apps": {
+      "android": "",
+      "ios": ""
+    },
+    "intro": {
+      "title": "A more natural conversation about wealth",
+      "video": "",
+      "poster": "",
+      "captions": "",
+      "transcript": "",
+      "approved": false
+    },
+    "assets": {
+      "heroPoster": "/video/hero-poster-1s.jpg",
+      "heroVideo": "/video/hero-scroll-from-1s.mp4",
+      "footerImage": "/art/pathways.webp",
+      "footerAlt": "An illustrated winding path through teal hills toward a shared horizon"
+    },
+    "founders": [
+      {
+        "name": "D. Ramanathan",
+        "initials": "DR",
+        "credential": "CFP CM",
+        "role": "Co-founder, Managing Director & CEO",
+        "company": "FinBharat Technology Private Limited",
+        "location": "Greater Chennai Area",
+        "biography": "Managing Director & CEO at FinBharat Technology Private Limited. Reimagining wealth creation for Bharat.",
+        "linkedin": "https://www.linkedin.com/in/d-ramanathan-cfp-cm-791b151b/",
+        "portrait": "/founders/d-ramanathan.png"
+      },
+      {
+        "name": "Rakesh K",
+        "initials": "RK",
+        "credential": "IIMC alumnus",
+        "role": "Co-founder",
+        "company": "FinBharat Technology Private Limited",
+        "location": "Chennai, Tamil Nadu, India",
+        "biography": "Co-founder at Finbharat Technology and an IIMC alumnus, based in Chennai, Tamil Nadu.",
+        "linkedin": "https://www.linkedin.com/in/rakeshkgogetter/",
+        "portrait": "/founders/rakesh-k.png"
+      }
+    ],
+    "copy": {
+      "Calculators.3011156c": "Make room for your future",
+      "Calculators.78549e7c": "Plan with clarity.",
+      "Calculators.136ba772": "A few numbers. A clearer picture.",
+      "Calculators.fd3c0735": "Explore what your next step could look like.",
+      "Footer.b85117a5": "Many paths.",
+      "Footer.4d7391a2": "One shared possibility.",
+      "Footer.cd5d3686": "A place for everyone",
+      "Footer.f1936991": "A more understandable and inclusive",
+      "Footer.97523157": "financial future for people across India.",
+      "Footer.7c8b4495": "Explore Finbharat",
+      "Footer.9a657712": "Mutual funds",
+      "Footer.ebf6c6b4": "Fixed deposits",
+      "Footer.ec4d487f": "Inclusion",
+      "Footer.89d46513": "About & cofounders",
+      "Footer.0b9d2b23": "Blog",
+      "Footer.0c77aeec": "Media",
+      "Footer.c9e9e7b0": "App downloads",
+      "Footer.23fc4dcc": "Plan with clarity",
+      "Footer.174ee318": "FD calculator",
+      "Footer.016210da": "Mutual fund / SIP calculator",
+      "Footer.9bac8bc0": "Goal-based calculator",
+      "Footer.925338de": "Stay connected",
+      "Footer.b37456c4": "Contact",
+      "Footer.cf01481f": "Privacy",
+      "Footer.a55a275a": "Terms",
+      "Footer.5583392e": "Cofounders on LinkedIn",
+      "Footer.73ad74eb": "AMFI ARN",
+      "Footer.1b93795b": "—",
+      "Footer.63f6010d": "SEBI website",
+      "Footer.1fdf0d90": "·",
+      "Footer.0d9f4765": "Website terms and conditions",
+      "Footer.f8dac957": "©",
+      "Footer.9f760a9a": "Finbharat. All rights reserved.",
+      "Footer.dfca8a2b": "FinBharat Technology Private Limited",
+      "Footer.d9c883a9": "Back to top",
+      "AppView.0a4470d6": "Skip to content",
+      "AppView.d51553a5": "Finbharat",
+      "AppView.1f7b9715": "Calculators",
+      "AppView.23fc4dcc": "Plan with clarity",
+      "AppView.7d64223a": "Use estimates to explore possibilities",
+      "AppView.cc4692a7": "Try different assumptions to understand how time, savings and return affect your plan. Consider your circumstances and consult an appropriately qualified adviser before making financial decisions.",
+      "MottoBand.9b010aaa": "Our motto. Our direction.",
+      "MottoBand.1c934494": "Keeping wealth simple.",
+      "MottoBand.e6e6b535": "For everyone in Bharat.",
+      "MottoBand.f3c4ba8f": "Clarity is not a privilege. It is where inclusion begins.",
+      "MottoBand.d51553a5": "Finbharat",
+      "MottoBand.ab9e2d86": "Built around people.",
+      "FounderProfiles.9fbfc3c6": "The people behind the purpose",
+      "FounderProfiles.a2b02c4b": "A shared belief.",
+      "FounderProfiles.ae1f4ff0": "A human ambition.",
+      "FounderProfiles.38b44a9a": "Meet the cofounders",
+      "FounderProfiles.5ed93fb3": "The cofounders of",
+      "FounderProfiles.8c3fd2b2": "FinBharat Technology Private Limited.",
+      "FounderProfiles.ddfd5488": "Connect on LinkedIn"
+    }
+  },
+  "pages": {
+    "/": {
+      "template": "home",
+      "title": "Home",
+      "seo": {
+        "title": "Finbharat | Building wealth, Strengthening Bharat",
+        "description": "Understand mutual funds, explore fixed deposits and plan with illustrative calculators. Thoughtful technology for a more inclusive financial future."
+      },
+      "fields": {
+        "heroTitle": "Wealth Simplified.",
+        "heroPrefix": "For everyone in",
+        "manifesto": "Finance becomes powerful when it becomes clear.",
+        "faqs": [
+          [
+            "What is Finbharat?",
+            "Finbharat is building thoughtful technology for a more understandable and inclusive financial future for people across India. Its direction centres on clarity, trust and supporting people in making their own decisions."
+          ],
+          [
+            "Who is Finbharat built for?",
+            "Finbharat is being designed for people across regions, languages, income levels, abilities and levels of digital confidence. That includes first-time and experienced investors, and people who have been excluded from complex financial systems."
+          ],
+          [
+            "How do the calculators work?",
+            "The calculators run entirely in your browser using standard compound-interest and investment formulas. You choose the amount, time and rate assumptions. The FD calculator estimates maturity, the SIP calculator models regular contributions, and the goal calculator accounts for inflation and current savings."
+          ],
+          [
+            "How does Finbharat use AI?",
+            "Finbharat’s AI direction is to make information clearer and more accessible while supporting human decisions. Clarity, privacy, language access and transparency about limitations guide this direction. Specific capabilities and availability have not been confirmed here."
+          ],
+          [
+            "Are calculator results guaranteed?",
+            "No. Calculator results are illustrative estimates based on the assumptions you enter. Actual returns, rates, taxes and outcomes may vary. They are not financial advice."
+          ],
+          [
+            "Where can I download the Finbharat app?",
+            "Verified Google Play and Apple App Store links have not yet been supplied. The download section shows clearly marked placeholders until official links and app availability are confirmed."
+          ],
+          [
+            "How does Finbharat think about inclusion?",
+            "Inclusion means designing around real lives: different languages and regions, different incomes, different access needs and different levels of digital confidence. Finbharat aims to support understanding, agency and choice without pressure."
+          ]
+        ],
+        "pillars": [
+          {
+            "title": "Clarity",
+            "headline": "Understanding is a powerful first step.",
+            "body": "Plain language. Visible assumptions. Space to ask questions. Financial information should help you understand what a choice means for your life.",
+            "art": "pathways",
+            "caption": "A clearer path forward",
+            "alt": "Risograph illustration of an ivory path winding through layered teal hills towards a sun",
+            "image": "/art/pathways.webp"
+          },
+          {
+            "title": "Access",
+            "headline": "More ways to feel included.",
+            "body": "Different languages, abilities and levels of digital confidence deserve thoughtful design. Access begins when we listen to the many ways people navigate everyday life.",
+            "art": "community",
+            "caption": "A wider circle",
+            "alt": "Risograph artwork of overlapping teal and lavender circles forming a connected community",
+            "image": "/art/community.webp"
+          },
+          {
+            "title": "Confidence",
+            "headline": "A little understanding goes a long way.",
+            "body": "Explore assumptions, try a different number and see what changes. Confidence grows through understanding, at your pace and on your terms.",
+            "art": "milestones",
+            "caption": "Room to grow",
+            "alt": "Risograph artwork of layered steps and a lavender sun representing goals and milestones",
+            "image": "/art/milestones.webp"
+          },
+          {
+            "title": "Choice",
+            "headline": "Your life. Your decisions.",
+            "body": "Useful technology creates room to consider your options. Our direction is to support your agency with clear information, without urgency or pressure.",
+            "art": "pathways",
+            "caption": "More than one way forward",
+            "alt": "A winding financial pathway in a warm ivory and teal risograph landscape",
+            "image": "/art/pathways.webp"
+          },
+          {
+            "title": "Opportunity",
+            "headline": "The future should have room for everyone.",
+            "body": "A more understandable financial world can widen the circle. We are building with people who have too often been left out of the conversation in mind.",
+            "art": "community",
+            "caption": "Possibilities, connected",
+            "alt": "Interconnected circles in teal, mint and lavender printed with halftone texture",
+            "image": "/art/community.webp"
+          }
+        ],
+        "intentions": [
+          {
+            "title": "Less jargon. More understanding.",
+            "copy": "Make financial concepts easier to understand, with everyday language and a little more context.",
+            "note": "Clarity is a form of inclusion."
+          },
+          {
+            "title": "Plans that start with you.",
+            "copy": "Explore the possibilities behind your goals. Helpful tools to plan with greater confidence.",
+            "note": "Find your starting point"
+          },
+          {
+            "title": "Built for the many Indias.",
+            "copy": "Different languages. Different incomes. Different needs. Design that makes room for real lives.",
+            "note": "More ways to belong."
+          },
+          {
+            "title": "Technology with a human purpose.",
+            "copy": "Use AI to make information more helpful and accessible, supporting your decisions without pressure.",
+            "note": "Meet our approach to AI"
+          }
+        ],
+        "aiPrinciples": [
+          [
+            "Clear explanations",
+            "Information you can understand, with limitations made visible."
+          ],
+          [
+            "Privacy in mind",
+            "Respect for people and their personal information."
+          ],
+          [
+            "More ways to understand",
+            "A direction that considers languages, abilities and everyday contexts."
+          ],
+          [
+            "People in the driver’s seat",
+            "Helpful guidance that supports your own decisions."
+          ]
+        ],
+        "gallery": [
+          {
+            "art": "community",
+            "image": "/art/community.webp",
+            "title": "Connected, we go further.",
+            "caption": "A wider circle of possibility.",
+            "body": "Different languages, abilities and experiences deserve thoughtful design. Our principles begin with making financial information easier to understand.",
+            "alt": "Risograph artwork of overlapping teal and lavender circles forming a connected community",
+            "link": "/inclusion/",
+            "cta": "Our inclusion principles"
+          },
+          {
+            "art": "milestones",
+            "image": "/art/milestones.webp",
+            "title": "Small steps. Meaningful milestones.",
+            "caption": "A future shaped around your goals.",
+            "body": "Give a future plan some room today. Explore how time, inflation and regular contributions could shape the amount you need to save.",
+            "alt": "Risograph artwork of layered steps and a lavender sun representing goals and milestones",
+            "link": "/calculators/goal/",
+            "cta": "Plan a goal"
+          },
+          {
+            "art": "pathways",
+            "image": "/art/pathways.webp",
+            "title": "There is more than one way.",
+            "caption": "Space for the life you want to live.",
+            "body": "Your priorities can change, and your financial journey can too. Meet the people and the purpose behind a more human approach to wealth.",
+            "alt": "Risograph illustration of an ivory path winding through layered teal hills towards a sun",
+            "link": "/about/",
+            "cta": "The belief behind Finbharat"
+          }
+        ],
+        "copy": {
+          "Hero.cbd35340": "A clearer path to your financial future.",
+          "Hero.3f7c2d11": "Thoughtful tools. Human understanding. Your own way forward.",
+          "Hero.7c8b4495": "Explore Finbharat",
+          "Hero.72e90079": "Try a calculator",
+          "Hero.0c50875a": "Different paths.",
+          "Hero.712f7394": "Shared possibilities.",
+          "Hero.f0f4470e": "Scroll to explore",
+          "Hero.84c67e2d": "Built around real lives.",
+          "Hero.fce3509c": "At your pace.",
+          "Hero.ef060e24": "Many lives.",
+          "Hero.52c406b3": "One more inclusive future.",
+          "Hero.ff5a57bd": "नमस्ते",
+          "Hero.31693f7f": "வணக்கம்",
+          "Hero.90bd9686": "నమస్కారం",
+          "Hero.51f37bf9": "ನಮಸ್ಕಾರ",
+          "Hero.9b56d519": "Hello.",
+          "Manifesto.8d93af99": "A simple belief",
+          "Manifesto.87331fa9": "Finbharat is building thoughtful technology for a more inclusive financial future, designed around clarity, trust, and the many ways people across India live, work, save, and grow.",
+          "WhatWeDo.868b63b1": "What we are building",
+          "WhatWeDo.7e7ee950": "Finance that fits",
+          "WhatWeDo.d249611c": "the life you live.",
+          "WhatWeDo.77da3e9e": "Built for real lives, not idealised user journeys.",
+          "WhatWeDo.a094df52": "A little more understanding. A little more agency.",
+          "WhatWeDo.ea5a10db": "अ",
+          "WhatWeDo.9f1c7914": "அ",
+          "WhatWeDo.ecb2e10b": "అ",
+          "WhatWeDo.6dcd4ce2": "A",
+          "Enables.8cb128c9": "A little more possibility",
+          "Enables.f5ae9858": "Technology should",
+          "Enables.507857c8": "widen the circle.",
+          "Enables.aab77ce7": "Not everyone starts from the same place.",
+          "Enables.2ec0e53c": "Everyone deserves a way forward.",
+          "Enables.9a887128": "Choose a principle. Explore what it means.",
+          "AISection.3f77a048": "Our direction for AI",
+          "AISection.c698f940": "Intelligence",
+          "AISection.82b35893": "that serves",
+          "AISection.0bc0ff23": "people.",
+          "AISection.b48bd582": "Technology should make the complicated feel a little clearer. And leave the decisions with you.",
+          "AISection.b753e517": "These are our design principles. Specific AI capabilities and availability will be shared when confirmed.",
+          "Gallery.4c9789fd": "A world of possibilities",
+          "Gallery.8c98867f": "Every path has a story.",
+          "Gallery.cf734417": "Different starting points.",
+          "Gallery.63c997fb": "A shared belief in what comes next.",
+          "Gallery.3d863188": "Make room for everyone",
+          "Downloads.f5149be7": "Wherever life happens",
+          "Downloads.628055cd": "Take Finbharat",
+          "Downloads.73b78599": "with you.",
+          "Downloads.cc74f9d0": "Clearer financial decisions should be available wherever life happens.",
+          "Downloads.f6f48637": "Official store links and availability are awaiting confirmation.",
+          "Downloads.f51219a1": "Illustrative app preview",
+          "FAQ.b779fb09": "A little more understanding",
+          "FAQ.adc23b9d": "Good questions.",
+          "FAQ.147b35b1": "Clear answers.",
+          "FAQ.8b4ef646": "Start here. There is always",
+          "FAQ.eb9d9629": "room to understand a little more.",
+          "ProductGateways.a66362d1": "Two starting points. Your own way forward.",
+          "ProductGateways.4edfec41": "Understand more.",
+          "ProductGateways.edb56f2b": "Move with purpose.",
+          "ProductGateways.def73a6a": "Explore the basics. Try your numbers.",
+          "ProductGateways.ac52c69b": "Make a considered next step.",
+          "ProductGateways.b965ae66": "Explore"
+        }
+      }
+    },
+    "/mutual-funds/": {
+      "template": "mutual",
+      "title": "Mutual funds",
+      "seo": {
+        "title": "Mutual Funds & SIP Calculator | Finbharat",
+        "description": "Understand mutual fund basics, SIP contributions, costs and investment risks. Explore an illustrative SIP calculator with your own assumptions."
+      },
+      "fields": {
+        "product": {
+          "name": "Mutual funds",
+          "path": "/mutual-funds/",
+          "calculator": "sip",
+          "art": "milestones",
+          "headline": [
+            "Mutual funds.",
+            "Made understandable."
+          ],
+          "introduction": "Your goals deserve more than jargon. Understand the possibilities, know the risks, and explore what investing over time could look like.",
+          "caption": "A little understanding. A longer view.",
+          "heading": "Understand the investment. Own the decision.",
+          "explanation": "Mutual funds pool money from investors and invest in assets such as shares or bonds. The value can rise or fall with the underlying investments. Different funds have different objectives and risks.",
+          "source": "https://investor.sebi.gov.in/investment-assetclasses.html",
+          "sourceLabel": "SEBI: understanding investment assets",
+          "concepts": [
+            {
+              "label": "A SIP",
+              "title": "A regular step, on your terms.",
+              "body": "A systematic investment plan is a way to invest a chosen amount at regular intervals. It is a contribution method, not a separate asset class.",
+              "point": "A regular investment schedule does not remove market risk or assure a profit.",
+              "icon": "repeat",
+              "visual": "rhythm"
+            },
+            {
+              "label": "A one-time investment",
+              "title": "One contribution. A considered choice.",
+              "body": "A one-time investment puts an amount into a fund in a single contribution. Your choice of fund, time horizon and risk comfort still matter.",
+              "point": "The value remains linked to the underlying investments, whatever the contribution method.",
+              "icon": "layers",
+              "visual": "layers"
+            },
+            {
+              "label": "Risk & understanding",
+              "title": "Read the risk. Look beyond the return.",
+              "body": "Understand the scheme objective, asset mix, Riskometer, fees and redemption terms before deciding. Your needs and your ability to accept changes in value matter.",
+              "point": "Past performance is not a guarantee of future returns. These explanations are educational.",
+              "icon": "shield",
+              "visual": "balance"
+            }
+          ],
+          "steps": [
+            [
+              "Start with your purpose",
+              "What are you planning for, and when might you need the money?"
+            ],
+            [
+              "Understand the fund",
+              "Consider its objective, underlying assets, costs and risks."
+            ],
+            [
+              "Explore the possibilities",
+              "Use assumptions to see how time and contributions could interact."
+            ],
+            [
+              "Make an informed decision",
+              "Take the time you need. A calculator is a planning aid, not a recommendation."
+            ]
+          ],
+          "calculatorHeading": "Small steps. A clearer picture.",
+          "calculatorCopy": "Use the SIP calculator to explore regular contributions, a starting investment, and a return assumption you choose.",
+          "faqs": [
+            [
+              "What is a mutual fund?",
+              "A mutual fund pools money from investors to invest in a portfolio of assets. Its value depends on the underlying investments and can go up or down."
+            ],
+            [
+              "What is a SIP?",
+              "A SIP, or systematic investment plan, is a way to make regular contributions to an investment. It does not guarantee returns or eliminate market risk."
+            ],
+            [
+              "Can mutual fund investments lose value?",
+              "Yes. Mutual funds are subject to market and other risks. Read the scheme documents, Riskometer and terms, and consider your circumstances before investing."
+            ],
+            [
+              "Does a SIP guarantee a profit?",
+              "No. A SIP is a contribution method. The fund remains subject to market risk, and the value of your investment can fall."
+            ],
+            [
+              "What costs should I understand?",
+              "Read the scheme documents for the expense ratio, any exit load, and applicable taxes. Costs and tax treatment can affect what you receive."
+            ],
+            [
+              "How do I choose a time horizon?",
+              "Start with when you may need the money, your circumstances and your comfort with changes in value. A calculator does not assess suitability or recommend a fund."
+            ],
+            [
+              "How does the SIP calculator estimate returns?",
+              "It assumes a constant annual return divided into monthly growth, with contributions at the beginning of each month. Actual markets do not follow a constant return, and tax, fees and withdrawals are excluded."
+            ],
+            [
+              "Can I invest through this website?",
+              "This website provides educational information and illustrative calculators. It does not accept investments or list verified available funds. Product availability will be shared when confirmed."
+            ]
+          ],
+          "image": "/art/milestones.webp"
+        },
+        "copy": {
+          "PlanningSteps.d5098979": "A considered way forward",
+          "PlanningSteps.71572396": "Start with understanding.",
+          "PlanningSteps.31bf8e0c": "Then take your next step.",
+          "PlanningSteps.db0bd6f1": "More context. Less pressure.",
+          "PlanningSteps.61da2e91": "A decision that stays yours.",
+          "PageFAQ.5c85b94e": "Questions are a good place to start",
+          "PageFAQ.6eb45850": "Understand a",
+          "PageFAQ.5d9eb811": "little more.",
+          "ProductPage.d51553a5": "Finbharat",
+          "ProductPage.f1b6b58d": "· Plan with understanding",
+          "ProductPage.113c4f19": "Try the",
+          "ProductPage.46237b3d": "calculator",
+          "ProductPage.f8c02b2c": "Understand the basics",
+          "ProductPage.0bcd73d0": "Knowledge before the next step",
+          "ProductPage.90584881": "Mutual fund investments are subject to market risks. Read all scheme-related documents carefully.",
+          "ProductPage.73ad74eb": "AMFI ARN",
+          "ProductPage.1b93795b": "—",
+          "ProductPage.3a52ce78": ".",
+          "ProductPage.786d7b38": "Visit SEBI",
+          "ProductPage.23fc4dcc": "Plan with clarity",
+          "ProductPage.fab12b4d": "Your assumptions. An illustrative estimate. No account needed.",
+          "ProductPage.44252f77": "Keep exploring",
+          "ProductPage.b965ae66": "Explore"
+        }
+      }
+    },
+    "/fixed-deposits/": {
+      "template": "fixed",
+      "title": "Fixed deposits",
+      "seo": {
+        "title": "Fixed Deposits & FD Calculator | Finbharat",
+        "description": "See how deposit amount, tenure, rate and compounding affect estimated interest and maturity. Explore an illustrative FD calculator."
+      },
+      "fields": {
+        "product": {
+          "name": "Fixed deposits",
+          "path": "/fixed-deposits/",
+          "calculator": "fd",
+          "art": "pathways",
+          "headline": [
+            "Fixed deposits.",
+            "See what you could earn."
+          ],
+          "introduction": "Choose your deposit amount and tenure. Enter an interest-rate assumption. See your estimated interest and maturity amount, clearly separated.",
+          "caption": "Clear terms. More considered choices.",
+          "heading": "Your amount. Your timeline. Your estimate.",
+          "explanation": "An FD holds your deposit for a chosen period under the institution’s terms. Compare the rate, interest payout, compounding and withdrawal conditions before deciding. The calculator below shows how these assumptions affect your estimate.",
+          "source": "https://www.rbi.org.in/scripts/FAQView.aspx?Id=18",
+          "sourceLabel": "RBI: bank deposit guidance",
+          "concepts": [
+            {
+              "label": "Rate & tenure",
+              "title": "Choose the amount and the time.",
+              "body": "Enter your principal, annual interest rate and tenure. The estimate shows your original deposit plus calculated interest, so you can see what each assumption changes.",
+              "point": "A calculator’s sample rate is an assumption, not a current offer from an institution.",
+              "icon": "clock",
+              "visual": "rhythm"
+            },
+            {
+              "label": "Compounding",
+              "title": "Understand what happens to the interest.",
+              "body": "When interest is reinvested, future interest is calculated on a growing balance. The calculator lets you explore annual, half-yearly, quarterly or monthly compounding.",
+              "point": "Interest payout deposits work differently from deposits that reinvest interest.",
+              "icon": "layers",
+              "visual": "layers"
+            },
+            {
+              "label": "Before you commit",
+              "title": "The terms deserve your attention.",
+              "body": "Check the institution, interest payout options, maturity instructions, applicable taxes and any early withdrawal conditions before placing a deposit.",
+              "point": "Early withdrawal can change the interest received. Check the applicable deposit terms.",
+              "icon": "shield",
+              "visual": "balance"
+            }
+          ],
+          "steps": [
+            [
+              "Choose your amount",
+              "Start with an amount that fits your circumstances."
+            ],
+            [
+              "Understand the terms",
+              "Read the rate, tenure, payout and withdrawal conditions."
+            ],
+            [
+              "Explore the estimate",
+              "See invested amount and interest separately in the calculator."
+            ],
+            [
+              "Plan the next step",
+              "Check maturity instructions and the institution’s actual terms."
+            ]
+          ],
+          "calculatorHeading": "See your deposit and estimated interest.",
+          "calculatorCopy": "Adjust the amount, rate and tenure to explore your maturity estimate. Sample rates are assumptions, not deposit offers. Taxes, fees and early withdrawal penalties are excluded.",
+          "faqs": [
+            [
+              "What is a fixed deposit?",
+              "A fixed deposit holds an amount with an institution for a specified period under agreed terms. Read the institution’s conditions for the applicable rate, payout and withdrawal rules."
+            ],
+            [
+              "How does compounding affect an FD?",
+              "With reinvested interest, compounding applies interest to the growing balance. More frequent compounding changes the maturity estimate when the nominal annual rate is the same."
+            ],
+            [
+              "Does the FD calculator include tax or withdrawal penalties?",
+              "No. It assumes a constant rate and reinvested interest, without tax, fees or early withdrawals. Actual outcomes may differ."
+            ],
+            [
+              "Can I open a fixed deposit on this website?",
+              "This website provides educational information and an illustrative FD calculator. It does not open deposits or advertise verified institution offers. Availability will be shared when confirmed."
+            ]
+          ],
+          "image": "/art/pathways.webp"
+        },
+        "copy": {
+          "PlanningSteps.d5098979": "A considered way forward",
+          "PlanningSteps.71572396": "Start with understanding.",
+          "PlanningSteps.31bf8e0c": "Then take your next step.",
+          "PlanningSteps.db0bd6f1": "More context. Less pressure.",
+          "PlanningSteps.61da2e91": "A decision that stays yours.",
+          "PageFAQ.5c85b94e": "Questions are a good place to start",
+          "PageFAQ.6eb45850": "Understand a",
+          "PageFAQ.5d9eb811": "little more.",
+          "ProductPage.d51553a5": "Finbharat",
+          "ProductPage.f1b6b58d": "· Plan with understanding",
+          "ProductPage.113c4f19": "Try the",
+          "ProductPage.46237b3d": "calculator",
+          "ProductPage.f8c02b2c": "Understand the basics",
+          "ProductPage.0bcd73d0": "Knowledge before the next step",
+          "ProductPage.90584881": "Mutual fund investments are subject to market risks. Read all scheme-related documents carefully.",
+          "ProductPage.73ad74eb": "AMFI ARN",
+          "ProductPage.1b93795b": "—",
+          "ProductPage.3a52ce78": ".",
+          "ProductPage.786d7b38": "Visit SEBI",
+          "ProductPage.23fc4dcc": "Plan with clarity",
+          "ProductPage.fab12b4d": "Your assumptions. An illustrative estimate. No account needed.",
+          "ProductPage.44252f77": "Keep exploring",
+          "ProductPage.b965ae66": "Explore"
+        }
+      }
+    },
+    "/about/": {
+      "template": "about",
+      "title": "About",
+      "seo": {
+        "title": "About Finbharat | Our mission and cofounders",
+        "description": "Meet D. Ramanathan and Rakesh K, cofounders of Finbharat. Learn about our ambition to make wealth creation simple, accessible and inclusive."
+      },
+      "fields": {
+        "values": [
+          [
+            "Clarity",
+            "Explain the complicated. Make assumptions visible. Help people understand the choices in front of them."
+          ],
+          [
+            "Trust",
+            "Respect privacy, communicate limitations, and keep people in control of their decisions."
+          ],
+          [
+            "Inclusion",
+            "Design for different languages, income levels, abilities, access needs and levels of digital confidence."
+          ]
+        ],
+        "copy": {
+          "AboutPage.08f460a4": "About Finbharat",
+          "AboutPage.e1053e07": "Big belief.",
+          "AboutPage.7a4bb960": "Human ambition.",
+          "AboutPage.26667dbe": "FinBharat Technology Private Limited is building toward a more understandable and inclusive financial future for people across India.",
+          "AboutPage.93eff7bf": ". That is the belief behind the technology, and the reason we start with clarity, trust and real lives.",
+          "AboutPage.e90fdf22": "Purpose before complexity.",
+          "AboutPage.38b44a9a": "Meet the cofounders",
+          "AboutPage.99082dc4": "What we are here to build",
+          "AboutPage.caf012ce": "More understanding.",
+          "AboutPage.2de6e00a": "More possibility.",
+          "AboutPage.8ffc34c8": "Thoughtful technology.",
+          "AboutPage.a16e821f": "A responsible direction.",
+          "AboutPage.ae883297": "Our purpose, in practice",
+          "AboutPage.481d13e3": "Make room for everyone.",
+          "AboutPage.428602cf": "Explore our inclusion principles"
+        }
+      }
+    },
+    "/inclusion/": {
+      "template": "inclusion",
+      "title": "Inclusion",
+      "seo": {
+        "title": "Inclusion | Wealth for everyone in Bharat | Finbharat",
+        "description": "Explore Finbharat’s inclusion principles across languages, incomes, abilities and digital confidence, with illustrative everyday planning scenarios."
+      },
+      "fields": {
+        "commitments": [
+          [
+            "Different languages. Equal respect.",
+            "Clear communication starts with recognising the languages and contexts people feel at home in."
+          ],
+          [
+            "Every income. Every starting point.",
+            "Financial understanding should be useful across different incomes and experiences, including those often left out."
+          ],
+          [
+            "More ways to take part.",
+            "Consider different abilities, access needs and levels of digital confidence from the beginning."
+          ],
+          [
+            "Agency, without pressure.",
+            "Make the assumptions clear. Explain the limitations. Give people space to make their own decisions."
+          ]
+        ],
+        "copy": {
+          "ProductGateways.a66362d1": "Two starting points. Your own way forward.",
+          "ProductGateways.4edfec41": "Understand more.",
+          "ProductGateways.edb56f2b": "Move with purpose.",
+          "ProductGateways.def73a6a": "Explore the basics. Try your numbers.",
+          "ProductGateways.ac52c69b": "Make a considered next step.",
+          "ProductGateways.b965ae66": "Explore",
+          "InclusionPage.4c7b377d": "Inclusion is the foundation",
+          "InclusionPage.60f7e00c": "Wealth belongs",
+          "InclusionPage.4374aaee": "to",
+          "InclusionPage.ef38adf1": "everyone.",
+          "InclusionPage.45176bdf": "Bharat is many languages, many lives, and many starting points. Our ambition is simple: make financial understanding more accessible to all of them.",
+          "InclusionPage.6458f105": "See what guides us",
+          "InclusionPage.d20a80d5": "Designed for the many Indias",
+          "InclusionPage.2252264e": "Real lives.",
+          "InclusionPage.0844b557": "A wider circle.",
+          "InclusionPage.44363217": "Inclusion is a practice.",
+          "InclusionPage.20fa808f": "These are the principles we are building around.",
+          "InclusionPage.1f1de9c8": "Intelligence that serves people",
+          "InclusionPage.08fd5d72": "More helpful.",
+          "InclusionPage.284a85f2": "More understandable.",
+          "InclusionPage.1450b53f": "Always human-led.",
+          "InclusionPage.f12956f0": "Our AI direction considers language, privacy, clarity and accessibility. It should support human decisions and be transparent about its limitations. Specific capabilities will be shared when confirmed.",
+          "InclusionPage.6a259cde": "Explore our AI direction",
+          "InclusionPage.7dcbceda": "People behind the purpose",
+          "InclusionPage.2e14849b": "A shared belief in Bharat.",
+          "InclusionPage.a86ec138": "Meet our cofounders"
+        }
+      }
+    },
+    "/blog/": {
+      "template": "blog",
+      "title": "Blog",
+      "seo": {
+        "title": "Finbharat Blog | A little more understanding",
+        "description": "Explore financial explanations and perspectives from Finbharat, designed to make wealth and planning easier to understand."
+      },
+      "fields": {
+        "heading": "A little more understanding.",
+        "introduction": "Clear explanations. Thoughtful perspectives. More room to make your own decisions.",
+        "emptyTitle": "Good conversations take thought.",
+        "emptyCopy": "Our first articles are on their way. In the meantime, explore the basics or try a calculator.",
+        "copy": {}
+      }
+    },
+    "/media/": {
+      "template": "media",
+      "title": "Media",
+      "seo": {
+        "title": "Finbharat Newsroom | Announcements, coverage and videos",
+        "description": "Company announcements, original-source press coverage and approved videos from Finbharat."
+      },
+      "fields": {
+        "heading": "The conversation, beyond us.",
+        "introduction": "Company news, perspectives in the press, and conversations worth sharing.",
+        "emptyTitle": "Our newsroom is taking shape.",
+        "emptyCopy": "Announcements, press coverage and videos will appear here when published. For enquiries, visit Contact.",
+        "copy": {}
+      }
+    },
+    "/contact/": {
+      "template": "contact",
+      "title": "Contact",
+      "approved": false,
+      "seo": {
+        "title": "Contact Finbharat | Start a conversation",
+        "description": "Find official Finbharat contact information. Public contact details are awaiting client approval."
+      },
+      "fields": {
+        "heading": "A conversation starts with a hello.",
+        "body": "Our public contact details are awaiting approval. Please check back for the official ways to reach Finbharat.",
+        "copy": {}
+      }
+    },
+    "/terms/": {
+      "template": "legal",
+      "title": "Terms and conditions",
+      "approved": false,
+      "seo": {
+        "title": "Website terms and conditions | Finbharat",
+        "description": "Read Finbharat website terms and conditions. The official terms are awaiting client approval."
+      },
+      "fields": {
+        "heading": "Clear expectations matter.",
+        "body": "<p>Official website terms and conditions are awaiting approval. Calculator results are illustrative and not financial advice. Actual returns, rates, taxes and outcomes may vary.</p>",
+        "copy": {}
+      }
+    },
+    "/privacy/": {
+      "template": "legal",
+      "title": "Privacy",
+      "approved": false,
+      "seo": {
+        "title": "Privacy information | Finbharat",
+        "description": "Read Finbharat website privacy information. The official privacy policy is awaiting client approval."
+      },
+      "fields": {
+        "heading": "A clear view of your information.",
+        "body": "<p>Official privacy content is awaiting approval. Calculator values are processed locally in your browser and are not submitted to a backend by this website.</p>",
+        "copy": {}
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "audience": "A salaried professional",
+      "title": "A good income. A plan with purpose.",
+      "body": "An upper middle income professional may be balancing family priorities, a future purchase and longer-term financial freedom. Start by separating goals and exploring the time available for each.",
+      "cue": "Give each goal its own starting point.",
+      "image": "/people/professional.webp",
+      "alt": "A man seated in a contemporary office",
+      "credit": "Amirul Islam",
+      "source": "https://www.pexels.com/photo/portrait-of-a-young-south-asian-businessman-37556617/",
+      "href": "/calculators/goal/",
+      "action": "Explore a goal"
+    },
+    {
+      "audience": "A homemaker",
+      "title": "For the family. And for yourself.",
+      "body": "A homemaker may want a clearer view of family savings alongside personal ambitions. Explore an education goal, understand the assumptions, and make room for decisions that remain your own.",
+      "cue": "Understanding belongs to every decision-maker.",
+      "image": "/people/homemaker.webp",
+      "alt": "A woman using a notebook and laptop at home",
+      "credit": "Artem Podrez",
+      "source": "https://www.pexels.com/photo/indian-female-student-near-laptop-and-notebook-at-table-6392977/",
+      "href": "/calculators/goal/",
+      "action": "Plan an education goal"
+    },
+    {
+      "audience": "A gig worker",
+      "title": "Different months. A direction of your own.",
+      "body": "A gig worker or freelancer may have income that changes from month to month. Try different contribution amounts to explore a plan that considers everyday needs and longer-term goals.",
+      "cue": "Start with what fits your circumstances.",
+      "image": "/people/gig-worker.webp",
+      "alt": "A man working on a laptop at home",
+      "credit": "Ketut Subiyanto",
+      "source": "https://www.pexels.com/photo/unrecognizable-indian-man-using-laptop-while-working-at-home-4307853/",
+      "href": "/calculators/sip/",
+      "action": "Explore regular contributions"
+    }
+  ],
+  "blog": [],
+  "media": []
+}

@@ -5,7 +5,7 @@ async (page) => {
   const assert = (condition, message) => { if (!condition) throw new Error(message); };
   const origin = 'http://localhost:4173';
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  const routes = ['/', '/calculators/fd/', '/calculators/sip/', '/calculators/goal/', '/mutual-funds/', '/fixed-deposits/', '/inclusion/', '/about/', '/contact/', '/privacy/', '/terms/'];
+  const routes = ['/', '/calculators/fd/', '/calculators/sip/', '/calculators/goal/', '/mutual-funds/', '/fixed-deposits/', '/inclusion/', '/about/', '/contact/', '/privacy/', '/terms/', '/blog/', '/media/'];
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of routes.slice(0, 8)) {
@@ -17,8 +17,8 @@ async (page) => {
       assert(layout.font.includes('Noto Sans'), `Wrong font: ${route}`);
       assert(layout.pins === 0, `Pinning active with reduced motion: ${route}`);
       if (route === '/' || route === '/mutual-funds/' || route === '/fixed-deposits/') {
-        const lines = await page.locator('h1').evaluate(el => Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)));
-        assert(lines <= 3, `Hero heading wraps to ${lines} lines at ${width}px`);
+        const lines = await page.locator('h1').evaluate(el => { const rows = [...el.querySelectorAll('.hero-line')]; return rows.length ? rows.reduce((total, row) => total + Math.round((row.getBoundingClientRect().height - parseFloat(getComputedStyle(row).paddingBottom)) / parseFloat(getComputedStyle(row).lineHeight)), 0) : Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)); });
+        assert(lines <= 3, `Hero heading ${route} wraps to ${lines} lines at ${width}px`);
       }
       report.responsive.push({ width, route, ...layout });
     }
@@ -31,6 +31,7 @@ async (page) => {
     assert(metadata.canonical.endsWith(route), `Incorrect canonical: ${route}`);
     assert(metadata.description.length > 30, `Missing page description: ${route}`);
     assert(metadata.graph.find(node => node['@type'] === 'Organization').founder.length === 2, `Missing founder metadata: ${route}`);
+    await page.waitForFunction(() => [...document.querySelectorAll('.scroll-reveal, .section-heading, .source-link')].every(el => { const opacity = Number(getComputedStyle(el).opacity); return opacity <= 0.001 || opacity >= 0.999; }));
     await page.addScriptTag({ path: 'node_modules/axe-core/axe.min.js' });
     const violations = await page.evaluate(async () => (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } })).violations.map(v => ({ id: v.id, impact: v.impact, description: v.description, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) })));
     report.accessibility.push({ route, violations });
@@ -89,6 +90,7 @@ async (page) => {
   await page.getByLabel('Compounding frequency').selectOption('1');
   assert((await page.locator('output').textContent()).includes('1,21,000'), 'Embedded FD output mismatch');
   report.interactions.push('Cross-document product navigation, FD learning panel and embedded FD calculator');
+  await page.locator('.discover-nav summary').click();
   await page.locator('.desktop-nav').getByRole('link', { name: 'About', exact: true }).click();
   await page.waitForURL(origin + '/about/');
   assert(await page.getByRole('heading', { name: 'D. Ramanathan', exact: true }).count() === 1, 'Founder name missing');
@@ -144,7 +146,7 @@ async (page) => {
   await page.goto(origin + '/');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-  assert(await page.locator('.pin-spacer').count() === 1, 'Desktop explanatory section should pin');
+  assert(await page.locator('.pin-spacer').count() === 0, 'Simple accordion should not pin');
   await page.waitForFunction(() => Array.from(document.querySelectorAll('.hero-enter')).every(el => Number(getComputedStyle(el).opacity) >= 0.999));
   await page.addScriptTag({ path: 'node_modules/axe-core/axe.min.js' });
   const motionViolations = await page.evaluate(async () => (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } })).violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) })));
@@ -165,6 +167,7 @@ async (page) => {
       await page.waitForFunction(() => Number(getComputedStyle(document.querySelector('.learning-panel:not([hidden]) .learning-panel-content')).opacity) >= 0.999);
       assert(await tabs.nth(0).getAttribute('aria-selected') === 'true', 'Interrupted click animation left wrong panel selected');
     }
+    await page.waitForFunction(() => [...document.querySelectorAll('.scroll-reveal, .section-heading, .source-link')].every(el => { const opacity = Number(getComputedStyle(el).opacity); return opacity <= 0.001 || opacity >= 0.999; }));
     await page.addScriptTag({ path: 'node_modules/axe-core/axe.min.js' });
     const violations = await page.evaluate(async () => (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } })).violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) })));
     assert(violations.length === 0, `Normal-motion accessibility on ${route}: ${JSON.stringify(violations)}`);

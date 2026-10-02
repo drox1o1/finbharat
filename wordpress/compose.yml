@@ -1,0 +1,42 @@
+# Local integration environment only. These are disposable development credentials.
+services:
+  database:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: finbharat
+      MARIADB_USER: finbharat
+      MARIADB_PASSWORD: local-development
+      MARIADB_ROOT_PASSWORD: local-development-root
+    volumes:
+      - database:/var/lib/mysql
+  wordpress:
+    image: wordpress:php8.3-apache
+    ports:
+      - "127.0.0.1:8088:80"
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: finbharat
+      WORDPRESS_DB_PASSWORD: local-development
+      WORDPRESS_DB_NAME: finbharat
+    volumes:
+      - wordpress:/var/www/html
+      - ./finbharat-content:/var/www/html/wp-content/plugins/finbharat-content
+    depends_on:
+      - database
+  cli:
+    image: wordpress:cli-php8.3
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: finbharat
+      WORDPRESS_DB_PASSWORD: local-development
+      WORDPRESS_DB_NAME: finbharat
+    volumes:
+      - ../tests:/opt/finbharat-tests:ro
+      - wordpress:/var/www/html
+      - ./finbharat-content:/var/www/html/wp-content/plugins/finbharat-content
+    depends_on:
+      - wordpress
+volumes:
+  database:
+  wordpress:
