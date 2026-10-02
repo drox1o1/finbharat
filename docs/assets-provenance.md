@@ -35,12 +35,12 @@ Risograph illustrations and official pending-store badges: see [artwork.md](artw
 
 ## Original AI portraits for fictional case studies
 
-Generated on 2 October 2026 with the built-in OpenAI image-generation tool, at the owner's request. These portraits depict invented people and were not prompted to resemble any real person. They do not represent actual customers, endorse Finbharat or document investment outcomes. The website discloses the fictional stories and AI portraits on both listings and detail pages.
+Generated on 2 October 2026 with the built-in OpenAI image-generation tool, at the owner's request. These portraits depict invented people and were not prompted to resemble any real person. They do not represent actual customers, endorse Finbharat or document investment outcomes. The website identifies the stories as fictional on listings and detail pages. At the owner’s request, there are no AI badges on the images; accurate alt text and this provenance record identify the generated illustrations.
 
 | Asset | Fictional persona | Prompt direction | Original generation |
 | --- | --- | --- | --- |
-| `public/case-studies/srijan.webp` | Srijan, 31, salaried professional | Natural Indian home portrait; short beard, teal cotton shirt; calm expression; warm ivory and brand teal surroundings | `exec-14b59168-2c12-4d62-91c0-2efb1c56ab2d.png` |
-| `public/case-studies/meera.webp` | Meera, 36, homemaker | Natural Indian home portrait; ivory kurta and teal dupatta; dining table and notebook; thoughtful expression | `exec-56bbe738-8f93-4833-9d86-9368f11926a8.png` |
-| `public/case-studies/arjun.webp` | Arjun, 28, freelancer | Natural Indian home portrait; olive overshirt; home desk and laptop; relaxed expression | `exec-c94c903c-c78f-4932-a79b-325aba594a1f.png` |
+| `public/case-studies/srijan-hyderabad.webp` | Srijan, 31, tech professional in Hyderabad | Natural apartment workspace portrait; teal shirt, laptop, short beard and warm daylight | `exec-3d28ae80-8185-4dcd-8228-502dd4d202c2.png` |
+| `public/case-studies/meera-chennai.webp` | Meera, 42, homemaker in Chennai | Natural home portrait; ivory and teal cotton sari, dining table and notebook | `exec-2b1807c3-0f09-4733-8656-83ceece185b7.png` |
+| `public/case-studies/arjun-bengaluru.webp` | Arjun, 42, auto driver in Bengaluru | Natural street portrait; khaki shirt beside a parked green and yellow auto rickshaw | `exec-075fd0a9-c8e3-40c1-b804-be45fff87c34.png` |
 
 Original PNGs remain in the task's generated-images directory. Delivery assets are WebP, 900 pixels wide at quality 85. No real identity, logo, text or financial outcome was requested in the images. The stock photographs above remain on the Inclusion page; the new AI portraits are used for the fictional case studies. Founder photographs remain the originals supplied by the owner.

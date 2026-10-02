@@ -111,7 +111,7 @@ See [the administrator and editor handover](docs/cms-setup.md) for hosting setup
 
 ## Case studies and Vercel CMS checks
 
-Srijan (31), Meera (36) and Arjun (28) are explicitly fictional planning personas with original AI-generated portraits. Their educational stories distinguish savings timelines and investment risk; their FD/SIP examples reuse the public calculator formulas. No customer outcome is claimed. WordPress editors control the narratives, profile, portrait, ordering, SEO and sample assumptions.
+Srijan (31, tech professional in Hyderabad), Meera (42, homemaker in Chennai) and Arjun (42, auto driver in Bengaluru) are explicitly fictional planning personas with original AI-generated portraits. Their educational stories distinguish savings timelines and investment risk; their FD/SIP examples reuse the public calculator formulas. No customer outcome is claimed. WordPress editors control the narratives, profile, portrait, ordering, SEO and sample assumptions.
 
 Vercel hosts the website; WordPress needs separate hosting. The plugin supports secret Vercel deploy hooks and automatic builds following published changes. `VERCEL_ENV`, `VERCEL_TARGET_ENV` and the explicit `PRODUCTION_LAUNCH=1` production setting enforce approved legal/contact content, CMS and domain requirements. Do not set the explicit flag for Preview. The retained `netlify.toml` and legacy hook support are optional compatibility only; Vercel is the current setup.
 

@@ -14,6 +14,8 @@ test('case study adapter retains editable profile, safe prose and numeric assump
   const item = normalizeCaseStudy(data);
   assert.equal(item.path, '/case-studies/srijan-financial-independence/');
   assert.equal(item.profile.name, 'Srijan'); assert.equal(item.profile.age, 31);
+  assert.equal(item.profile.city, 'Hyderabad');
+  assert.equal(item.profile.occupation, 'Tech professional');
   assert.equal(item.examples.fd.principal, 300000);
   assert.doesNotMatch(item.html, /<script|onclick/);
   assert.equal(normalizeCaseStudy({ ...data, status: 'draft' }), null);

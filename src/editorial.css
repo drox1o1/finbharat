@@ -5,7 +5,6 @@
 .wordmark.light .logo-brand, .header-cinematic:not(.is-scrolled) .logo-brand { display: none; }
 .wordmark.light .logo-reversed, .header-cinematic:not(.is-scrolled) .logo-reversed { display: block; }
 .wordmark.footer-logo img { width: 287.29px; height: 64px; }
-.header-cinematic:not(.is-scrolled) .wordmark { padding: 8px 12px; margin-left: -12px; background: #102e3880; border-radius: 8px; }
 .discover-nav { position: relative; }
 .discover-nav > summary { display: flex; align-items: center; gap: 7px; padding-block: 15px; cursor: pointer; list-style: none; }
 .discover-nav > summary::-webkit-details-marker { display: none; }

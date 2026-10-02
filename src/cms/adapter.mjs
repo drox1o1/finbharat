@@ -91,7 +91,7 @@ export function normalizeCaseStudy(post) {
   }
   const image = article.image || safeURL(fields.portrait);
   if (!image) throw new Error('Case study needs an approved portrait.');
-  return { ...article, order: number(fields.listingOrder ?? '1', 'listing order', 1, 10000), image, imageAlt: article.imageAlt || plainText(fields.portraitAlt) || `AI-generated portrait of ${name}, a fictional persona`, profile: { name, age: number(fields.age, 'age', 18, 100), occupation, goal }, examples };
+  return { ...article, order: number(fields.listingOrder ?? '1', 'listing order', 1, 10000), image, imageAlt: article.imageAlt || plainText(fields.portraitAlt) || `AI-generated portrait of ${name}, a fictional persona`, profile: { name, age: number(fields.age, 'age', 18, 100), occupation, city: plainText(fields.city), goal }, examples };
 }
 
 export async function fetchContent(cmsURL, fetcher = fetch) {

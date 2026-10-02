@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Finbharat Content
  * Description: Fixed editorial templates and published content for the Finbharat React website.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Requires at least: 6.4
  * Requires PHP: 8.1
  */
@@ -82,11 +82,11 @@ final class Finbharat_Content {
             }
             update_option('fb_cases_imported', true, false);
         }
-        update_option('fb_content_version', '1.1.0', false);
+        update_option('fb_content_version', '1.2.0', false);
         flush_rewrite_rules();
     }
     public static function upgrade(): void {
-        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.1.0') { self::activate(); }
+        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.2.0') { self::activate(); }
     }
     public static function case_schema(): array {
         return json_decode(file_get_contents(__DIR__ . '/case-field-schema.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -240,7 +240,7 @@ final class Finbharat_Content {
             self::fields(['fields' => is_array($fields) ? $fields : $page['fields']], 'fb', ['fields' => $page['fields']]);
             self::fields(['approved' => (bool)get_post_meta($post->ID, '_fb_approved', true)], 'fb', ['approved' => false]);
         } elseif ($post->post_type === 'finbharat_case') {
-            echo '<p><strong>Fictional, illustrative planning story.</strong> The frontend always displays this disclosure and identifies the portrait as AI-generated. Do not present these personas as customers or claim actual financial results.</p><p>Write the story in the article editor. Use headings from H2. Add an excerpt, an ASCII lowercase/hyphen slug and an AI-generated portrait. A featured image overrides the portrait URL below. Calculator formulas remain in frontend code; edit only the sample assumptions.</p>';
+            echo '<p><strong>Fictional, illustrative planning story.</strong> The frontend always displays the fictional-story disclosure. Portraits are generated illustrations; the website does not show badges on the images. Do not present these personas as customers or claim actual financial results.</p><p>Write the story in the article editor. Use headings from H2. Add an excerpt, an ASCII lowercase/hyphen slug and an AI-generated portrait. A featured image overrides the portrait URL below. Calculator formulas remain in frontend code; edit only the sample assumptions.</p>';
             self::fields(get_post_meta($post->ID, '_fb_fields', true) ?: [], 'fb[fields]', self::case_schema());
             echo '<p>FD frequency: 1 yearly, 2 half-yearly, 4 quarterly, 12 monthly. Rates: 0–30%; years: 1–50; age: 18–100. Enabled examples need valid amounts. Sample rates are not offers or forecasts.</p>';
         } elseif ($post->post_type === 'finbharat_media') {
@@ -307,8 +307,8 @@ final class Finbharat_Content {
     public static function assets(string $hook): void {
         if (!in_array($hook, ['post.php', 'post-new.php', 'toplevel_page_finbharat'], true)) { return; }
         wp_enqueue_media();
-        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.1.0');
-        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.1.0', true);
+        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.2.0');
+        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.2.0', true);
     }
 }
 register_activation_hook(__FILE__, [Finbharat_Content::class, 'activate']);
