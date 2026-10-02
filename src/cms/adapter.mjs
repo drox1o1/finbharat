@@ -1,5 +1,6 @@
 import sanitizeHtml from 'sanitize-html';
 import { decodeHTML } from 'entities';
+import { caseFieldDefaults } from './case-studies.mjs';
 import { defaultContent } from './defaults.mjs';
 
 export function safeURL(value, { local = true } = {}) {
@@ -64,6 +65,35 @@ export function normalizeArticle(post, kind) {
     seo: { title: plainText(fields.seoTitle) || `${title} | Finbharat`, description: plainText(fields.seoDescription) || plainText(post.excerpt?.rendered) || title },
   };
 }
+export function normalizeCaseStudy(post) {
+  const article = normalizeArticle(post, 'case-studies');
+  if (!article) return null;
+  const fields = post.finbharat || {};
+  const number = (value, name, minimum, maximum) => {
+    if (value === '' || value === null || value === undefined || !['string', 'number'].includes(typeof value)) throw new Error(`Case study requires ${name}.`);
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed) || parsed < minimum || parsed > maximum) throw new Error(`Invalid case study ${name}.`);
+    return parsed;
+  };
+  const name = plainText(fields.personName);
+  const occupation = plainText(fields.occupation), goal = plainText(fields.goal);
+  if (!name || !occupation || !goal) throw new Error('Case study needs a persona name, starting point and goal.');
+  const examples = {};
+  if (fields.fd?.enabled === true) {
+    const value = fields.fd;
+    const frequency = number(value.frequency, 'FD compounding frequency', 1, 12);
+    if (![1, 2, 4, 12].includes(frequency)) throw new Error('Invalid FD compounding frequency.');
+    examples.fd = { principal: number(value.principal, 'FD principal', 1, 1e9), rate: number(value.rate, 'FD rate', 0, 30), years: number(value.years, 'FD years', 1, 50), frequency };
+  }
+  if (fields.sip?.enabled === true) {
+    const value = fields.sip;
+    examples.sip = { monthly: number(value.monthly, 'SIP contribution', 1, 1e7), rate: number(value.rate, 'SIP return', 0, 30), years: number(value.years, 'SIP years', 1, 50), initial: number(value.initial ?? caseFieldDefaults.sip.initial, 'SIP initial investment', 0, 1e9) };
+  }
+  const image = article.image || safeURL(fields.portrait);
+  if (!image) throw new Error('Case study needs an approved portrait.');
+  return { ...article, order: number(fields.listingOrder ?? '1', 'listing order', 1, 10000), image, imageAlt: article.imageAlt || plainText(fields.portraitAlt) || `AI-generated portrait of ${name}, a fictional persona`, profile: { name, age: number(fields.age, 'age', 18, 100), occupation, goal }, examples };
+}
+
 export async function fetchContent(cmsURL, fetcher = fetch) {
   const origin = new URL(cmsURL);
   if (origin.protocol !== 'https:' && !['localhost', '127.0.0.1'].includes(origin.hostname)) throw new Error('CMS_URL must use HTTPS.');
@@ -97,12 +127,13 @@ export async function fetchContent(cmsURL, fetcher = fetch) {
       if (!Array.isArray(response.value)) throw new Error('Expected a CMS article list.');
       total = Number(response.headers.get('x-wp-totalpages') || 1);
       if (!Number.isInteger(total) || total < 0 || total > 100) throw new Error('Invalid CMS pagination.');
-      result.push(...response.value.map(post => normalizeArticle(post, kind)).filter(Boolean));
+      result.push(...response.value.map(post => kind === 'case-studies' ? normalizeCaseStudy(post) : normalizeArticle(post, kind)).filter(Boolean));
     }
     if (new Set(result.map(item => item.slug)).size !== result.length) throw new Error('Duplicate CMS slugs.');
     return result;
   };
-  [content.blog, content.media] = await Promise.all([posts('posts', 'blog'), posts('finbharat_media', 'media')]);
+  [content.blog, content.media, content.caseStudies] = await Promise.all([posts('posts', 'blog'), posts('finbharat_media', 'media'), posts('finbharat_case', 'case-studies')]);
+  content.caseStudies.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
   return content;
 }
 export function assertLaunchReady(content, siteURL) {

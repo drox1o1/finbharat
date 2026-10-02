@@ -32,3 +32,15 @@ Founder portraits: owner-supplied `dRamanathan-founder1.png` and `rakesh_founder
 Hero landscape video: owner-supplied `refs/video1.mp4`; derivative and matching one-second poster are documented in README. It is a decorative background, not the product introduction.
 
 Risograph illustrations and official pending-store badges: see [artwork.md](artwork.md). No new product demonstration or press assets have been fabricated.
+
+## Original AI portraits for fictional case studies
+
+Generated on 2 October 2026 with the built-in OpenAI image-generation tool, at the owner's request. These portraits depict invented people and were not prompted to resemble any real person. They do not represent actual customers, endorse Finbharat or document investment outcomes. The website discloses the fictional stories and AI portraits on both listings and detail pages.
+
+| Asset | Fictional persona | Prompt direction | Original generation |
+| --- | --- | --- | --- |
+| `public/case-studies/srijan.webp` | Srijan, 31, salaried professional | Natural Indian home portrait; short beard, teal cotton shirt; calm expression; warm ivory and brand teal surroundings | `exec-14b59168-2c12-4d62-91c0-2efb1c56ab2d.png` |
+| `public/case-studies/meera.webp` | Meera, 36, homemaker | Natural Indian home portrait; ivory kurta and teal dupatta; dining table and notebook; thoughtful expression | `exec-56bbe738-8f93-4833-9d86-9368f11926a8.png` |
+| `public/case-studies/arjun.webp` | Arjun, 28, freelancer | Natural Indian home portrait; olive overshirt; home desk and laptop; relaxed expression | `exec-c94c903c-c78f-4932-a79b-325aba594a1f.png` |
+
+Original PNGs remain in the task's generated-images directory. Delivery assets are WebP, 900 pixels wide at quality 85. No real identity, logo, text or financial outcome was requested in the images. The stock photographs above remain on the Inclusion page; the new AI portraits are used for the fictional case studies. Founder photographs remain the originals supplied by the owner.

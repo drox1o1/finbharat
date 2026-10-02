@@ -45,6 +45,7 @@ test('adapter reads all published REST pages and excludes unpublished posts', as
   const fetcher = async url => {
     calls.push(url);
     if (url.endsWith('/finbharat/v1/site')) return Response.json(setup);
+    if (url.includes('/finbharat_case?')) return Response.json([]);
     if (url.includes('/finbharat_media?')) return Response.json([post('announcement')]);
     return Response.json(url.includes('page=2&') ? [post('second'), post('hidden', 'draft')] : [post('first')], { headers: { 'x-wp-totalpages': '2' } });
   };

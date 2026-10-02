@@ -1,0 +1,23 @@
+{
+  "listingOrder": "1",
+  "personName": "",
+  "age": "31",
+  "occupation": "",
+  "goal": "",
+  "portrait": "",
+  "portraitAlt": "",
+  "fd": {
+    "enabled": true,
+    "principal": "200000",
+    "rate": "6.5",
+    "years": "3",
+    "frequency": "4"
+  },
+  "sip": {
+    "enabled": true,
+    "monthly": "10000",
+    "rate": "10",
+    "years": "15",
+    "initial": "0"
+  }
+}

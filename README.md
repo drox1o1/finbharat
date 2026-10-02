@@ -27,7 +27,7 @@ Browser verification expects the production preview on port 4173 and Chromium ma
 CMS_URL=https://your-cms-host SITE_URL=https://your-confirmed-domain.in PRODUCTION_LAUNCH=1 npm run build
 ```
 
-Upload `dist/` to a static host. All thirteen fixed pages and published articles have fully rendered HTML directories and individual metadata. No SPA fallback is required. The default domain is the reserved placeholder `https://finbharat.example`, with indexing disabled until an actual domain, approved legal/contact content and production configuration are supplied. Canonical URLs, sitemap, social metadata and JSON-LD are generated from `SITE_URL`.
+Upload `dist/` to a static host. All fixed pages and published articles have fully rendered HTML directories and individual metadata. No SPA fallback is required. The default domain is the reserved placeholder `https://finbharat.example`, with indexing disabled until an actual domain, approved legal/contact content and production configuration are supplied. Canonical URLs, sitemap, social metadata and JSON-LD are generated from `SITE_URL`.
 
 ## Routes
 
@@ -42,6 +42,7 @@ Upload `dist/` to a static host. All thirteen fixed pages and published articles
 - `/privacy/`
 - `/terms/`
 - `/contact/`
+- `/case-studies/` and `/case-studies/{slug}/` — fictional personas with AI-generated portraits and calculated FD/SIP illustrations
 - `/blog/` and `/blog/{slug}/`
 - `/media/` and `/media/{slug}/`
 
@@ -98,12 +99,28 @@ Calculator amounts count smoothly to the latest value, with a separate static sc
 
 ## Client-managed WordPress content
 
-The current website supports a build-time headless WordPress source. Blog and Media routes, fixed website content, structured FAQs, founder profiles, approved links and SEO are editor-managed through the versioned plugin in `wordpress/finbharat-content/`. Layout, motion and calculators remain in React. The site uses authentic Figma logo exports and licensed human imagery with three labelled illustrative scenarios.
+The current website supports a build-time headless WordPress source. Blog, Media and Case studies routes, fixed website content, structured FAQs, founder profiles, approved links and SEO are editor-managed through the versioned plugin in `wordpress/finbharat-content/`. Layout, motion and calculators remain in React. The site uses authentic Figma logo exports and licensed human imagery with three labelled illustrative scenarios.
 
 - `npm run cms:package` produces the installable plugin at `output/cms/finbharat-content.zip`.
 - `CMS_URL=https://your-cms-host npm run build` fetches published content and prerenders all fixed and article routes.
-- Set `SITE_URL` to the actual public origin for canonicals. Netlify uses `netlify.toml`.
+- Set `SITE_URL` to the actual public origin for canonicals. Vercel uses `vercel.json` (static prerendered output, not an SPA catch-all).
 - With no CMS configured, local development/preview uses the imported editorial defaults and empty Blog/Media states. Production builds require the CMS, approved Contact/Terms/Privacy and a confirmed domain.
-- Published content is sanitized and embedded per route for consistent hydration. Build errors never silently substitute stale or default CMS data. Netlify retains the last successful deployment on failure.
+- Published content is sanitized and embedded per route for consistent hydration. Build errors never silently substitute stale or default CMS data. Vercel retains the last successful deployment on failure.
 
-See [the administrator and editor handover](docs/cms-setup.md) for hosting setup, roles, scheduled publishing, hook configuration, rollback and pending launch inputs. See [asset provenance](docs/assets-provenance.md) for exact Figma components and photograph licences. Production hosting accounts, live Editor invitations, legal approval and official contact details remain client-owned setup steps. No live WordPress.com or Netlify deployment is claimed by this repository.
+See [the administrator and editor handover](docs/cms-setup.md) for hosting setup, roles, scheduled publishing, hook configuration, rollback and pending launch inputs. See [asset provenance](docs/assets-provenance.md) for exact Figma components and photograph licences. Production hosting accounts, live Editor invitations, legal approval and official contact details remain client-owned setup steps. No live WordPress.com or Vercel deployment is claimed by this repository.
+
+## Case studies and Vercel CMS checks
+
+Srijan (31), Meera (36) and Arjun (28) are explicitly fictional planning personas with original AI-generated portraits. Their educational stories distinguish savings timelines and investment risk; their FD/SIP examples reuse the public calculator formulas. No customer outcome is claimed. WordPress editors control the narratives, profile, portrait, ordering, SEO and sample assumptions.
+
+Vercel hosts the website; WordPress needs separate hosting. The plugin supports secret Vercel deploy hooks and automatic builds following published changes. `VERCEL_ENV`, `VERCEL_TARGET_ENV` and the explicit `PRODUCTION_LAUNCH=1` production setting enforce approved legal/contact content, CMS and domain requirements. Do not set the explicit flag for Preview. The retained `netlify.toml` and legacy hook support are optional compatibility only; Vercel is the current setup.
+
+```sh
+# Local dashboard: http://localhost:8088/wp-admin/
+# Run while the preview server is active on 4173:
+npm run cms:watch
+# Check the actual CMS and website snapshots match:
+CMS_URL=http://127.0.0.1:8088 WEBSITE_URL=http://localhost:4173 npm run cms:check
+```
+
+A public diagnostic at `/.well-known/finbharat-content.json` reports the deployed content source, timestamp, revision and counts. It includes no secrets. Follow [CMS setup and the editing demo](docs/cms-setup.md) for local login, client-owned hosting, Vercel environment variables and deploy hooks. Live WordPress/Vercel integration still requires the actual hosting accounts and approved launch information.

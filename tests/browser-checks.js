@@ -5,10 +5,10 @@ async (page) => {
   const assert = (condition, message) => { if (!condition) throw new Error(message); };
   const origin = 'http://localhost:4173';
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  const routes = ['/', '/calculators/fd/', '/calculators/sip/', '/calculators/goal/', '/mutual-funds/', '/fixed-deposits/', '/inclusion/', '/about/', '/contact/', '/privacy/', '/terms/', '/blog/', '/media/'];
+  const routes = ['/', '/calculators/fd/', '/calculators/sip/', '/calculators/goal/', '/mutual-funds/', '/fixed-deposits/', '/inclusion/', '/about/', '/contact/', '/privacy/', '/terms/', '/blog/', '/media/', '/case-studies/', '/case-studies/srijan-financial-independence/', '/case-studies/meera-personal-family-goals/', '/case-studies/arjun-variable-income/'];
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const route of routes.slice(0, 8)) {
+    for (const route of [...routes.slice(0, 8), ...routes.slice(-4)]) {
       await page.goto(origin + route);
       await page.evaluate(() => document.fonts.ready);
       const layout = await page.evaluate(() => ({ overflow: document.documentElement.scrollWidth > innerWidth, headings: document.querySelectorAll('h1').length, font: getComputedStyle(document.querySelector('h1')).fontFamily, pins: document.querySelectorAll('.pin-spacer').length, width: innerWidth }));

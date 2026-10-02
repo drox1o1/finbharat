@@ -4,7 +4,7 @@ async page => {
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   const assert = (value, message) => { if (!value) throw new Error(message); };
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  const paths = ['/blog/', '/blog/local-qa-blog/', '/media/', '/media/local-qa-media/', '/terms/'];
+  const paths = ['/blog/', '/blog/local-qa-blog/', '/media/', '/media/local-qa-media/', '/terms/', '/case-studies/', '/case-studies/srijan-financial-independence/'];
   for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const path of paths) {
@@ -18,6 +18,12 @@ async page => {
       assert(violations.length === 0, `Editorial accessibility: ${path}: ${violations}`);
     }
   }
+  await page.goto('http://localhost:4173/case-studies/srijan-financial-independence/');
+  assert(await page.locator('.case-deck').textContent() === 'Local QA edited fictional planning story.', 'Case copy not rendered from CMS');
+  assert((await page.locator('.fd-example .case-assumptions').textContent()).includes('3,00,000'), 'CMS-edited FD assumption missing');
+  const expectedFD = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(300000 * (1 + .065 / 4) ** 12);
+  assert(await page.locator('.fd-example output').textContent() === expectedFD, 'CMS-edited case estimate mismatch');
+  assert(await page.locator('.case-disclosure.compact').isVisible(), 'Fictional disclosure missing');
   await page.goto('http://localhost:4173/blog/local-qa-blog/');
   assert(await page.locator('.prose h2').textContent() === 'Local verification content', 'Published article body mismatch');
   assert(await page.locator('.prose a').getAttribute('href') === '/calculators/fd/', 'Internal link mismatch');
@@ -53,5 +59,5 @@ async page => {
   assert(dialogViolations.length === 0, `Dialog accessibility: ${dialogViolations}`);
   await page.keyboard.press('Escape');
   assert(errors.length === 0, `Editorial console errors: ${errors.join('\n')}`);
-  return { layouts: 15, editorialAccessibility: 15, publishedFields: ['blog', 'newsroom', 'homepage', 'FAQ', 'legal'], dialog: 'controls, captions, focus trap, Escape, close and focus return', errors };
+  return { layouts: 21, editorialAccessibility: 21, publishedFields: ['blog', 'newsroom', 'homepage', 'FAQ', 'legal', 'case study copy and assumptions'], dialog: 'controls, captions, focus trap, Escape, close and focus return', errors };
 }

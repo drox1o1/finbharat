@@ -1,3 +1,4 @@
+import { isProductionBuild } from './build-environment.mjs';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { render } from '../.ssr/entry-server.js';
@@ -13,15 +14,15 @@ const calculatorPages = {
 };
 const pages = Object.fromEntries(Object.entries(content.pages).map(([path, page]) => [path, [page.seo.title, page.seo.description]]));
 for (const [path, metadata] of Object.entries(calculatorPages)) if (path.startsWith('/calculators/')) pages[path] = metadata;
-for (const article of [...content.blog, ...content.media]) pages[article.path] = [article.seo.title, article.seo.description];
-const articles = [...content.blog, ...content.media];
+for (const article of [...content.blog, ...content.media, ...content.caseStudies]) pages[article.path] = [article.seo.title, article.seo.description];
+const articles = [...content.blog, ...content.media, ...content.caseStudies];
 const serialize = value => JSON.stringify(value).replaceAll('<', '\\u003c').replaceAll('\u2028', '\\u2028').replaceAll('\u2029', '\\u2029');
 const hydration = path => {
-  const data = { ...content, blog: content.blog.map(item => ({ ...item, html: item.path === path ? item.html : '' })), media: content.media.map(item => ({ ...item, html: item.path === path ? item.html : '' })) };
+  const data = { ...content, blog: content.blog.map(item => ({ ...item, html: item.path === path ? item.html : '' })), media: content.media.map(item => ({ ...item, html: item.path === path ? item.html : '' })), caseStudies: content.caseStudies.map(item => ({ ...item, html: item.path === path ? item.html : '' })) };
   return `<script id="finbharat-content" type="application/json">${serialize(data)}</script>`;
 };
 const approved = ['/terms/', '/privacy/', '/contact/'].every(path => content.pages[path].approved);
-const indexing = Boolean(configuredOrigin && approved && (process.env.CONTEXT === 'production' || process.env.PRODUCTION_LAUNCH === '1'));
+const indexing = Boolean(configuredOrigin && approved && isProductionBuild());
 const template = await readFile('dist/index.html', 'utf8');
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 for (const [path, [title, description]] of Object.entries(pages)) {
@@ -34,7 +35,7 @@ for (const [path, [title, description]] of Object.entries(pages)) {
     { '@type': 'Organization', '@id': `${origin}/#organization`, name: 'Finbharat', legalName: content.site.legalName, description: content.site.mission, slogan: content.site.tagline, logo: `${origin}/brand/logo-brand.svg`, founder: founders.map(founder => ({ '@type': 'Person', name: founder.name, jobTitle: founder.role, sameAs: founder.linkedin })), ...(configuredOrigin ? { url: origin } : {}) },
     { '@type': 'WebSite', '@id': `${origin}/#website`, name: 'Finbharat', url: origin, inLanguage: 'en-IN', publisher: { '@id': `${origin}/#organization` } },
     ...(pageFAQs ? [{ '@type': 'FAQPage', mainEntity: pageFAQs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) }] : []),
-    ...(article ? [{ '@type': path.startsWith('/blog/') ? 'BlogPosting' : 'Article', headline: article.title, description: article.seo.description, url, datePublished: article.date, dateModified: article.modified, ...(article.image ? { image: article.image } : {}), ...(article.author ? { author: { '@type': 'Person', name: article.author } } : {}), publisher: { '@id': `${origin}/#organization` }, mainEntityOfPage: url, ...(article.source ? { isBasedOn: article.source } : {}) }] : []),
+    ...(article ? [{ '@type': path.startsWith('/blog/') ? 'BlogPosting' : 'Article', headline: article.title, description: path.startsWith('/case-studies/') ? `Fictional, illustrative planning story with an AI-generated portrait. ${article.seo.description}` : article.seo.description, url, ...(article.date ? { datePublished: article.date } : {}), ...(article.modified ? { dateModified: article.modified } : {}), ...(article.image ? { image: article.image } : {}), ...(article.author ? { author: { '@type': 'Person', name: article.author } } : {}), publisher: { '@id': `${origin}/#organization` }, mainEntityOfPage: url, ...(article.source ? { isBasedOn: article.source } : {}) }] : []),
     ...(path === '/about/' ? [{ '@type': 'AboutPage', name: title, url, about: { '@id': `${origin}/#organization` } }] : []),
   ];
   const head = `<title>${escape(title)}</title>
@@ -80,6 +81,7 @@ ${founders.map(founder => `- ${founder.name}: ${founder.role}. ${founder.linkedi
 - /mutual-funds/: educational explanations and an illustrative SIP calculator.
 - /fixed-deposits/: deposit explanations and an illustrative FD calculator.
 - /calculators/goal/: illustrative education, car and financial freedom planning.
+- /case-studies/: fictional planning examples with AI-generated portraits, not customer outcomes.
 - /blog/: published editorial articles.
 - /media/: published announcements, attributed coverage and videos.
 - /contact/: official contact details when approved.
@@ -89,3 +91,6 @@ Calculators run locally using user-entered assumptions. Results are estimates, n
 Specific AI capabilities, app availability, partnerships and financial outcomes are not asserted by this document.
 `;
 await writeFile('dist/llms.txt', llms);
+
+await mkdir('dist/.well-known', { recursive: true });
+await writeFile('dist/.well-known/finbharat-content.json', JSON.stringify({ schemaVersion: content.schemaVersion, ...content.build, counts: { blog: content.blog.length, media: content.media.length, caseStudies: content.caseStudies.length } }, null, 2) + '\n');

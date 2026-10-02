@@ -15,6 +15,9 @@ try {
   const sitemap = await readFile('dist/sitemap.xml', 'utf8');
   assert(sitemap.includes('/blog/local-qa-blog/') && sitemap.includes('/media/local-qa-media/'));
   assert(!sitemap.includes('local-qa-draft'));
+  assert(sitemap.includes('/case-studies/srijan-financial-independence/'));
+  const provenance = JSON.parse(await readFile('dist/.well-known/finbharat-content.json', 'utf8'));
+  assert.equal(provenance.source, 'wordpress'); assert.equal(provenance.counts.caseStudies, 3);
   browser(['open', 'http://localhost:4173/', '--config=output/playwright/verification-config.json']);
   const result = browser(['run-code', '--filename=tests/cms-browser-checks.js']);
   await writeFile('output/playwright/cms-verification.txt', result);

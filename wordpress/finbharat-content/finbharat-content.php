@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Finbharat Content
  * Description: Fixed editorial templates and published content for the Finbharat React website.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 6.4
  * Requires PHP: 8.1
  */
@@ -28,8 +28,14 @@ final class Finbharat_Content {
             'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'revisions', 'custom-fields'],
             'menu_icon' => 'dashicons-megaphone', 'capability_type' => 'post', 'map_meta_cap' => true,
         ]);
+        register_post_type('finbharat_case', [
+            'labels' => ['name' => 'Case studies', 'singular_name' => 'Illustrative case study', 'add_new_item' => 'Add illustrative case study'],
+            'public' => false, 'show_ui' => true, 'show_in_rest' => true,
+            'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'revisions', 'custom-fields'],
+            'menu_icon' => 'dashicons-id-alt', 'capability_type' => 'post', 'map_meta_cap' => true,
+        ]);
         add_theme_support('post-thumbnails');
-        foreach (['fb_page', 'post', 'finbharat_media'] as $type) {
+        foreach (['fb_page', 'post', 'finbharat_media', 'finbharat_case'] as $type) {
             foreach (['_fb_fields', '_fb_seo'] as $key) {
                 register_post_meta($type, $key, [
                     'type' => 'object', 'single' => true,
@@ -41,7 +47,7 @@ final class Finbharat_Content {
             }
             register_post_meta($type, '_fb_approved', ['type' => 'boolean', 'single' => true, 'show_in_rest' => true, 'revisions_enabled' => true, 'auth_callback' => static fn($allowed, $meta, $id) => current_user_can('edit_post', $id)]);
         }
-        foreach (['post', 'finbharat_media'] as $type) {
+        foreach (['post', 'finbharat_media', 'finbharat_case'] as $type) {
             register_rest_field($type, 'finbharat', ['get_callback' => static function($post) {
                 $fields = get_post_meta($post['id'], '_fb_fields', true);
                 $seo = get_post_meta($post['id'], '_fb_seo', true);
@@ -65,7 +71,29 @@ final class Finbharat_Content {
             update_post_meta($id, '_fb_seo', $page['seo']);
             update_post_meta($id, '_fb_approved', $approved);
         }
+        if (!get_option('fb_cases_imported', false)) {
+            foreach ($seed['caseStudies'] ?? [] as $case) {
+                $existing = get_posts(['post_type' => 'finbharat_case', 'post_status' => 'any', 'name' => $case['slug'], 'numberposts' => 1]);
+                if ($existing) { continue; }
+                $id = wp_insert_post(['post_type' => 'finbharat_case', 'post_title' => $case['title'], 'post_name' => $case['slug'], 'post_excerpt' => $case['excerpt'], 'post_content' => $case['html'], 'post_status' => 'publish']);
+                if (is_wp_error($id) || !$id) { continue; }
+                update_post_meta($id, '_fb_fields', $case['fields']);
+                update_post_meta($id, '_fb_seo', $case['seo']);
+            }
+            update_option('fb_cases_imported', true, false);
+        }
+        update_option('fb_content_version', '1.1.0', false);
         flush_rewrite_rules();
+    }
+    public static function upgrade(): void {
+        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.1.0') { self::activate(); }
+    }
+    public static function case_schema(): array {
+        return json_decode(file_get_contents(__DIR__ . '/case-field-schema.json'), true, 512, JSON_THROW_ON_ERROR);
+    }
+    public static function valid_hook(string $hook): bool {
+        return (bool)preg_match('#^https://api\.vercel\.com/v1/integrations/deploy/[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+(?:\?buildCache=(?:true|false))?$#', $hook)
+            || (bool)preg_match('#^https://api\.netlify\.com/build_hooks/[a-zA-Z0-9_-]+$#', $hook);
     }
     public static function clean($value) {
         if (is_array($value)) { return array_map([self::class, 'clean'], $value); }
@@ -97,7 +125,8 @@ final class Finbharat_Content {
     private static function label(string $key): string {
         static $labels;
         $labels ??= json_decode(file_get_contents(__DIR__ . '/copy-labels.json'), true);
-        return $labels[$key] ?? ucwords(str_replace(['_', '-'], ' ', preg_replace('/([a-z])([A-Z])/', '$1 $2', $key)));
+        $case_labels = ['fd' => 'Fixed deposit example', 'sip' => 'Mutual fund / SIP example', 'listingOrder' => 'Listing order (lower appears first)', 'personName' => 'Persona name', 'principal' => 'Deposit amount (INR)', 'monthly' => 'Monthly contribution (INR)', 'rate' => 'Annual rate / return assumption (%)', 'years' => 'Time horizon (years)', 'initial' => 'Initial investment (INR)', 'frequency' => 'Compounding frequency'];
+        return $case_labels[$key] ?? $labels[$key] ?? ucwords(str_replace(['_', '-'], ' ', preg_replace('/([a-z])([A-Z])/', '$1 $2', $key)));
     }
     public static function fields(array $value, string $prefix, array $schema, string $parent = ''): void {
         foreach ($schema as $key => $default) {
@@ -176,9 +205,9 @@ final class Finbharat_Content {
         exit;
     }
     public static function publishing(): void {
-        echo '<div class="wrap"><h1>Finbharat publishing configuration</h1><p>Administrator only. The Netlify build hook is a secret and is never sent to the public frontend.</p><form method="post" action="' . esc_url(admin_url('admin-post.php')) . '"><input type="hidden" name="action" value="fb_publishing">';
+        echo '<div class="wrap"><h1>Finbharat publishing configuration</h1><p>Administrator only. The Vercel deploy hook is a secret and is never sent to the public frontend.</p><form method="post" action="' . esc_url(admin_url('admin-post.php')) . '"><input type="hidden" name="action" value="fb_publishing">';
         wp_nonce_field('fb_publishing');
-        echo '<p><label for="fb-hook">Netlify HTTPS build hook</label><br><input id="fb-hook" type="password" name="hook" value="" autocomplete="new-password" class="large-text"><span class="description">Leave blank to retain the existing hook.</span></p><p><label for="fb-origin">Public frontend URL (for published website links)</label><br><input id="fb-origin" type="url" name="frontend" value="' . esc_attr(get_option('fb_frontend', '')) . '" class="large-text"></p>';
+        echo '<p><label for="fb-hook">Vercel HTTPS deploy hook</label><br><input id="fb-hook" type="password" name="hook" value="" autocomplete="new-password" class="large-text"><span class="description">Leave blank to retain the existing hook.</span></p><p><label for="fb-origin">Public frontend URL (for published website links)</label><br><input id="fb-origin" type="url" name="frontend" value="' . esc_attr(get_option('fb_frontend', '')) . '" class="large-text"></p>';
         submit_button('Save publishing configuration');
         echo '</form><p>Last hook status: ' . esc_html(get_option('fb_hook_status', 'Not configured')) . '</p><p>WordPress.com: enable the documented missed-schedule monitor or a managed external cron. Verify scheduled publication on this installation before launch.</p></div>';
     }
@@ -187,7 +216,7 @@ final class Finbharat_Content {
         check_admin_referer('fb_publishing');
         $hook = trim(wp_unslash($_POST['hook'] ?? ''));
         if ($hook !== '') {
-            if (!preg_match('#^https://api\.netlify\.com/build_hooks/[a-zA-Z0-9_-]+$#', $hook)) { wp_die('Use a Netlify HTTPS build hook.'); }
+            if (!self::valid_hook($hook)) { wp_die('Use the HTTPS deploy-hook URL supplied by Vercel.'); }
             update_option('fb_build_hook', $hook, false);
         }
         $frontend = esc_url_raw(wp_unslash($_POST['frontend'] ?? ''), ['https']);
@@ -197,7 +226,7 @@ final class Finbharat_Content {
         exit;
     }
     public static function boxes(): void {
-        foreach (['fb_page', 'post', 'finbharat_media'] as $type) { add_meta_box('fb-content', 'Finbharat website content', [self::class, 'box'], $type, 'normal', 'high'); }
+        foreach (['fb_page', 'post', 'finbharat_media', 'finbharat_case'] as $type) { add_meta_box('fb-content', 'Finbharat website content', [self::class, 'box'], $type, 'normal', 'high'); }
     }
     public static function box(WP_Post $post): void {
         wp_nonce_field('fb_content', 'fb_nonce');
@@ -210,6 +239,10 @@ final class Finbharat_Content {
             $fields = get_post_meta($post->ID, '_fb_fields', true);
             self::fields(['fields' => is_array($fields) ? $fields : $page['fields']], 'fb', ['fields' => $page['fields']]);
             self::fields(['approved' => (bool)get_post_meta($post->ID, '_fb_approved', true)], 'fb', ['approved' => false]);
+        } elseif ($post->post_type === 'finbharat_case') {
+            echo '<p><strong>Fictional, illustrative planning story.</strong> The frontend always displays this disclosure and identifies the portrait as AI-generated. Do not present these personas as customers or claim actual financial results.</p><p>Write the story in the article editor. Use headings from H2. Add an excerpt, an ASCII lowercase/hyphen slug and an AI-generated portrait. A featured image overrides the portrait URL below. Calculator formulas remain in frontend code; edit only the sample assumptions.</p>';
+            self::fields(get_post_meta($post->ID, '_fb_fields', true) ?: [], 'fb[fields]', self::case_schema());
+            echo '<p>FD frequency: 1 yearly, 2 half-yearly, 4 quarterly, 12 monthly. Rates: 0–30%; years: 1–50; age: 18–100. Enabled examples need valid amounts. Sample rates are not offers or forecasts.</p>';
         } elseif ($post->post_type === 'finbharat_media') {
             $fields = get_post_meta($post->ID, '_fb_fields', true) ?: [];
             echo '<p><label for="fb-media-type">Entry type</label> <select id="fb-media-type" name="fb[fields][mediaType]">';
@@ -229,6 +262,8 @@ final class Finbharat_Content {
             $schema = self::seed()['pages'][$route]['fields'] ?? null;
             if ($schema) { update_post_meta($id, '_fb_fields', self::merge($schema, $data['fields'] ?? [])); }
             update_post_meta($id, '_fb_approved', !empty($data['approved']));
+        } elseif (get_post_type($id) === 'finbharat_case') {
+            update_post_meta($id, '_fb_fields', self::merge(self::case_schema(), $data['fields'] ?? []));
         } elseif (get_post_type($id) === 'finbharat_media') {
             $fields = self::merge(['source' => '', 'video' => '', 'captions' => '', 'transcript' => ''], $data['fields'] ?? []);
             $fields['mediaType'] = in_array($data['fields']['mediaType'] ?? '', ['announcement', 'press', 'video'], true) ? $data['fields']['mediaType'] : 'announcement';
@@ -237,7 +272,7 @@ final class Finbharat_Content {
         update_post_meta($id, '_fb_seo', self::merge(['title' => '', 'description' => ''], $data['seo'] ?? []));
     }
     public static function changed(int $id, WP_Post $post, bool $update, ?WP_Post $before): void {
-        if (wp_is_post_revision($id) || !in_array($post->post_type, ['post', 'fb_page', 'finbharat_media', 'attachment'], true)) { return; }
+        if (wp_is_post_revision($id) || !in_array($post->post_type, ['post', 'fb_page', 'finbharat_media', 'finbharat_case', 'attachment'], true)) { return; }
         if ($post->post_status === 'publish' || ($before && $before->post_status === 'publish') || $post->post_type === 'attachment') { self::$dirty = true; }
     }
     public static function removed(int $id): void {
@@ -247,11 +282,12 @@ final class Finbharat_Content {
     public static function dispatch(int $attempt = 0): void {
         $hook = get_option('fb_build_hook', '');
         if (!$hook) { update_option('fb_hook_status', 'Not configured', false); return; }
+        if (!self::valid_hook($hook)) { update_option('fb_hook_status', 'Invalid deploy-hook URL. Update Publishing configuration.', false); return; }
         $response = wp_remote_post($hook, ['timeout' => 8, 'body' => '{}', 'headers' => ['Content-Type' => 'application/json'], 'redirection' => 0]);
         $code = is_wp_error($response) ? 0 : wp_remote_retrieve_response_code($response);
-        if ($code >= 200 && $code < 300) { update_option('fb_hook_status', 'Build requested at ' . current_time('mysql') . '. Check Netlify for deployment status.', false); }
+        if ($code >= 200 && $code < 300) { update_option('fb_hook_status', 'Build requested at ' . current_time('mysql') . '. Check your hosting dashboard for deployment status.', false); }
         else {
-            update_option('fb_hook_status', 'Build request failed at ' . current_time('mysql') . '; HTTP ' . (int)$code . '. Check the configuration and Netlify status.', false);
+            update_option('fb_hook_status', 'Build request failed at ' . current_time('mysql') . '; HTTP ' . (int)$code . '. Check the configuration and hosting deployment status.', false);
             if ($attempt < 3 && !wp_next_scheduled('fb_retry_build', [$attempt + 1])) { wp_schedule_single_event(time() + 60 * ($attempt + 1), 'fb_retry_build', [$attempt + 1]); }
         }
     }
@@ -263,6 +299,7 @@ final class Finbharat_Content {
             'fb_page' => get_post_meta($post->ID, '_fb_route', true),
             'post' => '/blog/' . $post->post_name . '/',
             'finbharat_media' => '/media/' . $post->post_name . '/',
+            'finbharat_case' => '/case-studies/' . $post->post_name . '/',
             default => '',
         };
         return $route ? rtrim($origin, '/') . $route : $url;
@@ -270,13 +307,14 @@ final class Finbharat_Content {
     public static function assets(string $hook): void {
         if (!in_array($hook, ['post.php', 'post-new.php', 'toplevel_page_finbharat'], true)) { return; }
         wp_enqueue_media();
-        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.0.0');
-        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.0.0', true);
+        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.1.0');
+        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.1.0', true);
     }
 }
 register_activation_hook(__FILE__, [Finbharat_Content::class, 'activate']);
 add_action('init', [Finbharat_Content::class, 'init']);
 add_action('rest_api_init', [Finbharat_Content::class, 'rest']);
+add_action('admin_init', [Finbharat_Content::class, 'upgrade']);
 add_action('admin_menu', [Finbharat_Content::class, 'menus']);
 add_action('add_meta_boxes', [Finbharat_Content::class, 'boxes']);
 add_action('save_post', [Finbharat_Content::class, 'save_post']);

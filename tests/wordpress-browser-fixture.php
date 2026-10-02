@@ -12,6 +12,7 @@ if ($mode === 'cleanup') {
         update_post_meta($id, '_fb_fields', $page['fields']);
         update_post_meta($id, '_fb_approved', $page['approved']);
     }
+    foreach ($backup['cases'] ?? [] as $id => $case) { wp_update_post(['ID' => $id, 'post_excerpt' => $case['excerpt']]); update_post_meta($id, '_fb_fields', $case['fields']); }
     delete_option('fb_qa_backup');
     echo "Local editorial fixtures removed.\n"; return;
 }
@@ -35,6 +36,15 @@ foreach (['/', '/mutual-funds/', '/terms/'] as $route) {
     if ($route === '/terms/') { $fields['body'] = '<h2>Local QA legal page</h2><p>Disposable test text, not approved legal terms.</p>'; wp_update_post(['ID' => $page->ID, 'post_status' => 'publish']); }
     update_post_meta($page->ID, '_fb_fields', $fields);
 }
+$case = get_posts(['post_type' => 'finbharat_case', 'post_status' => 'publish', 'name' => 'srijan-financial-independence', 'numberposts' => 1])[0];
+$fields = get_post_meta($case->ID, '_fb_fields', true);
+$backup['cases'][$case->ID] = ['excerpt' => $case->post_excerpt, 'fields' => $fields];
+update_option('fb_qa_backup', $backup, false);
+$fields['fd']['principal'] = '300000';
+wp_set_current_user(get_user_by('login', 'local-editor')->ID);
+$request = new WP_REST_Request('POST', '/wp/v2/finbharat_case/' . $case->ID);
+$request->set_body_params(['excerpt' => 'Local QA edited fictional planning story.', 'meta' => ['_fb_fields' => $fields]]);
+if (rest_do_request($request)->get_status() !== 200) { throw new RuntimeException('Case editor update failed.'); }
 $site = $backup['site'];
 $site['intro'] = ['approved' => true, 'title' => 'Local QA dialog: not a product introduction', 'video' => '/video/hero-scroll-from-1s.mp4', 'poster' => '/video/hero-poster-1s.jpg', 'captions' => '/video/local-qa.vtt', 'transcript' => 'A decorative landscape used only for local dialog testing.'];
 update_option('fb_site', $site);

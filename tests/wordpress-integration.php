@@ -15,7 +15,7 @@ $original_terms = get_post_meta($terms->ID, '_fb_fields', true);
 $hook_calls = 0;
 $hook_code = 202;
 add_filter('pre_http_request', function($pre, $args, $url) use (&$hook_calls, &$hook_code) {
-    if (str_starts_with($url, 'https://api.netlify.com/build_hooks/')) { $hook_calls++; return ['headers' => [], 'body' => '{}', 'response' => ['code' => $hook_code, 'message' => 'Test accepted'], 'cookies' => [], 'filename' => null]; }
+    if (Finbharat_Content::valid_hook($url)) { $hook_calls++; return ['headers' => [], 'body' => '{}', 'response' => ['code' => $hook_code, 'message' => 'Test accepted'], 'cookies' => [], 'filename' => null]; }
     return $pre;
 }, 10, 3);
 try {
@@ -55,7 +55,22 @@ try {
     update_post_meta($media, '_fb_fields', ['mediaType' => 'press', 'source' => 'https://www.sebi.gov.in/', 'video' => '', 'captions' => '', 'transcript' => '']);
     $media_response = rest_do_request(new WP_REST_Request('GET', '/wp/v2/finbharat_media'))->get_data();
     fb_assert(($media_response[0]['finbharat']['source'] ?? '') === 'https://www.sebi.gov.in/', 'Newsroom source fields not exposed.');
-    update_option('fb_build_hook', 'https://api.netlify.com/build_hooks/local-test');
+    $case = wp_insert_post(['post_type' => 'finbharat_case', 'post_status' => 'draft', 'post_title' => 'Local integration case', 'post_name' => 'local-integration-case', 'post_content' => '<h2>Fictional persona</h2><p>Local integration content.</p>']); $created[] = $case;
+    $case_fields = Finbharat_Content::seed()['caseStudies'][0]['fields']; $case_fields['fd']['principal'] = '300000';
+    $request = new WP_REST_Request('POST', '/wp/v2/finbharat_case/' . $case);
+    $request->set_body_params(['status' => 'publish', 'meta' => ['_fb_fields' => $case_fields]]);
+    fb_assert(rest_do_request($request)->get_status() === 200, 'Editor cannot publish and edit case study fields.');
+    wp_set_current_user(0);
+    $response = rest_do_request(new WP_REST_Request('GET', '/wp/v2/finbharat_case/' . $case));
+    fb_assert($response->get_status() === 200 && $response->get_data()['finbharat']['fd']['principal'] === '300000', 'Published case assumptions are missing.');
+    wp_set_current_user(get_user_by('login', 'local-editor')->ID);
+    wp_update_post(['ID' => $case, 'post_status' => 'draft']);
+    wp_set_current_user(0);
+    fb_assert(rest_do_request(new WP_REST_Request('GET', '/wp/v2/finbharat_case/' . $case))->get_status() !== 200, 'Draft case is public.');
+    wp_set_current_user(get_user_by('login', 'local-editor')->ID);
+    fb_assert(Finbharat_Content::valid_hook('https://api.vercel.com/v1/integrations/deploy/prj_local/test-secret?buildCache=false'), 'Vercel hook rejected.');
+    fb_assert(!Finbharat_Content::valid_hook('https://api.vercel.com.evil.test/v1/integrations/deploy/a/b') && !Finbharat_Content::valid_hook('http://localhost/private'), 'Untrusted hook accepted.');
+    update_option('fb_build_hook', 'https://api.vercel.com/v1/integrations/deploy/prj_local/test-secret');
     Finbharat_Content::shutdown();
     fb_assert($hook_calls === 1 && str_contains(get_option('fb_hook_status'), 'Build requested'), 'Publication hook request failed.');
     $hook_code = 503; Finbharat_Content::dispatch();
@@ -63,9 +78,9 @@ try {
     wp_clear_scheduled_hook('fb_retry_build', [1]);
     $hook_code = 202;
     $public = rest_do_request(new WP_REST_Request('GET', '/finbharat/v1/site'))->get_data();
-    fb_assert(!str_contains(wp_json_encode($public), 'build_hooks'), 'Public response leaked the build hook.');
+    fb_assert(!str_contains(wp_json_encode($public), 'test-secret'), 'Public response leaked the build hook.');
     fb_assert(!isset($public['pages']['/terms/']), 'Draft legal content leaked to the public endpoint.');
-    echo "Passed: Editor role, homepage update, FAQ and legal update, blog publication/unpublishing, scheduled publication, revisions, newsroom source, publication-triggered hook, retry and draft/secret exclusion.\n";
+    echo "Passed: Editor role, homepage update, FAQ and legal update, blog publication/unpublishing, scheduled publication, revisions, newsroom source, case editing/publishing/unpublishing, Vercel hook, retry and draft/secret exclusion.\n";
 } finally {
     update_post_meta($home->ID, '_fb_fields', $original_fields);
     update_post_meta($mutual->ID, '_fb_fields', $original_faq);

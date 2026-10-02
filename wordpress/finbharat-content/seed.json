@@ -699,6 +699,27 @@
         }
       }
     },
+    "/case-studies/": {
+      "template": "case-studies",
+      "title": "Case studies",
+      "seo": {
+        "title": "Illustrative planning stories | Finbharat",
+        "description": "Meet three fictional planning personas. Explore financial independence, family goals and variable income with transparent FD and SIP estimates."
+      },
+      "fields": {
+        "eyebrow": "Everyday lives. Thoughtful plans.",
+        "heading": "Your life. Your way forward.",
+        "introduction": "Different starting points. Different priorities. Explore how three fictional people might think about saving and investing.",
+        "homeHeading": [
+          "Real questions.",
+          "Illustrative stories."
+        ],
+        "homeIntroduction": "Meet Srijan, Meera and Arjun. Three fictional lives, and a little more clarity about what comes next.",
+        "emptyTitle": "More stories are on their way.",
+        "emptyCopy": "Explore our calculators while new illustrative planning stories are prepared.",
+        "copy": {}
+      }
+    },
     "/blog/": {
       "template": "blog",
       "title": "Blog",
@@ -811,5 +832,181 @@
     }
   ],
   "blog": [],
-  "media": []
+  "media": [],
+  "caseStudies": [
+    {
+      "id": "srijan-financial-independence",
+      "slug": "srijan-financial-independence",
+      "path": "/case-studies/srijan-financial-independence/",
+      "title": "Srijan, 31. Planning for more freedom.",
+      "excerpt": "A fictional salaried professional explores a simple question: how could near-term savings and long-term investing work together?",
+      "html": "<h2>A good income. A bigger question.</h2><p>In this illustrative story, Srijan is 31 and earns a regular salary. He enjoys his work, but wants more choice about how he spends his time in the future. Financial independence is his direction, rather than a promised retirement date.</p><p>His first step is to understand everyday spending, commitments and the savings already available to him. He separates money he may need soon from money he could leave invested for longer.</p>\n    <h2>Two timelines. Two different jobs.</h2><h3>FDs for a defined period</h3><p>Srijan explores what a ₹2,00,000 fixed deposit might become over three years at an assumed annual rate of 6.5%, compounded quarterly. This gives him a way to examine a defined maturity date. He would still need to compare the actual institution’s terms, interest payout and early withdrawal conditions.</p><p>An FD is not automatically the same as readily accessible emergency cash. Money for unexpected expenses needs an access plan, including what happens if a deposit is broken early.</p><h3>Mutual funds for a longer horizon</h3><p>For a longer-term goal, he models a ₹10,000 monthly SIP over 15 years using a 10% annual return assumption. A SIP is a contribution method, not a guarantee. Mutual fund values can fall, and the type of fund, risk, costs and suitability matter.</p>\n    <h2>Freedom needs more than a future value.</h2><p>The estimate is a starting point for questions: how much might his future lifestyle cost after inflation? How will dependants, housing and health needs change? Could he remain invested through a market decline? A projected investment value alone cannot establish financial independence.</p><ul><li>Keep near-term spending and longer-term goals distinct.</li><li>Review contribution amounts when circumstances change.</li><li>Understand liquidity, taxes and costs before deciding.</li><li>Discuss suitability with an appropriately qualified adviser.</li></ul>\n    <h2>Try the assumptions. Make the questions your own.</h2><p>The examples below show the same calculations used by our FD and SIP tools. Rates are sample assumptions, not offers or forecasts. No investment has been made, and no outcome is claimed for Srijan.</p>",
+      "image": "/case-studies/srijan.webp",
+      "imageAlt": "AI-generated portrait of Srijan, a fictional planning persona",
+      "profile": {
+        "name": "Srijan",
+        "age": 31,
+        "occupation": "Salaried professional",
+        "goal": "Financial independence"
+      },
+      "examples": {
+        "fd": {
+          "principal": 200000,
+          "rate": 6.5,
+          "years": 3,
+          "frequency": 4
+        },
+        "sip": {
+          "monthly": 10000,
+          "rate": 10,
+          "years": 15,
+          "initial": 0
+        }
+      },
+      "seo": {
+        "title": "Srijan, 31. Planning for more freedom. | Finbharat",
+        "description": "A fictional salaried professional explores a simple question: how could near-term savings and long-term investing work together?"
+      },
+      "order": 1,
+      "fields": {
+        "listingOrder": "1",
+        "personName": "Srijan",
+        "age": "31",
+        "occupation": "Salaried professional",
+        "goal": "Financial independence",
+        "portrait": "/case-studies/srijan.webp",
+        "portraitAlt": "AI-generated portrait of Srijan, a fictional planning persona",
+        "fd": {
+          "enabled": true,
+          "principal": "200000",
+          "rate": "6.5",
+          "years": "3",
+          "frequency": "4"
+        },
+        "sip": {
+          "enabled": true,
+          "monthly": "10000",
+          "rate": "10",
+          "years": "15",
+          "initial": "0"
+        }
+      }
+    },
+    {
+      "id": "meera-personal-family-goals",
+      "slug": "meera-personal-family-goals",
+      "path": "/case-studies/meera-personal-family-goals/",
+      "title": "Meera, 36. A plan for the family. And herself.",
+      "excerpt": "A fictional homemaker makes room for an education goal and personal ambitions, with clear timelines and visible assumptions.",
+      "html": "<h2>Understanding belongs to every decision-maker.</h2><p>In this fictional example, Meera is 36 and manages household priorities. She wants a clearer view of savings for the family alongside room for her own ambitions. Her starting point is a shared conversation about available money, regular commitments and who can access each account.</p><h2>Put a date beside each goal.</h2><p>A nearer expense and an education goal ten years away need different conversations. Meera explores a ₹1,00,000 FD for two years at an assumed 6% annual rate, compounded quarterly. She checks when interest is paid and the conditions for early withdrawal before considering any deposit.</p><p>For a longer horizon, she models ₹3,000 a month over ten years at an assumed 8% annual return. This is a constant-return SIP illustration; actual mutual fund returns vary, can be negative, and are affected by fund costs and taxes.</p><h2>A future education bill can change.</h2><p>The SIP estimate is not the cost of education or proof that the goal is funded. Meera would also need to estimate future costs after inflation, review existing savings and consider her capacity to take risk. The goal calculator helps explore those separate assumptions.</p><ul><li>Write down both family priorities and personal goals.</li><li>Check access, ownership and nomination arrangements.</li><li>Review timelines and education costs periodically.</li><li>Choose contributions that fit available finances.</li></ul><h2>A plan with room to participate.</h2><p>This story illustrates questions a homemaker might explore. It does not describe a real customer, an investment recommendation or a financial result. Use the calculators to investigate your own assumptions.</p>",
+      "image": "/case-studies/meera.webp",
+      "imageAlt": "AI-generated portrait of Meera, a fictional planning persona",
+      "profile": {
+        "name": "Meera",
+        "age": 36,
+        "occupation": "Homemaker",
+        "goal": "Personal and family goals"
+      },
+      "examples": {
+        "fd": {
+          "principal": 100000,
+          "rate": 6,
+          "years": 2,
+          "frequency": 4
+        },
+        "sip": {
+          "monthly": 3000,
+          "rate": 8,
+          "years": 10,
+          "initial": 0
+        }
+      },
+      "seo": {
+        "title": "Meera, 36. A plan for the family. And herself. | Finbharat",
+        "description": "A fictional homemaker makes room for an education goal and personal ambitions, with clear timelines and visible assumptions."
+      },
+      "order": 2,
+      "fields": {
+        "listingOrder": "2",
+        "personName": "Meera",
+        "age": "36",
+        "occupation": "Homemaker",
+        "goal": "Personal and family goals",
+        "portrait": "/case-studies/meera.webp",
+        "portraitAlt": "AI-generated portrait of Meera, a fictional planning persona",
+        "fd": {
+          "enabled": true,
+          "principal": "100000",
+          "rate": "6",
+          "years": "2",
+          "frequency": "4"
+        },
+        "sip": {
+          "enabled": true,
+          "monthly": "3000",
+          "rate": "8",
+          "years": "10",
+          "initial": "0"
+        }
+      }
+    },
+    {
+      "id": "arjun-variable-income",
+      "slug": "arjun-variable-income",
+      "path": "/case-studies/arjun-variable-income/",
+      "title": "Arjun, 28. Different months. A steady direction.",
+      "excerpt": "A fictional freelancer considers cash access first, then explores what regular contributions could mean for a longer-term goal.",
+      "html": "<h2>Income changes. Commitments do not always follow.</h2><p>Arjun is a fictional 28-year-old freelance designer. Some months bring several projects; others are quieter. Before thinking about an investment target, he maps essential spending, tax obligations and the money he needs between payments.</p><h2>Access comes before a headline rate.</h2><p>He explores a ₹1,50,000 FD over one year using a 6% annual rate assumption and quarterly compounding. He would compare the institution’s actual maturity and early withdrawal terms. He does not assume a locked deposit can cover every short-notice expense without a cost.</p><h2>What could a regular contribution look like?</h2><p>Arjun also models ₹5,000 per month for eight years at an assumed 9% annual return. This gives him one consistent scenario to inspect. The calculator assumes the same contribution every month; it does not model variable income, missed contributions or changing market returns.</p><p>In practice, he would need to decide what is affordable in quieter months and revisit his plan as work changes. A SIP does not remove market risk or guarantee that he reaches a goal.</p><ul><li>Map expenses and tax needs before allocating money.</li><li>Keep an access plan for gaps between payments.</li><li>Try lower contributions and return assumptions too.</li><li>Review affordability when work or commitments change.</li></ul><h2>A useful estimate, with clear limits.</h2><p>The numbers illustrate a possible planning conversation, not Arjun’s actual investments or results. FD rates are assumptions, mutual fund returns are market-linked, and taxes, fees and early withdrawals are excluded.</p>",
+      "image": "/case-studies/arjun.webp",
+      "imageAlt": "AI-generated portrait of Arjun, a fictional planning persona",
+      "profile": {
+        "name": "Arjun",
+        "age": 28,
+        "occupation": "Freelancer / gig worker",
+        "goal": "Planning with variable income"
+      },
+      "examples": {
+        "fd": {
+          "principal": 150000,
+          "rate": 6,
+          "years": 1,
+          "frequency": 4
+        },
+        "sip": {
+          "monthly": 5000,
+          "rate": 9,
+          "years": 8,
+          "initial": 0
+        }
+      },
+      "seo": {
+        "title": "Arjun, 28. Different months. A steady direction. | Finbharat",
+        "description": "A fictional freelancer considers cash access first, then explores what regular contributions could mean for a longer-term goal."
+      },
+      "order": 3,
+      "fields": {
+        "listingOrder": "3",
+        "personName": "Arjun",
+        "age": "28",
+        "occupation": "Freelancer / gig worker",
+        "goal": "Planning with variable income",
+        "portrait": "/case-studies/arjun.webp",
+        "portraitAlt": "AI-generated portrait of Arjun, a fictional planning persona",
+        "fd": {
+          "enabled": true,
+          "principal": "150000",
+          "rate": "6",
+          "years": "1",
+          "frequency": "4"
+        },
+        "sip": {
+          "enabled": true,
+          "monthly": "5000",
+          "rate": "9",
+          "years": "8",
+          "initial": "0"
+        }
+      }
+    }
+  ]
 }
