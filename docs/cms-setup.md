@@ -117,3 +117,15 @@ The passwords in this local example are disposable development values. Never use
 - Verify direct article URLs, 404 HTTP responses, sitemap/canonicals, internal links, safe body markup, mobile layouts, keyboard navigation, captions/dialog controls, reduced motion and calculators.
 - Review the human-photo licences, AI persona disclosures and final intro wording. No fake testimonials, performance promises or unsupported “first” claims.
 - CRM, transactions and campaign templates are intentionally outside this release. Add future services through separate modules; do not put transaction credentials in the public content snapshot.
+
+## Sample blog review in the local demonstration
+
+Two original sample articles are published in the local CMS: **Seven mutual funds. How many different risks?** and **Give your fixed deposits a calendar.** Both have generated editorial cover images, topic categories, excerpts, SEO descriptions, official-source links and clearly labelled hypothetical examples. Edit them in **Posts**; replace their covers using **Featured image** or **Media**. They are samples for review, not approved production publications.
+
+Their editable source copies are versioned in `content/sample-blogs/`; covers are in `public/editorial/`. To import into a fresh localhost:8088 demo after creating the local-editor account:
+
+```sh
+docker compose -p finbharat-cms -f wordpress/compose.yml run --rm -v "$PWD/content/sample-blogs:/opt/finbharat-samples:ro" -v "$PWD/scripts:/opt/finbharat-scripts:ro" -v "$PWD/public/editorial:/opt/finbharat-editorial:ro" cli wp eval-file /opt/finbharat-scripts/seed-sample-blogs.php
+```
+
+The importer refuses other hosts and preserves existing posts rather than overwriting client edits. It does not run on plugin activation or during a production build. Hosted WordPress needs separately approved articles and Media Library uploads; local HTTP media URLs must not be used for a live deployment. The content adapter accepts HTTP featured images only for a configured loopback CMS at the same port; hosted CMS media continues to require HTTPS.

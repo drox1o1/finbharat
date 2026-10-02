@@ -37,6 +37,18 @@ test('safe media URLs and protected template choices', () => {
   assert.equal(fields.product.introduction, 'Updated explanation');
   assert.throws(() => mergeFields(defaultContent.scenarios, [], 'scenarios'), /Invalid list/);
 });
+test('HTTP featured images are limited to the configured local WordPress origin', () => {
+  const data = post('local-photo');
+  const image = value => { data._embedded['wp:featuredmedia'] = [{ source_url: value, alt_text: 'Editorial illustration' }]; };
+  image('http://localhost:8088/wp-content/uploads/photo.webp');
+  assert.equal(normalizeArticle(data, 'blog', 'http://localhost:8088').image, 'http://localhost:8088/wp-content/uploads/photo.webp');
+  assert.equal(normalizeArticle(data, 'blog', 'http://127.0.0.1:8088').image, 'http://localhost:8088/wp-content/uploads/photo.webp');
+  assert.equal(normalizeArticle(data, 'blog', 'https://cms.example.test').image, '');
+  assert.equal(normalizeArticle(data, 'blog').image, '');
+  for (const url of ['http://remote.test/photo.webp', 'http://localhost:8000/photo.webp', 'http://user:password@localhost:8088/photo.webp']) {
+    image(url); assert.equal(normalizeArticle(data, 'blog', 'http://localhost:8088').image, '');
+  }
+});
 test('adapter reads all published REST pages and excludes unpublished posts', async () => {
   const setup = config();
   setup.pages['/'].fields.heroTitle = 'A revised homepage.';

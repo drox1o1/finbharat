@@ -43,7 +43,18 @@ export function mergeFields(base, incoming, key = '') {
   }
   return base;
 }
-export function normalizeArticle(post, kind) {
+function featuredImageURL(value, cmsOrigin) {
+  const approved = safeURL(value);
+  if (approved || !cmsOrigin) return approved;
+  // Local WordPress uploads use HTTP. Allow only the configured loopback CMS;
+  // production content keeps the HTTPS requirement.
+  try {
+    const cms = new URL(cmsOrigin), media = new URL(value);
+    const loopback = ['localhost', '127.0.0.1'];
+    return cms.protocol === 'http:' && loopback.includes(cms.hostname) && media.protocol === 'http:' && loopback.includes(media.hostname) && media.port === cms.port && !media.username && !media.password ? media.href : '';
+  } catch { return ''; }
+}
+export function normalizeArticle(post, kind, cmsOrigin = '') {
   if (post.status !== 'publish' || post.password || post.content?.protected) return null;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(post.slug || '')) throw new Error('Article slug must use lowercase Latin letters, numbers and hyphens.');
   const image = post._embedded?.['wp:featuredmedia']?.[0];
@@ -57,7 +68,7 @@ export function normalizeArticle(post, kind) {
     path: `/${kind}/${post.slug}/`,
     excerpt: plainText(post.excerpt?.rendered), html: articleHTML(post.content?.rendered),
     date: post.date_gmt ? `${post.date_gmt}Z` : post.date, modified: post.modified_gmt ? `${post.modified_gmt}Z` : post.modified,
-    image: safeURL(image?.source_url), imageAlt: plainText(image?.alt_text), categories,
+    image: featuredImageURL(image?.source_url, cmsOrigin), imageAlt: plainText(image?.alt_text), categories,
     author: plainText(post._embedded?.author?.[0]?.name || ''),
     source: safeURL(fields.source, { local: false }),
     mediaType: ['announcement', 'press', 'video'].includes(fields.mediaType) ? fields.mediaType : 'announcement',
@@ -65,8 +76,8 @@ export function normalizeArticle(post, kind) {
     seo: { title: plainText(fields.seoTitle) || `${title} | Finbharat`, description: plainText(fields.seoDescription) || plainText(post.excerpt?.rendered) || title },
   };
 }
-export function normalizeCaseStudy(post) {
-  const article = normalizeArticle(post, 'case-studies');
+export function normalizeCaseStudy(post, cmsOrigin = '') {
+  const article = normalizeArticle(post, 'case-studies', cmsOrigin);
   if (!article) return null;
   const fields = post.finbharat || {};
   const number = (value, name, minimum, maximum) => {
@@ -127,7 +138,7 @@ export async function fetchContent(cmsURL, fetcher = fetch) {
       if (!Array.isArray(response.value)) throw new Error('Expected a CMS article list.');
       total = Number(response.headers.get('x-wp-totalpages') || 1);
       if (!Number.isInteger(total) || total < 0 || total > 100) throw new Error('Invalid CMS pagination.');
-      result.push(...response.value.map(post => kind === 'case-studies' ? normalizeCaseStudy(post) : normalizeArticle(post, kind)).filter(Boolean));
+      result.push(...response.value.map(post => kind === 'case-studies' ? normalizeCaseStudy(post, origin.href) : normalizeArticle(post, kind, origin.href)).filter(Boolean));
     }
     if (new Set(result.map(item => item.slug)).size !== result.length) throw new Error('Duplicate CMS slugs.');
     return result;

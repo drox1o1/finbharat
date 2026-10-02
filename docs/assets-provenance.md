@@ -44,3 +44,14 @@ Generated on 2 October 2026 with the built-in OpenAI image-generation tool, at t
 | `public/case-studies/arjun-bengaluru.webp` | Arjun, 42, auto driver in Bengaluru | Natural street portrait; khaki shirt beside a parked green and yellow auto rickshaw | `exec-075fd0a9-c8e3-40c1-b804-be45fff87c34.png` |
 
 Original PNGs remain in the task's generated-images directory. Delivery assets are WebP, 900 pixels wide at quality 85. No real identity, logo, text or financial outcome was requested in the images. The stock photographs above remain on the Inclusion page; the new AI portraits are used for the fictional case studies. Founder photographs remain the originals supplied by the owner.
+
+## Original editorial covers for sample blogs
+
+Generated with the built-in OpenAI image-generation tool on 2 October 2026. Invented people illustrate planning situations; they are not customers or testimonials. No AI image badge is shown. Meaningful alt text records the illustrative generated scene.
+
+| Asset | Article | Prompt direction | Original generation |
+| --- | --- | --- | --- |
+| `public/editorial/mutual-fund-overlap.webp` | Seven mutual funds. How many different risks? | Photorealistic natural editorial scene: invented Indian couple in their thirties comparing overlapping translucent shapes and planning notes at a Hyderabad apartment table. Central crop-safe 3:2 framing; soft window daylight; ivory, muted teal and lavender; no readable text, logos, badges, currency or financial outcome. | `exec-b3af2411-e41e-4d14-8e17-2d36bdd48996.png` |
+| `public/editorial/fixed-deposit-calendar.webp` | Give your fixed deposits a calendar. | Photorealistic natural editorial scene: invented Indian woman in her forties in an ivory-and-teal cotton sari arranging three envelopes beside a blank planner and house keys at a Chennai dining table. Central crop-safe 3:2 framing; natural skin and soft daylight; no readable text, numbers, logos, badges, cash or financial outcome. | `exec-cfff2f7e-e7a8-4514-9963-b4a02e78ca50.png` |
+
+Original PNGs remain in the task’s generated-images directory. Website assets are 1400px WebP, quality 85. Both are imported as real WordPress Media Library attachments and assigned as featured images, so the client can replace them through the dashboard.

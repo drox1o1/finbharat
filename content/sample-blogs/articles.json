@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "more-funds-not-more-diversification",
+    "title": "Seven mutual funds. How many different risks?",
+    "excerpt": "More fund names can hide the same underlying bets. A closer look at portfolio overlap, the job of a SIP and the dates that should shape your investing decisions.",
+    "category": "Mutual funds",
+    "body": "more-funds-not-more-diversification.html",
+    "image": "mutual-fund-overlap.webp",
+    "imageAlt": "Illustrative generated scene of an Indian couple reviewing overlapping shapes and planning notes at home",
+    "seoDescription": "Understand mutual fund overlap with a worked example, why SIPs do not remove market risk, and how goals and time horizons help you evaluate a portfolio."
+  },
+  {
+    "slug": "fixed-deposit-ladder-money-with-a-calendar",
+    "title": "Give your fixed deposits a calendar.",
+    "excerpt": "School fees, repairs and future plans rarely arrive together. Explore how an FD ladder works—and what withdrawal terms, deposit insurance, tax and inflation change.",
+    "category": "Fixed deposits",
+    "body": "fixed-deposit-ladder-money-with-a-calendar.html",
+    "image": "fixed-deposit-calendar.webp",
+    "imageAlt": "Illustrative generated scene of an Indian woman arranging three envelopes beside a planner at home",
+    "seoDescription": "Explore FD laddering through a household example, with quarterly compounding, premature withdrawal terms, DICGC insurance and illustrative tax and inflation calculations."
+  }
+]

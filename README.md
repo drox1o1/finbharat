@@ -124,3 +124,7 @@ CMS_URL=http://127.0.0.1:8088 WEBSITE_URL=http://localhost:4173 npm run cms:chec
 ```
 
 A public diagnostic at `/.well-known/finbharat-content.json` reports the deployed content source, timestamp, revision and counts. It includes no secrets. Follow [CMS setup and the editing demo](docs/cms-setup.md) for local login, client-owned hosting, Vercel environment variables and deploy hooks. Live WordPress/Vercel integration still requires the actual hosting accounts and approved launch information.
+
+### Local sample journal
+
+The local WordPress demo contains two editable sample posts: **Seven mutual funds. How many different risks?** and **Give your fixed deposits a calendar.** They use original generated editorial covers and sourced, hypothetical educational examples. Source copies are versioned in `content/sample-blogs/`, and featured images in `public/editorial/`. See `docs/cms-setup.md` for the local-only importer and review workflow. These posts are not automatically imported into a hosted CMS or added to production fallback content.
