@@ -18,7 +18,7 @@ import { BharatWord } from './BharatWord';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function Wordmark({ light = false }) {
-  return <a className={`wordmark ${light ? 'light footer-logo' : ''}`} href="/" aria-label="Finbharat home">{!light && <img className="logo-brand" src="/brand/logo-brand.svg" alt="" width="225.476" height="40" />}<img className="logo-reversed" src={light ? '/brand/logo-footer.svg' : '/brand/logo-reversed.svg'} alt="" width={light ? '287.29' : '225.476'} height={light ? '64' : '40'} /></a>;
+  return <a className={`wordmark ${light ? 'light footer-logo' : ''}`} href="/" aria-label="Finbharat home">{!light && <img className="logo-brand" src="/brand/logo-brand.svg" alt="" width="225.476" height="40" />}<img className="logo-reversed" src="/brand/logo-reversed.svg" alt="" width="225.476" height="40" /></a>;
 }
 
 function Navigation({ home, path }) {
@@ -132,7 +132,7 @@ function FAQ() {
 function Footer() {
   const { site } = useContent();
   return <footer className="site-footer"><div className="footer-landscape"><img src={site.assets.footerImage} alt={site.assets.footerAlt} width="1536" height="1024" loading="lazy" /><div className="container"><p><Copy id="Footer.b85117a5" fallback="Many paths." /><br /><strong><Copy id="Footer.4d7391a2" fallback="One shared possibility." /></strong></p><a className="button button-ivory" href="/inclusion/"><Copy id="Footer.cd5d3686" fallback="A place for everyone " /><ArrowUpRight size={18} aria-hidden="true" /></a></div></div><div className="container"><div className="footer-grid">
-    <div className="footer-brand"><Wordmark light /><p><Copy id="Footer.f1936991" fallback="A more understandable and inclusive" /><br /><Copy id="Footer.97523157" fallback="financial future for people across India." /></p><span className="footer-motto">{site.tagline}</span></div>
+    <div className="footer-brand"><Wordmark light /><p className="footer-subheading">{site.tagline}</p><p><Copy id="Footer.f1936991" fallback="A more understandable and inclusive" /><br /><Copy id="Footer.97523157" fallback="financial future for people across India." /></p></div>
     <div><h3><Copy id="Footer.7c8b4495" fallback="Explore Finbharat" /></h3><a href="/mutual-funds/"><Copy id="Footer.9a657712" fallback="Mutual funds" /></a><a href="/fixed-deposits/"><Copy id="Footer.ebf6c6b4" fallback="Fixed deposits" /></a><a href="/inclusion/"><Copy id="Footer.ec4d487f" fallback="Inclusion" /></a><a href="/about/"><Copy id="Footer.89d46513" fallback="About & cofounders" /></a><a href="/case-studies/">Case studies</a><a href="/blog/"><Copy id="Footer.0b9d2b23" fallback="Blog" /></a><a href="/media/"><Copy id="Footer.0c77aeec" fallback="Media" /></a><a href="/#download"><Copy id="Footer.c9e9e7b0" fallback="App downloads" /></a></div>
     <div><h3><Copy id="Footer.23fc4dcc" fallback="Plan with clarity" /></h3><a href="/calculators/fd/"><Copy id="Footer.174ee318" fallback="FD calculator" /></a><a href="/calculators/sip/"><Copy id="Footer.016210da" fallback="Mutual fund / SIP calculator" /></a><a href="/calculators/goal/"><Copy id="Footer.9bac8bc0" fallback="Goal-based calculator" /></a></div>
     <div><h3><Copy id="Footer.925338de" fallback="Stay connected" /></h3><a href="/contact/"><Copy id="Footer.b37456c4" fallback="Contact" /></a><a href="/privacy/"><Copy id="Footer.cf01481f" fallback="Privacy" /></a><a href="/terms/"><Copy id="Footer.a55a275a" fallback="Terms" /></a><a href="/about/#founders"><Copy id="Footer.5583392e" fallback="Cofounders on LinkedIn" /></a></div>
@@ -155,7 +155,7 @@ function Home() {
     document.fonts.ready.then(contextSafe(() => { if (mounted) ScrollTrigger.refresh(); }));
     return () => { mounted = false; media.revert(); };
   }, { scope: ref });
-  return <MotionPage><div ref={ref}><Hero /><ProductGateways /><div className="clarity-chapter"><Manifesto /><WhatWeDo /></div><Mission /><PrinciplesRibbon /><div className="inclusion-chapter"><MottoBand compact /><Enables /></div><Calculators /><AISection /><CaseStudiesSection /><Gallery /><Founders /><Downloads /><FAQ /></div></MotionPage>;
+  return <MotionPage><div ref={ref}><Hero /><ProductGateways /><CaseStudiesSection /><div className="clarity-chapter"><Manifesto /><WhatWeDo /></div><Mission /><PrinciplesRibbon /><div className="inclusion-chapter"><MottoBand compact /><Enables /></div><Calculators /><AISection /><Gallery /><Founders /><Downloads /><FAQ /></div></MotionPage>;
 }
 
 function AppView({ path }) {

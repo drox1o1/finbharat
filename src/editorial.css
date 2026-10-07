@@ -4,7 +4,8 @@
 .wordmark .logo-reversed { display: none; }
 .wordmark.light .logo-brand, .header-cinematic:not(.is-scrolled) .logo-brand { display: none; }
 .wordmark.light .logo-reversed, .header-cinematic:not(.is-scrolled) .logo-reversed { display: block; }
-.wordmark.footer-logo img { width: 287.29px; height: 64px; }
+.wordmark.footer-logo img { width: 225.476px; height: 40px; }
+.footer-brand .footer-subheading { margin: 14px 0 0; max-width: 280px; font-size: 15px; line-height: 1.6; color: var(--surface); }
 .discover-nav { position: relative; }
 .discover-nav > summary { display: flex; align-items: center; gap: 7px; padding-block: 15px; cursor: pointer; list-style: none; }
 .discover-nav > summary::-webkit-details-marker { display: none; }

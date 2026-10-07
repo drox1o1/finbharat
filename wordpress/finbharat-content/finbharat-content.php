@@ -29,7 +29,7 @@ final class Finbharat_Content {
             'menu_icon' => 'dashicons-megaphone', 'capability_type' => 'post', 'map_meta_cap' => true,
         ]);
         register_post_type('finbharat_case', [
-            'labels' => ['name' => 'Case studies', 'singular_name' => 'Illustrative case study', 'add_new_item' => 'Add illustrative case study'],
+            'labels' => ['name' => 'Case studies', 'singular_name' => 'Case study', 'add_new_item' => 'Add case study'],
             'public' => false, 'show_ui' => true, 'show_in_rest' => true,
             'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'revisions', 'custom-fields'],
             'menu_icon' => 'dashicons-id-alt', 'capability_type' => 'post', 'map_meta_cap' => true,

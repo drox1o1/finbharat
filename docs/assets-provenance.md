@@ -7,8 +7,8 @@ Source: [Finbharat logo page, node 1436:2](https://www.figma.com/design/0Hqnaaar
 | Asset | Component | Original size | Use |
 | --- | --- | --- | --- |
 | `public/brand/logo-brand.svg` | 1437:2, horizontal Brand | 225.476 × 40 | Ivory header |
-| `public/brand/logo-reversed.svg` | 1437:37, horizontal Reversed | 225.476 × 40 | Cinematic header |
-| `public/brand/logo-footer.svg` | 1437:181, horizontal + tagline Reversed | 287.29 × 64 | Dark footer |
+| `public/brand/logo-reversed.svg` | 1437:37, horizontal Reversed | 225.476 × 40 | Cinematic header and dark footer |
+| `public/brand/logo-footer.svg` | 1437:181, horizontal + tagline Reversed | 287.29 × 64 | Original variant retained; footer uses the reversed wordmark and an editable HTML tagline |
 | `public/brand/favicon-symbol.svg` | Symbol from 1438:37 | Original exported paths | Favicon |
 
 `public/favicon.svg` places the original symbol on the Figma strong teal background, with its original corner radius. Header/mobile sizes preserve aspect ratios. Brand colour variants are the Figma exports; Noto Sans and existing palette remain the website typography and UI system.
