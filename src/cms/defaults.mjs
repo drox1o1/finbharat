@@ -1,3 +1,4 @@
+import { defaultPressCoverage } from './press-coverage.mjs';
 import { defaultCaseStudies } from './case-studies.mjs';
 import { faqs, pillars } from '../content.mjs';
 import { founders, productContent } from '../page-content.mjs';
@@ -32,7 +33,7 @@ export const defaultContent = {
     legalName: 'Finbharat Technology Private Limited', arn: '366696',
     contact: { email: '', phone: '', address: '', linkedin: '', instagram: '' },
     apps: { android: '', ios: '' },
-    intro: { title: 'A more natural conversation about wealth', video: '', poster: '', captions: '', transcript: '', approved: false },
+    intro: { title: 'A more natural conversation about wealth', eyebrow: 'Meet Finbharat', description: 'Every plan starts with a question. Get to know the thinking behind Finbharat, and the people we’re building it for.', placeholderLabel: 'Our introduction is coming soon', posterAlt: 'An imagined everyday conversation: a woman holding a phone beside a man at a table', video: '', poster: '/video/intro-conversation-thumbnail.webp', captions: '', transcript: '', approved: false },
     assets: { heroPoster: '/video/hero-poster-1s.jpg', heroVideo: '/video/hero-scroll-from-1s.mp4', footerImage: '/art/pathways.webp', footerAlt: 'An illustrated winding path through teal hills toward a shared horizon' },
     founders: founders.map((item, index) => ({ ...item, portrait: index === 0 ? '/founders/d-ramanathan.png' : '/founders/rakesh-k.png' })),
     copy: {},
@@ -77,5 +78,5 @@ export const defaultContent = {
     { audience: 'A homemaker', title: 'For the family. And for yourself.', body: 'A homemaker may want a clearer view of family savings alongside personal ambitions. Explore an education goal, understand the assumptions, and make room for decisions that remain your own.', cue: 'Understanding belongs to every decision-maker.', image: '/people/homemaker.webp', alt: 'A woman using a notebook and laptop at home', credit: 'Artem Podrez', source: 'https://www.pexels.com/photo/indian-female-student-near-laptop-and-notebook-at-table-6392977/', href: '/calculators/goal/', action: 'Plan an education goal' },
     { audience: 'A gig worker', title: 'Different months. A direction of your own.', body: 'A gig worker or freelancer may have income that changes from month to month. Try different contribution amounts to explore a plan that considers everyday needs and longer-term goals.', cue: 'Start with what fits your circumstances.', image: '/people/gig-worker.webp', alt: 'A man working on a laptop at home', credit: 'Ketut Subiyanto', source: 'https://www.pexels.com/photo/unrecognizable-indian-man-using-laptop-while-working-at-home-4307853/', href: '/calculators/sip/', action: 'Explore regular contributions' },
   ],
-  blog: [], media: [], caseStudies: defaultCaseStudies,
+  blog: [], media: defaultPressCoverage, caseStudies: defaultCaseStudies,
 };

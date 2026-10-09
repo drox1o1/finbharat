@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Finbharat Content
  * Description: Fixed editorial templates and published content for the Finbharat React website.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Requires at least: 6.4
  * Requires PHP: 8.1
  */
@@ -82,14 +82,30 @@ final class Finbharat_Content {
             }
             update_option('fb_cases_imported', true, false);
         }
-        update_option('fb_content_version', '1.2.0', false);
+        if (!get_option('fb_press_imported', false)) {
+            foreach ($seed['media'] ?? [] as $entry) {
+                $existing = get_posts(['post_type' => 'finbharat_media', 'post_status' => 'any', 'name' => $entry['slug'], 'numberposts' => 1]);
+                if ($existing) { continue; }
+                $date = get_date_from_gmt(gmdate('Y-m-d H:i:s', strtotime($entry['date'])));
+                $id = wp_insert_post(['post_type' => 'finbharat_media', 'post_title' => $entry['title'], 'post_name' => $entry['slug'], 'post_excerpt' => $entry['excerpt'], 'post_content' => $entry['html'], 'post_status' => 'publish', 'post_date' => $date, 'post_date_gmt' => gmdate('Y-m-d H:i:s', strtotime($entry['date']))]);
+                if (is_wp_error($id) || !$id) { continue; }
+                update_post_meta($id, '_fb_fields', array_intersect_key($entry, self::media_schema()));
+                update_post_meta($id, '_fb_seo', $entry['seo']);
+            }
+            update_option('fb_press_imported', true, false);
+        }
+        update_option('fb_site', self::merge($seed['site'], get_option('fb_site', [])), false);
+        update_option('fb_content_version', '1.3.0', false);
         flush_rewrite_rules();
     }
     public static function upgrade(): void {
-        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.2.0') { self::activate(); }
+        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.3.0') { self::activate(); }
     }
     public static function case_schema(): array {
         return json_decode(file_get_contents(__DIR__ . '/case-field-schema.json'), true, 512, JSON_THROW_ON_ERROR);
+    }
+    public static function media_schema(): array {
+        return ['mediaType' => 'announcement', 'source' => '', 'sourceLabel' => '', 'image' => '', 'imageAlt' => '', 'imageCredit' => '', 'video' => '', 'captions' => '', 'transcript' => ''];
     }
     public static function valid_hook(string $hook): bool {
         return (bool)preg_match('#^https://api\.vercel\.com/v1/integrations/deploy/[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+(?:\?buildCache=(?:true|false))?$#', $hook)
@@ -125,7 +141,7 @@ final class Finbharat_Content {
     private static function label(string $key): string {
         static $labels;
         $labels ??= json_decode(file_get_contents(__DIR__ . '/copy-labels.json'), true);
-        $case_labels = ['fd' => 'Fixed deposit example', 'sip' => 'Mutual fund / SIP example', 'listingOrder' => 'Listing order (lower appears first)', 'personName' => 'Persona name', 'principal' => 'Deposit amount (INR)', 'monthly' => 'Monthly contribution (INR)', 'rate' => 'Annual rate / return assumption (%)', 'years' => 'Time horizon (years)', 'initial' => 'Initial investment (INR)', 'frequency' => 'Compounding frequency'];
+        $case_labels = ['fd' => 'Fixed deposit example', 'sip' => 'Mutual fund / SIP example', 'listingOrder' => 'Listing order (lower appears first)', 'personName' => 'Persona name', 'sourceLabel' => 'Publication name', 'imageCredit' => 'Image attribution', 'image' => 'Fallback image URL (featured image takes priority)', 'posterAlt' => 'Thumbnail description', 'placeholderLabel' => 'Video placeholder label', 'principal' => 'Deposit amount (INR)', 'monthly' => 'Monthly contribution (INR)', 'rate' => 'Annual rate / return assumption (%)', 'years' => 'Time horizon (years)', 'initial' => 'Initial investment (INR)', 'frequency' => 'Compounding frequency'];
         return $case_labels[$key] ?? $labels[$key] ?? ucwords(str_replace(['_', '-'], ' ', preg_replace('/([a-z])([A-Z])/', '$1 $2', $key)));
     }
     public static function fields(array $value, string $prefix, array $schema, string $parent = ''): void {
@@ -149,7 +165,7 @@ final class Finbharat_Content {
                 echo '</details>';
             } elseif (is_bool($default)) {
                 echo '<p><label><input type="hidden" name="' . esc_attr($name) . '" value="0"><input type="checkbox" name="' . esc_attr($name) . '" value="1" ' . checked((bool)$item, true, false) . '> ' . esc_html($label) . '</label></p>';
-                if ($key === 'approved') { echo '<p class="description">Check only after client approval. Intro videos also require captions and a transcript.</p>'; }
+                if ($key === 'approved') { echo '<p class="description">Check only after client approval. Intro videos need a transcript; enable YouTube captions or supply captions for a direct video file.</p>'; }
             } else {
                 $field_label = $parent === 'faq' ? ((string)$key === '0' ? 'Question' : 'Answer') : $label;
                 echo '<div class="fb-field"><label for="' . esc_attr($id) . '">' . esc_html($field_label) . '</label>';
@@ -190,6 +206,7 @@ final class Finbharat_Content {
         echo '<div class="wrap fb-editor"><h1>Finbharat editorial settings</h1><p>Update shared content, founder profiles, approved links and illustrative scenarios. Layout and calculators stay in the website code.</p><p>Changes appear after a successful website rebuild. Configure the publishing hook before client handover.</p><form method="post" action="' . esc_url(admin_url('admin-post.php')) . '"><input type="hidden" name="action" value="fb_settings">';
         wp_nonce_field('fb_settings');
         self::fields(['site' => get_option('fb_site'), 'scenarios' => get_option('fb_scenarios')], 'fb', ['site' => $seed['site'], 'scenarios' => $seed['scenarios']]);
+        echo '<p>Intro video: use an approved HTTPS YouTube watch link or youtu.be link, including unlisted videos. Add the transcript and enable captions in YouTube Studio before marking Approved. Direct video files also need a WebVTT captions URL. Without an approved video, the homepage shows the thumbnail and coming-soon label.</p>';
         submit_button('Save and publish shared content');
         echo '</form></div>';
     }
@@ -248,8 +265,8 @@ final class Finbharat_Content {
             echo '<p><label for="fb-media-type">Entry type</label> <select id="fb-media-type" name="fb[fields][mediaType]">';
             foreach (['announcement' => 'Company announcement', 'press' => 'Press coverage', 'video' => 'Video'] as $value => $label) { echo '<option value="' . esc_attr($value) . '" ' . selected($fields['mediaType'] ?? 'announcement', $value, false) . '>' . esc_html($label) . '</option>'; }
             echo '</select></p>';
-            self::fields($fields, 'fb[fields]', ['source' => '', 'video' => '', 'captions' => '', 'transcript' => '']);
-            echo '<p>Use the original publication URL for press coverage. Videos with speech need captions and a transcript. Upload only assets you have permission to use.</p>';
+            self::fields($fields, 'fb[fields]', array_diff_key(self::media_schema(), ['mediaType' => true]));
+            echo '<p>Use the original publication URL and publication name for press coverage. Set a featured image or the fallback image URL. Videos with speech need captions and a transcript. Upload only assets you have permission to use.</p>';
         }
         self::fields(get_post_meta($post->ID, '_fb_seo', true) ?: [], 'fb[seo]', ['title' => '', 'description' => '']);
         echo '</div>';
@@ -265,7 +282,7 @@ final class Finbharat_Content {
         } elseif (get_post_type($id) === 'finbharat_case') {
             update_post_meta($id, '_fb_fields', self::merge(self::case_schema(), $data['fields'] ?? []));
         } elseif (get_post_type($id) === 'finbharat_media') {
-            $fields = self::merge(['source' => '', 'video' => '', 'captions' => '', 'transcript' => ''], $data['fields'] ?? []);
+            $fields = self::merge(self::media_schema(), $data['fields'] ?? []);
             $fields['mediaType'] = in_array($data['fields']['mediaType'] ?? '', ['announcement', 'press', 'video'], true) ? $data['fields']['mediaType'] : 'announcement';
             update_post_meta($id, '_fb_fields', $fields);
         }
@@ -307,8 +324,8 @@ final class Finbharat_Content {
     public static function assets(string $hook): void {
         if (!in_array($hook, ['post.php', 'post-new.php', 'toplevel_page_finbharat'], true)) { return; }
         wp_enqueue_media();
-        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.2.0');
-        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.2.0', true);
+        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.3.0');
+        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.3.0', true);
     }
 }
 register_activation_hook(__FILE__, [Finbharat_Content::class, 'activate']);

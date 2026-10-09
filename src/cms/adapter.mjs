@@ -2,6 +2,7 @@ import sanitizeHtml from 'sanitize-html';
 import { decodeHTML } from 'entities';
 import { caseFieldDefaults } from './case-studies.mjs';
 import { defaultContent } from './defaults.mjs';
+import { introVideoReady } from '../intro-video.mjs';
 
 export function safeURL(value, { local = true } = {}) {
   if (typeof value !== 'string' || !value) return '';
@@ -68,9 +69,9 @@ export function normalizeArticle(post, kind, cmsOrigin = '') {
     path: `/${kind}/${post.slug}/`,
     excerpt: plainText(post.excerpt?.rendered), html: articleHTML(post.content?.rendered),
     date: post.date_gmt ? `${post.date_gmt}Z` : post.date, modified: post.modified_gmt ? `${post.modified_gmt}Z` : post.modified,
-    image: featuredImageURL(image?.source_url, cmsOrigin), imageAlt: plainText(image?.alt_text), categories,
-    author: plainText(post._embedded?.author?.[0]?.name || ''),
-    source: safeURL(fields.source, { local: false }),
+    image: featuredImageURL(image?.source_url, cmsOrigin) || safeURL(fields.image), imageAlt: plainText(image?.alt_text || fields.imageAlt), imageCredit: plainText(fields.imageCredit), categories,
+    author: kind === 'media' && fields.mediaType === 'press' ? '' : plainText(post._embedded?.author?.[0]?.name || ''),
+    source: safeURL(fields.source, { local: false }), sourceLabel: plainText(fields.sourceLabel),
     mediaType: ['announcement', 'press', 'video'].includes(fields.mediaType) ? fields.mediaType : 'announcement',
     video: safeURL(fields.video), captions: safeURL(fields.captions), transcript: plainText(fields.transcript),
     seo: { title: plainText(fields.seoTitle) || `${title} | Finbharat`, description: plainText(fields.seoDescription) || plainText(post.excerpt?.rendered) || title },
@@ -118,6 +119,7 @@ export async function fetchContent(cmsURL, fetcher = fetch) {
   if (config.schemaVersion !== 1 || !config.site || !config.pages) throw new Error('Unsupported or incomplete Finbharat CMS schema.');
   const content = structuredClone(defaultContent);
   content.site = mergeFields(content.site, config.site);
+  content.site.intro.poster = featuredImageURL(config.site.intro?.poster, origin.href) || content.site.intro.poster;
   content.scenarios = mergeFields(content.scenarios, config.scenarios);
   for (const [path, page] of Object.entries(content.pages)) {
     const remote = config.pages[path];
@@ -152,5 +154,5 @@ export function assertLaunchReady(content, siteURL) {
   if (origin.protocol !== 'https:' || /(^|\.)example$/.test(origin.hostname) || origin.hostname === 'localhost') throw new Error('A confirmed HTTPS production SITE_URL is required.');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(content.site.contact.email) || !/^\+?[\d ()-]{7,25}$/.test(content.site.contact.phone)) throw new Error('Approved public email and phone are required before launch.');
   for (const path of ['/terms/', '/privacy/', '/contact/']) if (!content.pages[path]?.approved || !content.pages[path].fields.body.trim()) throw new Error(`Client approval is required before launch: ${path}`);
-  if (content.site.intro.approved && content.site.intro.video && (!content.site.intro.captions || !content.site.intro.transcript)) throw new Error('Approved intro video requires captions and transcript.');
+  if (content.site.intro.approved && content.site.intro.video && !introVideoReady(content.site.intro)) throw new Error('Approved intro video requires captions and transcript.');
 }

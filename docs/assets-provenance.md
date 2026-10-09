@@ -55,3 +55,18 @@ Generated with the built-in OpenAI image-generation tool on 2 October 2026. Inve
 | `public/editorial/fixed-deposit-calendar.webp` | Give your fixed deposits a calendar. | Photorealistic natural editorial scene: invented Indian woman in her forties in an ivory-and-teal cotton sari arranging three envelopes beside a blank planner and house keys at a Chennai dining table. Central crop-safe 3:2 framing; natural skin and soft daylight; no readable text, numbers, logos, badges, cash or financial outcome. | `exec-cfff2f7e-e7a8-4514-9963-b4a02e78ca50.png` |
 
 Original PNGs remain in the task’s generated-images directory. Website assets are 1400px WebP, quality 85. Both are imported as real WordPress Media Library attachments and assigned as featured images, so the client can replace them through the dashboard.
+
+## Supplied press coverage images — 9 October 2026
+
+The owner supplied the two publication URLs and requested their media coverage with images. Photographs were retrieved from those articles, converted to WebP without retouching, and used only on linked coverage cards and their summary pages. Publisher attribution is shown; no stock licence or broader reuse permission is asserted. The local WordPress Media Library includes both photographs as featured images.
+
+| Asset | Article image source | Attribution |
+| --- | --- | --- |
+| `public/press/businessline-d-ramanathan.webp` | [Original article image](https://bl-i.thgim.com/public/incoming/rcqnit/article71477364.ece/alternates/LANDSCAPE_1200/D%20Ramanathan%20Co-founder%20FinBharat%201.jpg) | The Hindu Businessline; D. Ramanathan portrait |
+| `public/press/smestreet-founders.webp` | [Original article image](https://img-cdn.publive.online/fit-in/1200x675/smstreet/media/media_files/2026/09/30/d-ramanathan-l-and-rakesh-kumar-r-co-founders-finbharat-2026-09-30-10-32-19.jpg) | SMEStreet; D. Ramanathan and Rakesh Kumar |
+
+## Generated introduction thumbnail — 9 October 2026
+
+Created with the built-in OpenAI image-generation tool at the owner’s request. Final asset: `public/video/intro-conversation-thumbnail.webp`, 1600px wide, quality 87. Original: `exec-b6503ab9-4b1e-45f4-94f0-41327d382abb.png` in the task’s generated-images directory. The image depicts imagined people, not customers or founders, and is not a product demonstration or a testimonial. It is also imported into the local WordPress Media Library.
+
+Prompt: Original wide 16:9 premium editorial photograph in a contemporary Indian home. An invented Indian woman in her early forties in an ivory-and-teal cotton sari holds a smartphone as if asking a voice question, beside an invented Indian man in his early thirties in a muted teal shirt. Warm wooden table, plain notebook, cup of tea, soft window daylight, believable hands and natural skin texture. Centre-right subjects within a crop-safe area; calm space to the left. Warm ivory, deep teal and subtle mint. No text, logos, badges, play symbols, readable app UI, charts, financial numbers or prosperity claims.

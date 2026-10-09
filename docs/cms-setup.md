@@ -54,7 +54,7 @@ Use **Newsroom → Add New**. Choose Company announcement, Press coverage or Vid
 
 ### Intro video
 
-In shared settings → Intro, add the approved demonstration video, optional poster, English WebVTT captions, transcript and accurate title. Mark Approved only after review. The trigger remains absent unless all required fields are present. The dialog supports keyboard controls, Close, Escape and focus return; it does not autoplay. The supplied landscape background clip is not an approved introduction. “A more natural conversation about wealth” remains provisional. “India’s first” requires substantiation before publication.
+In WordPress → Finbharat → Site → Intro, set the video URL, poster, thumbnail description, title and transcript. HTTPS `youtube.com/watch?v=…` and `youtu.be/…` links are supported, including unlisted videos. Enable captions in YouTube Studio and review them before marking Approved. A direct video file requires an English WebVTT captions URL as well as its transcript. The second homepage section shows the supplied thumbnail and a coming-soon label until a complete approved video is ready. Once ready, the thumbnail becomes a click-to-watch button. YouTube uses a privacy-enhanced embed that is created only after the click and removed on close. Native files use playback controls without autoplay. Close, Escape and focus return are supported. The supplied landscape background clip is not an introduction. “A more natural conversation about wealth” remains provisional; “India’s first” requires substantiation.
 
 ### Legal and Contact
 
@@ -129,3 +129,7 @@ docker compose -p finbharat-cms -f wordpress/compose.yml run --rm -v "$PWD/conte
 ```
 
 The importer refuses other hosts and preserves existing posts rather than overwriting client edits. It does not run on plugin activation or during a production build. Hosted WordPress needs separately approved articles and Media Library uploads; local HTTP media URLs must not be used for a live deployment. The content adapter accepts HTTP featured images only for a configured loopback CMS at the same port; hosted CMS media continues to require HTTPS.
+
+## Supplied media coverage — 9 October 2026
+
+Plugin version 1.3.0 imports the supplied Businessline and SMEStreet coverage once, preserving any existing entry with the same slug. Find these under WordPress → Newsroom. Edit the title, excerpt, publication name, original source URL, featured image, image attribution and SEO fields. Published press cards open their original source in a new tab; each entry also has a direct website summary route. Draft and unpublished entries are excluded from future builds. A featured image takes priority over the bundled fallback image URL. Imported coverage is a short summary and attribution, rather than a republished article.

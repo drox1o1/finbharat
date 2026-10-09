@@ -35,8 +35,12 @@
     },
     "intro": {
       "title": "A more natural conversation about wealth",
+      "eyebrow": "Meet Finbharat",
+      "description": "Every plan starts with a question. Get to know the thinking behind Finbharat, and the people we’re building it for.",
+      "placeholderLabel": "Our introduction is coming soon",
+      "posterAlt": "An imagined everyday conversation: a woman holding a phone beside a man at a table",
       "video": "",
-      "poster": "",
+      "poster": "/video/intro-conversation-thumbnail.webp",
       "captions": "",
       "transcript": "",
       "approved": false
@@ -832,7 +836,58 @@
     }
   ],
   "blog": [],
-  "media": [],
+  "media": [
+    {
+      "id": "smestreet-next-100-million-indians",
+      "slug": "smestreet-next-100-million-indians",
+      "path": "/media/smestreet-next-100-million-indians/",
+      "title": "FinBharat to Democratize Wealth Creation for the Next 100 Million Indians",
+      "excerpt": "SMEStreet explores Finbharat’s ambition to help first-time investors take part in wealth creation through clearer financial education and accessible investment journeys.",
+      "date": "2026-09-30T05:35:37Z",
+      "modified": "2026-09-30T05:35:37Z",
+      "sourceLabel": "SMEStreet",
+      "source": "https://smestreet.in/infocus/finbharat-to-democratize-wealth-creation-for-the-next-100-million-indians-12592501",
+      "image": "/press/smestreet-founders.webp",
+      "imageAlt": "D. Ramanathan and Rakesh Kumar, Finbharat cofounders, pictured in SMEStreet’s coverage",
+      "imageCredit": "Image from the original SMEStreet coverage.",
+      "html": "<p>SMEStreet looks at Finbharat’s ambition to bring more first-time investors into formal wealth creation. The coverage discusses financial education, different income levels and the needs of people who have been underserved by investment platforms.</p><p>Read the original report for the publication’s full account and the founders’ comments.</p>",
+      "author": "",
+      "categories": [],
+      "mediaType": "press",
+      "video": "",
+      "captions": "",
+      "transcript": "",
+      "seo": {
+        "title": "SMEStreet: FinBharat to Democratize Wealth Creation for the Next 100 Million Indians | Finbharat",
+        "description": "SMEStreet explores Finbharat’s ambition to help first-time investors take part in wealth creation through clearer financial education and accessible investment journeys."
+      }
+    },
+    {
+      "id": "businessline-investment-platform-for-bharat",
+      "slug": "businessline-investment-platform-for-bharat",
+      "path": "/media/businessline-investment-platform-for-bharat/",
+      "title": "Finance professionals unite to launch new investment platform for ‘Bharat’",
+      "excerpt": "Businessline speaks with the founders about Finbharat’s planned platform for first-time investors, and the role of familiar languages and voice-led support.",
+      "date": "2026-09-17T15:46:55Z",
+      "modified": "2026-09-17T15:46:55Z",
+      "sourceLabel": "The Hindu Businessline",
+      "source": "https://www.thehindubusinessline.com/money-and-banking/finance-professionals-unite-to-launch-new-investment-platform-for-bharat/article71477076.ece",
+      "image": "/press/businessline-d-ramanathan.webp",
+      "imageAlt": "D. Ramanathan, Finbharat cofounder, managing director and CEO, pictured in Businessline’s coverage",
+      "imageCredit": "Image from the original The Hindu Businessline coverage.",
+      "html": "<p>Businessline reports on the founders’ plans for an investment platform designed around first-time investors. The interview covers accessible investment journeys, local-language communication and a proposed voice-based assistant.</p><p>The article describes plans as reported at the time of publication. Read the original interview for the complete context.</p>",
+      "author": "",
+      "categories": [],
+      "mediaType": "press",
+      "video": "",
+      "captions": "",
+      "transcript": "",
+      "seo": {
+        "title": "The Hindu Businessline: Finance professionals unite to launch new investment platform for ‘Bharat’ | Finbharat",
+        "description": "Businessline speaks with the founders about Finbharat’s planned platform for first-time investors, and the role of familiar languages and voice-led support."
+      }
+    }
+  ],
   "caseStudies": [
     {
       "id": "srijan-financial-independence",

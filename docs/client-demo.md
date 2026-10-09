@@ -57,3 +57,9 @@ The hosted flow is: client saves published content → WordPress requests a Verc
 Vercel hosts the React frontend; WordPress runs on its own PHP-capable host. GitHub contains the website code, plugin, bundled images and sample source files. WordPress's database and uploaded media are separate and need their own migration/backups. The local login details and localhost media URLs must not be reused for a hosted site.
 
 See [CMS setup and handover](cms-setup.md) for account setup, publishing configuration and production approval requirements. Hosted WordPress and a live Vercel CMS connection are not yet provisioned or verified by this project.
+
+## Video and media walkthrough
+
+On the homepage, show the introduction thumbnail in the second main section, followed by case studies. The placeholder intentionally has no active play control. In WordPress → Finbharat → Site → Intro, show the editable YouTube URL, poster, transcript and Approved fields. An unlisted YouTube video can be enabled after its captions are ready; saving and rebuilding turns the thumbnail into the watch button.
+
+Open the website Media page to show Businessline and SMEStreet coverage. Cards have original publication dates, photographs, attribution and direct links to the publisher. In WordPress → Newsroom, open either entry to demonstrate editing the excerpt, original source, publication name and featured image.

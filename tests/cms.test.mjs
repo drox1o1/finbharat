@@ -99,3 +99,25 @@ test('failed prepare does not overwrite the last content snapshot or static depl
     assert.equal(await readFile(join(directory, 'dist/index.html'), 'utf8'), html);
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
+
+test('press coverage retains publisher attribution and safe fallback images without treating it as original reporting', () => {
+  const item = normalizeArticle({ ...post('coverage'), finbharat: { mediaType: 'press', source: 'https://publisher.example.test/coverage', sourceLabel: '<strong>Publication</strong>', image: '/press/coverage.webp', imageAlt: 'Founders', imageCredit: 'Image from original coverage.' } }, 'media');
+  assert.equal(item.sourceLabel, 'Publication');
+  assert.equal(item.source, 'https://publisher.example.test/coverage');
+  assert.equal(item.image, '/press/coverage.webp');
+  assert.equal(item.imageCredit, 'Image from original coverage.');
+  assert.equal(item.author, '', 'CMS uploader must not be attributed as the publication’s reporter');
+  const unsafe = normalizeArticle({ ...post('unsafe-coverage'), finbharat: { image: 'javascript:alert(1)', source: 'javascript:alert(1)' } }, 'media');
+  assert.equal(unsafe.image, '');
+  assert.equal(unsafe.source, '');
+});
+
+test('local CMS thumbnail uploads render while remote HTTP thumbnail URLs remain excluded', async () => {
+  const setup = config();
+  const fetcher = async url => url.endsWith('/finbharat/v1/site') ? Response.json(setup) : Response.json([]);
+  setup.site.intro.poster = 'http://localhost:8088/wp-content/uploads/thumbnail.webp';
+  assert.equal((await fetchContent('http://127.0.0.1:8088', fetcher)).site.intro.poster, setup.site.intro.poster);
+  assert.equal((await fetchContent('https://cms.example.test', fetcher)).site.intro.poster, '');
+  setup.site.intro.poster = 'http://remote.example.test/thumbnail.webp';
+  assert.equal((await fetchContent('http://127.0.0.1:8088', fetcher)).site.intro.poster, '');
+});

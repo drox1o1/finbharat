@@ -8,7 +8,7 @@ import { Card } from './BrandCard';
 import { Calculator, calculatorInfo } from './Calculator';
 import { defaultContent } from './cms/defaults.mjs';
 import { ContentProvider, Copy, useContent, usePageContent } from './cms/Content';
-import { ArticlePage, EditorialIndex, InformationPage, IntroVideo, Mission } from './Editorial';
+import { ArticlePage, EditorialIndex, InformationPage, IntroVideoSection, Mission } from './Editorial';
 import { AboutPage, FounderProfiles, InclusionPage, MottoBand, ProductGateways, ProductPage } from './Pages';
 import { MotionPage } from './MotionPage';
 import { MotionDetails, PrinciplesRibbon } from './Interactive';
@@ -64,7 +64,7 @@ function Hero() {
         <BharatWord title={page.heroTitle} prefix={page.heroPrefix} />
         <p className="cinematic-description hero-enter"><Copy id="Hero.cbd35340" fallback="A clearer path to your financial future." /><br /><Copy id="Hero.3f7c2d11" fallback=" Thoughtful tools. Human understanding. Your own way forward." /></p>
         <div className="hero-actions hero-enter"><a className="button button-ivory" href="#explore"><Copy id="Hero.7c8b4495" fallback="Explore Finbharat " /><ArrowUpRight size={18} aria-hidden="true" /></a><a className="button button-glass" href="#calculators"><Copy id="Hero.72e90079" fallback="Try a calculator " /><ArrowRight size={18} aria-hidden="true" /></a></div>
-      <IntroVideo /></div>
+      </div>
       <div className="cinematic-bottom container hero-enter"><p><Copy id="Hero.0c50875a" fallback="Different paths." /><br /><span><Copy id="Hero.712f7394" fallback="Shared possibilities." /></span></p><a href="#explore" className="cinematic-scroll"><span><Copy id="Hero.f0f4470e" fallback="Scroll to explore" /></span><span className="scroll-circle"><ChevronDown size={18} aria-hidden="true" /></span></a><p><Copy id="Hero.84c67e2d" fallback="Built around real lives." /><br /><span><Copy id="Hero.fce3509c" fallback="At your pace." /></span></p></div>
     </ScrollVideoHero>
     <div className="language-bar container"><p><Copy id="Hero.ef060e24" fallback="Many lives." /><br /><strong><Copy id="Hero.52c406b3" fallback="One more inclusive future." /></strong></p><div className="language-line" aria-label="A future across languages"><span lang="hi"><Copy id="Hero.ff5a57bd" fallback="नमस्ते" /></span><span lang="ta"><Copy id="Hero.31693f7f" fallback="வணக்கம்" /></span><span lang="te"><Copy id="Hero.90bd9686" fallback="నమస్కారం" /></span><span lang="kn"><Copy id="Hero.51f37bf9" fallback="ನಮಸ್ಕಾರ" /></span><span><Copy id="Hero.9b56d519" fallback="Hello." /></span></div></div>
@@ -155,7 +155,7 @@ function Home() {
     document.fonts.ready.then(contextSafe(() => { if (mounted) ScrollTrigger.refresh(); }));
     return () => { mounted = false; media.revert(); };
   }, { scope: ref });
-  return <MotionPage><div ref={ref}><Hero /><ProductGateways /><CaseStudiesSection /><div className="clarity-chapter"><Manifesto /><WhatWeDo /></div><Mission /><PrinciplesRibbon /><div className="inclusion-chapter"><MottoBand compact /><Enables /></div><Calculators /><AISection /><Gallery /><Founders /><Downloads /><FAQ /></div></MotionPage>;
+  return <MotionPage><div ref={ref}><Hero /><IntroVideoSection /><CaseStudiesSection /><ProductGateways /><div className="clarity-chapter"><Manifesto /><WhatWeDo /></div><Mission /><PrinciplesRibbon /><div className="inclusion-chapter"><MottoBand compact /><Enables /></div><Calculators /><AISection /><Gallery /><Founders /><Downloads /><FAQ /></div></MotionPage>;
 }
 
 function AppView({ path }) {
