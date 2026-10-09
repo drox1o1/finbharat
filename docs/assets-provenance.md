@@ -70,3 +70,10 @@ The owner supplied the two publication URLs and requested their media coverage w
 Created with the built-in OpenAI image-generation tool at the owner’s request. Final asset: `public/video/intro-conversation-thumbnail.webp`, 1600px wide, quality 87. Original: `exec-b6503ab9-4b1e-45f4-94f0-41327d382abb.png` in the task’s generated-images directory. The image depicts imagined people, not customers or founders, and is not a product demonstration or a testimonial. It is also imported into the local WordPress Media Library.
 
 Prompt: Original wide 16:9 premium editorial photograph in a contemporary Indian home. An invented Indian woman in her early forties in an ivory-and-teal cotton sari holds a smartphone as if asking a voice question, beside an invented Indian man in his early thirties in a muted teal shirt. Warm wooden table, plain notebook, cup of tea, soft window daylight, believable hands and natural skin texture. Centre-right subjects within a crop-safe area; calm space to the left. Warm ivory, deep teal and subtle mint. No text, logos, badges, play symbols, readable app UI, charts, financial numbers or prosperity claims.
+
+## Publisher logos — 9 October 2026
+
+- Businessline masthead: https://assetsbl.thehindubusinessline.com/theme/images/bl-online/logo.svg — rendered to PNG, preserving the original colours and geometry. Local asset: `public/press/businessline-logo.png`.
+- SMEStreet header logo: https://img-cdn.publive.online/fit-in/580x326/filters:format(webp)/smstreet/media/agency_attachments/3LWGA69AjH55EG7xRGSA.png — converted to PNG. Local asset: `public/press/smestreet-logo.png`.
+- Logos identify the two owner-supplied press features and link directly to those articles. They are labelled “Finbharat in the press”; they do not represent security certification or publisher endorsement. Logos remain the publishers’ trademarks.
+- Trust icons are existing Lucide icons; no invented certification seals or regulator/bank partner logos were added.

@@ -133,3 +133,11 @@ The importer refuses other hosts and preserves existing posts rather than overwr
 ## Supplied media coverage — 9 October 2026
 
 Plugin version 1.3.0 imports the supplied Businessline and SMEStreet coverage once, preserving any existing entry with the same slug. Find these under WordPress → Newsroom. Edit the title, excerpt, publication name, original source URL, featured image, image attribution and SEO fields. Published press cards open their original source in a new tab; each entry also has a direct website summary route. Draft and unpublished entries are excluded from future builds. A featured image takes priority over the bundled fallback image URL. Imported coverage is a short summary and attribution, rather than a republished article.
+
+### Trust and security wording
+
+WordPress → Finbharat → Site → Trust controls homepage trust copy and footer labels. Plugin 1.3.1 adds the fields without overwriting existing content. The supplied ARN continues to use Site → ARN and Legal name.
+
+“Bank-Grade Security” is prepared but unpublished by default. To use it, supply an accurate, client-approved security description and a public HTTPS supporting reference in Source, then enable Bank grade approved. The frontend requires all three before showing the claim. A checkbox and link do not verify a security audit: confirm the scope and wording against actual evidence before approval. Without evidence, the site shows the verifiable browser-based planning explanation.
+
+Publisher logos appear only for published press entries with the matching publication name and source link. Unpublishing an entry removes its corresponding logo on the next rebuild.

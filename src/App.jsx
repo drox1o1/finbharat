@@ -14,6 +14,7 @@ import { MotionPage } from './MotionPage';
 import { MotionDetails, PrinciplesRibbon } from './Interactive';
 import { ScrollVideoHero } from './ScrollVideoHero';
 import { BharatWord } from './BharatWord';
+import { FooterTrust, TrustSection } from './Trust';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -136,7 +137,7 @@ function Footer() {
     <div><h3><Copy id="Footer.7c8b4495" fallback="Explore Finbharat" /></h3><a href="/mutual-funds/"><Copy id="Footer.9a657712" fallback="Mutual funds" /></a><a href="/fixed-deposits/"><Copy id="Footer.ebf6c6b4" fallback="Fixed deposits" /></a><a href="/inclusion/"><Copy id="Footer.ec4d487f" fallback="Inclusion" /></a><a href="/about/"><Copy id="Footer.89d46513" fallback="About & cofounders" /></a><a href="/case-studies/">Case studies</a><a href="/blog/"><Copy id="Footer.0b9d2b23" fallback="Blog" /></a><a href="/media/"><Copy id="Footer.0c77aeec" fallback="Media" /></a><a href="/#download"><Copy id="Footer.c9e9e7b0" fallback="App downloads" /></a></div>
     <div><h3><Copy id="Footer.23fc4dcc" fallback="Plan with clarity" /></h3><a href="/calculators/fd/"><Copy id="Footer.174ee318" fallback="FD calculator" /></a><a href="/calculators/sip/"><Copy id="Footer.016210da" fallback="Mutual fund / SIP calculator" /></a><a href="/calculators/goal/"><Copy id="Footer.9bac8bc0" fallback="Goal-based calculator" /></a></div>
     <div><h3><Copy id="Footer.925338de" fallback="Stay connected" /></h3><a href="/contact/"><Copy id="Footer.b37456c4" fallback="Contact" /></a><a href="/privacy/"><Copy id="Footer.cf01481f" fallback="Privacy" /></a><a href="/terms/"><Copy id="Footer.a55a275a" fallback="Terms" /></a><a href="/about/#founders"><Copy id="Footer.5583392e" fallback="Cofounders on LinkedIn" /></a></div>
-  </div><div className="regulatory-note"><span><Copy id="Footer.73ad74eb" fallback="AMFI ARN " />{site.arn}<Copy id="Footer.1b93795b" fallback=" — " />{site.legalName}</span><span><a href="https://www.sebi.gov.in/" rel="noopener noreferrer"><Copy id="Footer.63f6010d" fallback="SEBI website" /></a><Copy id="Footer.1fdf0d90" fallback=" · " /><a href="/terms/"><Copy id="Footer.0d9f4765" fallback="Website terms and conditions" /></a></span></div><div className="footer-bottom"><span><Copy id="Footer.f8dac957" fallback="© " />{new Date().getFullYear()}<Copy id="Footer.9f760a9a" fallback=" Finbharat. All rights reserved." /></span><span><Copy id="Footer.dfca8a2b" fallback="FinBharat Technology Private Limited" /></span><a href="#main" aria-label="Back to top"><Copy id="Footer.d9c883a9" fallback="Back to top " /><ArrowUpRight size={15} aria-hidden="true" /></a></div></div></footer>;
+  </div><FooterTrust /><div className="regulatory-note"><span><Copy id="Footer.73ad74eb" fallback="AMFI ARN " />{site.arn}<Copy id="Footer.1b93795b" fallback=" — " />{site.legalName}</span><span><a href="https://www.sebi.gov.in/" rel="noopener noreferrer"><Copy id="Footer.63f6010d" fallback="SEBI website" /></a><Copy id="Footer.1fdf0d90" fallback=" · " /><a href="/terms/"><Copy id="Footer.0d9f4765" fallback="Website terms and conditions" /></a></span></div><div className="footer-bottom"><span><Copy id="Footer.f8dac957" fallback="© " />{new Date().getFullYear()}<Copy id="Footer.9f760a9a" fallback=" Finbharat. All rights reserved." /></span><span><Copy id="Footer.dfca8a2b" fallback="FinBharat Technology Private Limited" /></span><a href="#main" aria-label="Back to top"><Copy id="Footer.d9c883a9" fallback="Back to top " /><ArrowUpRight size={15} aria-hidden="true" /></a></div></div></footer>;
 }
 
 function Home() {
@@ -155,7 +156,7 @@ function Home() {
     document.fonts.ready.then(contextSafe(() => { if (mounted) ScrollTrigger.refresh(); }));
     return () => { mounted = false; media.revert(); };
   }, { scope: ref });
-  return <MotionPage><div ref={ref}><Hero /><IntroVideoSection /><CaseStudiesSection /><ProductGateways /><div className="clarity-chapter"><Manifesto /><WhatWeDo /></div><Mission /><PrinciplesRibbon /><div className="inclusion-chapter"><MottoBand compact /><Enables /></div><Calculators /><AISection /><Gallery /><Founders /><Downloads /><FAQ /></div></MotionPage>;
+  return <MotionPage><div ref={ref}><Hero /><IntroVideoSection /><CaseStudiesSection /><ProductGateways /><TrustSection /><div className="clarity-chapter"><Manifesto /><WhatWeDo /></div><Mission /><PrinciplesRibbon /><div className="inclusion-chapter"><MottoBand compact /><Enables /></div><Calculators /><AISection /><Gallery /><Founders /><Downloads /><FAQ /></div></MotionPage>;
 }
 
 function AppView({ path }) {

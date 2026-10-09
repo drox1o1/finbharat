@@ -22,6 +22,22 @@
     "scenariosNote": "Illustrative situations, not customer stories or financial recommendations. Photographs do not imply endorsement by the people depicted.",
     "legalName": "Finbharat Technology Private Limited",
     "arn": "366696",
+    "trust": {
+      "eyebrow": "Confidence, with clarity",
+      "heading": "Your confidence matters.",
+      "introduction": "Know who you’re dealing with. Understand the assumptions. Explore a plan at your own pace.",
+      "privacyTitle": "Private planning",
+      "privacyDescription": "Your calculator inputs are processed in your browser. You can explore estimates without entering a PAN, bank account or phone number.",
+      "registrationDescription": "AMFI distributor registration number.",
+      "clarityTitle": "Clear assumptions",
+      "clarityDescription": "Rates, time horizons and return assumptions stay visible. Estimates help you explore possibilities, with their limitations explained.",
+      "pressHeading": "Finbharat in the press",
+      "pressDescription": "Read the stories behind the headlines.",
+      "securityTitle": "Bank-Grade Security",
+      "securityDescription": "",
+      "source": "",
+      "bankGradeApproved": false
+    },
     "contact": {
       "email": "",
       "phone": "",
