@@ -113,7 +113,7 @@ See [the administrator and editor handover](docs/cms-setup.md) for hosting setup
 
 Srijan (31, tech professional in Hyderabad), Meera (42, homemaker in Chennai) and Arjun (42, auto driver in Bengaluru) are explicitly fictional planning personas with original AI-generated portraits. Their educational stories distinguish savings timelines and investment risk; their FD/SIP examples reuse the public calculator formulas. No customer outcome is claimed. WordPress editors control the narratives, profile, portrait, ordering, SEO and sample assumptions.
 
-Vercel hosts the website; WordPress needs separate hosting. The plugin supports secret Vercel deploy hooks and automatic builds following published changes. `VERCEL_ENV`, `VERCEL_TARGET_ENV` and the explicit `PRODUCTION_LAUNCH=1` production setting enforce approved legal/contact content, CMS and domain requirements. Do not set the explicit flag for Preview. The retained `netlify.toml` and legacy hook support are optional compatibility only; Vercel is the current setup.
+Vercel hosts the website; WordPress needs separate hosting. The plugin supports secret Vercel deploy hooks and automatic builds following published changes. `content/deployment.json` currently selects a prelaunch demo from the versioned `content/demo-content.json`, so Vercel builds without a hosted CMS. Demo deployments are excluded from search indexing. When CMS_URL is configured, or CONTENT_MODE=wordpress is set, builds fetch WordPress and retain production launch checks. Set CONTENT_MODE=wordpress, CMS_URL, SITE_URL and PRODUCTION_LAUNCH=1 for final launch after approvals. CONTENT_MODE=demo cannot be combined with PRODUCTION_LAUNCH=1. The retained `netlify.toml` and legacy hook support are optional compatibility only; Vercel is the current setup.
 
 ```sh
 # Local dashboard: http://localhost:8088/wp-admin/
@@ -127,4 +127,14 @@ A public diagnostic at `/.well-known/finbharat-content.json` reports the deploye
 
 ### Local sample journal
 
-The local WordPress demo contains two editable sample posts: **Seven mutual funds. How many different risks?** and **Give your fixed deposits a calendar.** They use original generated editorial covers and sourced, hypothetical educational examples. Source copies are versioned in `content/sample-blogs/`, and featured images in `public/editorial/`. See `docs/cms-setup.md` for the local-only importer and review workflow. These posts are not automatically imported into a hosted CMS or added to production fallback content.
+The local WordPress demo contains two editable sample posts: **Seven mutual funds. How many different risks?** and **Give your fixed deposits a calendar.** They use original generated editorial covers and sourced, hypothetical educational examples. Source copies are versioned in `content/sample-blogs/`, and featured images in `public/editorial/`. See `docs/cms-setup.md` for the local-only importer and review workflow. These posts are included in the explicitly configured demo snapshot, and are not automatically imported into a hosted CMS. WordPress mode never falls back to the demo after a failed CMS fetch.
+
+### Updating the hosted prelaunch demo
+
+After editing published local WordPress content, export a portable snapshot:
+
+```sh
+CMS_URL=http://127.0.0.1:8088 npm run cms:export-demo
+```
+
+Review and commit `content/demo-content.json`, then push to rebuild Vercel. Local upload images must have matching bundled files in `public/`; the export fails if an image is missing or ambiguous. Live WordPress publishing will require separately hosted WordPress and its Vercel deploy hook.

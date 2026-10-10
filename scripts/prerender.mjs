@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { render } from '../.ssr/entry-server.js';
 const content = JSON.parse(await readFile('src/generated/content.json', 'utf8'));
 const { founders } = content.site;
-const configuredOrigin = process.env.SITE_URL;
+const configuredOrigin = process.env.SITE_URL || (content.build.mode === 'demo' && process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
 const origin = configuredOrigin ? new URL(configuredOrigin).origin : 'https://finbharat.example';
 const calculatorPages = {
   '/calculators/fd/': ['FD Calculator | Estimate Fixed Deposit Maturity | Finbharat', 'Estimate fixed deposit maturity and interest with your principal, annual rate, tenure and compounding frequency. Free, private and illustrative.'],
@@ -22,7 +22,7 @@ const hydration = path => {
   return `<script id="finbharat-content" type="application/json">${serialize(data)}</script>`;
 };
 const approved = ['/terms/', '/privacy/', '/contact/'].every(path => content.pages[path].approved);
-const indexing = Boolean(configuredOrigin && approved && isProductionBuild());
+const indexing = Boolean(content.build.mode !== 'demo' && configuredOrigin && approved && isProductionBuild());
 const template = await readFile('dist/index.html', 'utf8');
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 for (const [path, [title, description]] of Object.entries(pages)) {

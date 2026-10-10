@@ -104,3 +104,11 @@ Set `SITE_URL` to the confirmed domain before publishing. Default builds use the
 - Moved Mutual funds / Fixed deposits before case studies. Intro video remains after the hero. Moved the entire trust section, including the press strip, immediately after cofounders.
 - Added “Coming soon on the App Store” and “Coming soon on Google Play” to the disabled store controls. Updated the shared homepage CMS availability message and packaged seed content. Store links remain absent until supplied.
 - Lint and WordPress-backed build passed; 21 static routes generated. CMS revision check passed. Browser verification at 320/390/1440px confirmed the requested section order, disabled coming-soon controls and no horizontal overflow. Desktop and mobile screenshots were visually inspected.
+
+## Vercel prelaunch build repair — 10 October 2026
+
+- Reproduced the cause from the supplied log: production environment detection required CMS_URL before building. Vercel’s production Git branch was being treated as final launch even though hosted WordPress is not configured. Installation warnings were not the terminating error.
+- Added an explicit, versioned demo deployment mode and a portable snapshot of the published local WordPress content. It preserves both blogs, both coverage entries and all three case studies. Local upload images were rewritten to matching bundled assets. Added an export command for future reviewed snapshot updates.
+- WordPress mode retains production CMS/domain/legal/contact checks, rejects loopback CMS origins in production and never falls back after fetch failures. PRODUCTION_LAUNCH=1 cannot use demo content. Demo mode remains noindex regardless of Vercel’s environment name.
+- Lint and 26 Node tests passed. A full build with VERCEL_ENV=production and VERCEL_TARGET_ENV=production, no CMS_URL and no launch flag succeeded with 21 static routes. Verified noindex metadata, robots Disallow and no loopback URLs in the saved snapshot. Four browser routes loaded; article/press photos decoded with no local WordPress requests.
+- Vercel connector inspection and the explicitly scoped CLI fallback denied access to the project account. GitHub status confirmed the previous 5f22b6c deployment failed. No cloud success is asserted by these local results.
