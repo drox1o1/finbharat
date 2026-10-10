@@ -107,7 +107,7 @@ The current website supports a build-time headless WordPress source. Blog, Media
 - With no CMS configured, local development/preview uses the imported editorial defaults and empty Blog/Media states. Production builds require the CMS, approved Contact/Terms/Privacy and a confirmed domain.
 - Published content is sanitized and embedded per route for consistent hydration. Build errors never silently substitute stale or default CMS data. Vercel retains the last successful deployment on failure.
 
-See [the administrator and editor handover](docs/cms-setup.md) for hosting setup, roles, scheduled publishing, hook configuration, rollback and pending launch inputs. See [asset provenance](docs/assets-provenance.md) for exact Figma components and photograph licences. Production hosting accounts, live Editor invitations, legal approval and official contact details remain client-owned setup steps. No live WordPress.com or Vercel deployment is claimed by this repository.
+See [the administrator and editor handover](docs/cms-setup.md) for hosting setup, roles, scheduled publishing, hook configuration, rollback and pending launch inputs. See [asset provenance](docs/assets-provenance.md) for exact Figma components and photograph licences. Permanent production CMS hosting, legal approval and official contact details remain client-owned setup steps. A [free hosted WordPress Studio client demo](docs/free-cms-demo.md) was verified on 10 October 2026; it is temporary and is not yet connected to Vercel publishing.
 
 ## Case studies and Vercel CMS checks
 

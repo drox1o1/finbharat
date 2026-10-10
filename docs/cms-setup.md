@@ -6,7 +6,7 @@ The frontend remains a static React website. The versioned Finbharat Content plu
 
 The default preview has no invented blog posts or press coverage. Intro playback is hidden until an approved video, captions and transcript are provided. Contact and legal pages are explicitly awaiting client approval. The mission is presented as an ambition. ARN 366696 is owner-supplied and labelled an AMFI distributor identifier, separately from the SEBI website link.
 
-**Live WordPress has not been provisioned. The existing client-owned Vercel project has not been connected to a live CMS or verified by this task.** The implementation has been tested against a disposable local WordPress installation. The client owns the production accounts and subscriptions.
+**A [free hosted Studio CMS preview](free-cms-demo.md) was verified on 10 October 2026. It is temporary; permanent WordPress hosting and the Vercel CMS publishing connection remain pending.** Vercel currently serves the committed demo snapshot. The client owns the production accounts and subscriptions.
 
 ## Administrator setup
 

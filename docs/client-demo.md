@@ -56,7 +56,7 @@ The hosted flow is: client saves published content → WordPress requests a Verc
 
 Vercel hosts the React frontend; WordPress runs on its own PHP-capable host. GitHub contains the website code, plugin, bundled images and sample source files. WordPress's database and uploaded media are separate and need their own migration/backups. The local login details and localhost media URLs must not be reused for a hosted site.
 
-See [CMS setup and handover](cms-setup.md) for account setup, publishing configuration and production approval requirements. Hosted WordPress and a live Vercel CMS connection are not yet provisioned or verified by this project.
+See [the free hosted CMS demo](free-cms-demo.md) for the temporary online dashboard and access duration, and [CMS setup and handover](cms-setup.md) for permanent account setup, publishing configuration and production approval requirements. The hosted Studio Editor login and content were verified; permanent hosting and the Vercel CMS publishing connection remain pending.
 
 ## Video and media walkthrough
 
