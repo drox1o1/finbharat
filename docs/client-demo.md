@@ -20,7 +20,7 @@ These credentials belong to the disposable local demo only. The Editor account s
 4. **Show images and case studies.** Open the post's Featured image control and Media Library. Then open Case studies → Srijan. Expand Meta Boxes if collapsed; show the profile, City, portrait and FD/SIP assumptions. Calculator formulas stay in the website. If changing an amount, also update matching amounts written in the story and restore both after the demo.
 5. **Show the remaining content tools.** Website pages contains page copy and FAQs. Finbharat contains the mission, shared content, founder profiles and contacts. Newsroom manages announcements and source links. Show a draft's status: it stays off the public website until published and the next build finishes.
 
-The local WordPress theme preview is not the React website. Show the result in the website tab after rebuilding. The supplied posts are labelled samples; the planning stories introduce imagined people and show estimates with visible assumptions. On the homepage they appear in the third main section, immediately after the Mutual Fund and FD cards. The footer subheading uses the global tagline in WordPress → Finbharat.
+The local WordPress theme preview is not the React website. Show the result in the website tab after rebuilding. The supplied posts are labelled samples; the planning stories introduce imagined people and show estimates with visible assumptions. On the homepage they appear immediately after the Mutual Fund and FD cards. The footer subheading uses the global tagline in WordPress → Finbharat.
 
 ## Start or restart the demo
 
@@ -60,6 +60,6 @@ See [CMS setup and handover](cms-setup.md) for account setup, publishing configu
 
 ## Video and media walkthrough
 
-On the homepage, show the introduction thumbnail in the second main section, followed by case studies. The placeholder intentionally has no active play control. In WordPress → Finbharat → Site → Intro, show the editable YouTube URL, poster, transcript and Approved fields. An unlisted YouTube video can be enabled after its captions are ready; saving and rebuilding turns the thumbnail into the watch button.
+On the homepage, show the introduction thumbnail in the second main section, followed by the Mutual Fund and FD cards, then case studies. The trust and press section follows the cofounders. Both app stores show “Coming soon” until launch links are supplied. The placeholder intentionally has no active play control. In WordPress → Finbharat → Site → Intro, show the editable YouTube URL, poster, transcript and Approved fields. An unlisted YouTube video can be enabled after its captions are ready; saving and rebuilding turns the thumbnail into the watch button.
 
 Open the website Media page to show Businessline and SMEStreet coverage. Cards have original publication dates, photographs, attribution and direct links to the publisher. In WordPress → Newsroom, open either entry to demonstrate editing the excerpt, original source, publication name and featured image.

@@ -98,3 +98,9 @@ Set `SITE_URL` to the confirmed domain before publishing. Default builds use the
 - Authentic Businessline and SMEStreet mastheads link to the supplied press features. These are clearly labelled press coverage, separately from registration and security information. No bank partnerships, regulator endorsements, encryption standards or certifications are asserted.
 - Prepared CMS security wording with an approval/evidence gate. “Bank-Grade Security” remains unpublished because security evidence has not been supplied. Local WordPress options are also unapproved.
 - Lint, 24 Node tests, PHP syntax and the WordPress-backed build passed; 21 static routes generated and CMS revisions match. Browser checks at 320/390/768/1440px passed without overflow or application errors; both logos decoded. Two targeted accessibility scans passed with zero violations. Desktop, mobile and footer screenshots were visually inspected.
+
+## Homepage order and prelaunch app messaging — 10 October 2026
+
+- Moved Mutual funds / Fixed deposits before case studies. Intro video remains after the hero. Moved the entire trust section, including the press strip, immediately after cofounders.
+- Added “Coming soon on the App Store” and “Coming soon on Google Play” to the disabled store controls. Updated the shared homepage CMS availability message and packaged seed content. Store links remain absent until supplied.
+- Lint and WordPress-backed build passed; 21 static routes generated. CMS revision check passed. Browser verification at 320/390/1440px confirmed the requested section order, disabled coming-soon controls and no horizontal overflow. Desktop and mobile screenshots were visually inspected.
