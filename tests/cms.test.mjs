@@ -121,3 +121,22 @@ test('local CMS thumbnail uploads render while remote HTTP thumbnail URLs remain
   setup.site.intro.poster = 'http://remote.example.test/thumbnail.webp';
   assert.equal((await fetchContent('http://127.0.0.1:8088', fetcher)).site.intro.poster, '');
 });
+
+
+test('unpublished legal content cannot inherit approval or text from the supplied baseline', async () => {
+  const setup = config();
+  delete setup.pages['/terms/'];
+  setup.pages['/privacy/'].status = 'draft';
+  const content = await fetchContent('https://cms.example.test', async url => Response.json(url.endsWith('/site') ? setup : []));
+  for (const route of ['/terms/', '/privacy/']) {
+    assert.equal(content.pages[route].approved, false);
+    assert.equal(content.pages[route].fields.body, '<p>This policy is awaiting publication.</p>');
+  }
+});
+
+test('legal commission tables retain accessible structure without unsafe markup', () => {
+  const table = articleHTML('<table onclick="bad()"><caption>Commission</caption><thead><tr><th scope="col" style="color:red">Category</th></tr></thead><tbody><tr><td>Equity<script>bad()</script></td></tr></tbody></table>');
+  assert.match(table, /<th scope="col">Category<\/th>/);
+  assert.match(table, /<td>Equity<\/td>/);
+  assert.doesNotMatch(table, /onclick|style=|script/);
+});

@@ -112,3 +112,13 @@ Set `SITE_URL` to the confirmed domain before publishing. Default builds use the
 - WordPress mode retains production CMS/domain/legal/contact checks, rejects loopback CMS origins in production and never falls back after fetch failures. PRODUCTION_LAUNCH=1 cannot use demo content. Demo mode remains noindex regardless of Vercel’s environment name.
 - Lint and 26 Node tests passed. A full build with VERCEL_ENV=production and VERCEL_TARGET_ENV=production, no CMS_URL and no launch flag succeeded with 21 static routes. Verified noindex metadata, robots Disallow and no loopback URLs in the saved snapshot. Four browser routes loaded; article/press photos decoded with no local WordPress requests.
 - Vercel connector inspection and the explicitly scoped CLI fallback denied access to the project account. GitHub status confirmed the previous 5f22b6c deployment failed. No cloud success is asserted by these local results.
+
+## Supplied FAQ and legal documents — 13 October 2026
+
+- Imported all substantive paragraphs from both supplied DOCX files; verified normalized text against the originals. Omitted blank revision-date label and formatting-only separators.
+- FAQ: 94 questions in 15 expandable topics. Terms and Privacy split into separate existing routes; commission table retained with accessible column headers.
+- Added homepage, product-page and footer links to `/faq/`.
+- Lint, 28 unit tests and production build passed; 22 routes prerendered.
+- Browser checks at desktop and 390px mobile width: FAQ topics expand, Enter toggles the focused summary, Terms and Privacy render, commission values match the source, no horizontal page overflow or console errors.
+- WordPress Studio hosted demo updated in place, preserving other client content. No full snapshot overwrite. FAQ rich-text fields and public legal-page approval verified.
+- Vercel remains in committed demo-snapshot mode; the supplied pages are also included in that snapshot.

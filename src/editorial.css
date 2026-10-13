@@ -163,3 +163,24 @@ button.intro-video-thumbnail:hover .intro-thumbnail-play { background: var(--bra
   .press-logos a:last-child img { width: 70px; }
   .footer-trust { gap: 16px 24px; }
 }
+
+/* Supplied FAQ and legal documents share the editorial reading styles. */
+.information-page > .prose { margin-top: 36px; }
+.prose table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.9em; }
+.prose th, .prose td { padding: 12px 8px; border-bottom: 1px solid var(--border); text-align: left; }
+.prose th { background: var(--surface); }
+.prose caption { text-align: left; font-weight: 600; margin-bottom: 12px; }
+.help-topics { margin-block: 40px; border-top: 1px solid var(--border); }
+.help-topic { border-bottom: 1px solid var(--border); }
+.help-topic summary { display: flex; align-items: center; gap: 18px; padding-block: 26px; cursor: pointer; list-style: none; }
+.help-topic summary::-webkit-details-marker { display: none; }
+.help-topic summary h2 { flex: 1; font-size: clamp(18px, 2.4vw, 24px); line-height: 1.4; }
+.help-topic-number { font-size: 12px; color: var(--secondary); font-variant-numeric: tabular-nums; }
+.help-topic summary svg { flex-shrink: 0; transition: transform 200ms ease; }
+.help-topic[open] summary svg { transform: rotate(180deg); }
+.help-topic .prose { padding: 0 0 32px; }
+.help-topic .prose h3 { font-size: 20px; }
+.help-topic .prose h4 { margin-top: 24px; }
+.help-topic .prose > :first-child { margin-top: 0; }
+.faq-more { margin-top: 24px; }
+@media (prefers-reduced-motion: reduce) { .help-topic summary svg { transition: none; } }

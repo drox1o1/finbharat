@@ -12,8 +12,8 @@ export function safeURL(value, { local = true } = {}) {
 export const plainText = value => decodeHTML(sanitizeHtml(String(value ?? ''), { allowedTags: [], allowedAttributes: {} })).trim();
 export function articleHTML(value) {
   return sanitizeHtml(String(value || ''), {
-    allowedTags: ['p', 'br', 'h2', 'h3', 'h4', 'ul', 'ol', 'li', 'blockquote', 'strong', 'em', 'a', 'figure', 'figcaption', 'img', 'hr'],
-    allowedAttributes: { a: ['href', 'title'], img: ['src', 'alt', 'width', 'height', 'loading'], ol: ['start'] },
+    allowedTags: ['p', 'br', 'h2', 'h3', 'h4', 'ul', 'ol', 'li', 'blockquote', 'strong', 'em', 'a', 'figure', 'figcaption', 'img', 'hr', 'table', 'caption', 'thead', 'tbody', 'tr', 'th', 'td'],
+    allowedAttributes: { a: ['href', 'title'], img: ['src', 'alt', 'width', 'height', 'loading'], ol: ['start'], th: ['scope'] },
     allowedSchemes: ['https', 'mailto', 'tel'], allowProtocolRelative: false,
     transformTags: {
       img: (_, attributes) => ({ tagName: 'img', attribs: { src: safeURL(attributes.src), alt: attributes.alt || '', loading: 'lazy' } }),
@@ -124,7 +124,11 @@ export async function fetchContent(cmsURL, fetcher = fetch) {
   for (const [path, page] of Object.entries(content.pages)) {
     const remote = config.pages[path];
     if (!remote || remote.status !== 'publish') {
-      if (['legal', 'contact'].includes(page.template)) continue;
+      if (['legal', 'contact'].includes(page.template)) {
+        page.approved = false;
+        page.fields.body = page.template === 'legal' ? '<p>This policy is awaiting publication.</p>' : 'Official contact details are awaiting publication.';
+        continue;
+      }
       throw new Error(`Required website page is not published: ${path}`);
     }
     if (remote.template !== page.template) throw new Error(`Unexpected template for ${path}`);

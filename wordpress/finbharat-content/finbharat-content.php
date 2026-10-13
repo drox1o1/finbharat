@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Finbharat Content
  * Description: Fixed editorial templates and published content for the Finbharat React website.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Requires at least: 6.4
  * Requires PHP: 8.1
  */
@@ -95,11 +95,11 @@ final class Finbharat_Content {
             update_option('fb_press_imported', true, false);
         }
         update_option('fb_site', self::merge($seed['site'], get_option('fb_site', [])), false);
-        update_option('fb_content_version', '1.3.1', false);
+        update_option('fb_content_version', '1.3.2', false);
         flush_rewrite_rules();
     }
     public static function upgrade(): void {
-        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.3.1') { self::activate(); }
+        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.3.2') { self::activate(); }
     }
     public static function case_schema(): array {
         return json_decode(file_get_contents(__DIR__ . '/case-field-schema.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -170,7 +170,7 @@ final class Finbharat_Content {
             } else {
                 $field_label = $parent === 'faq' ? ((string)$key === '0' ? 'Question' : 'Answer') : $label;
                 echo '<div class="fb-field"><label for="' . esc_attr($id) . '">' . esc_html($field_label) . '</label>';
-                if ($key === 'body' && $parent === 'fields') {
+                if ($key === 'body') {
                     wp_editor((string)$item, $id, ['textarea_name' => $name, 'media_buttons' => false, 'textarea_rows' => 12, 'teeny' => true]);
                 } else {
                     $rows = strlen((string)$item) > 100 || in_array($key, ['body', 'copy', 'transcript', 'description'], true) ? 4 : 2;
@@ -325,8 +325,8 @@ final class Finbharat_Content {
     public static function assets(string $hook): void {
         if (!in_array($hook, ['post.php', 'post-new.php', 'toplevel_page_finbharat'], true)) { return; }
         wp_enqueue_media();
-        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.3.1');
-        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.3.1', true);
+        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.3.2');
+        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.3.2', true);
     }
 }
 register_activation_hook(__FILE__, [Finbharat_Content::class, 'activate']);
