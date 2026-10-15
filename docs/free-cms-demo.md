@@ -6,7 +6,7 @@ The WordPress Studio preview is online at:
 
 **[Finbharat CMS dashboard](https://durgeshkukreti52-xdwnv-studio.wp.build/wp-admin/)**
 
-This is a temporary hosted copy of the local CMS, with the Finbharat Content plugin, 11 fixed page templates (including the pending legal/contact drafts), two published sample blogs, two press entries, three case studies and the existing uploaded images. The client Editor login, blog management, featured images, public REST content and administrator-only publishing permissions were verified online.
+This is a temporary hosted copy of the local CMS, with the Finbharat Content plugin, 12 fixed page templates (including the published FAQ, Terms and Privacy pages and the pending Contact draft), two published sample blogs, two press entries, three case studies and the existing uploaded images. The client Editor login, blog management, featured images, public REST content and administrator-only publishing permissions were verified online.
 
 The Vercel website still uses the committed demo snapshot. Saving in this hosted dashboard does **not** currently update that website. Connecting a Vercel preview deployment to this CMS and configuring a deploy hook are separate next steps; production WordPress builds retain the legal/contact/domain launch checks. Do not set this temporary CMS as the production content source merely to bypass those checks.
 
@@ -44,3 +44,7 @@ On the current Mac, that directory is `finbharat-web/output/cms/studio-site`. It
 ## Later client handoff
 
 The client can clone the GitHub source and install the versioned plugin on their own PHP-capable WordPress host. Transfer the latest content and media separately, create individual accounts, configure HTTPS, backups and scheduled publishing, then connect the client's Vercel deployment and server-side hook. See [CMS setup](cms-setup.md) for the full configuration. Permanent hosting and the final production launch remain pending.
+
+## Content updates after the original preview upload
+
+The hosted dashboard received the supplied FAQ, Terms and Privacy content on 13 October 2026 and plain-language copy on 15 October 2026. These updates were made in place, preserving other content. The older local Studio snapshot does not include all those edits; refreshing the hosted preview from it would replace them. The portable client handover contains the current website content and a fresh-site WordPress importer.

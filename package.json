@@ -14,7 +14,8 @@
     "cms:export-demo": "node scripts/export-demo.mjs",
     "test:cms-browser": "node tests/cms-browser.mjs",
     "cms:check": "node scripts/check-cms.mjs",
-    "cms:watch": "node scripts/watch-cms.mjs"
+    "cms:watch": "node scripts/watch-cms.mjs",
+    "handover:package": "node scripts/render-handover-guide.mjs && npm run cms:package && node scripts/package-handover.mjs"
   },
   "dependencies": {
     "@fontsource/noto-sans": "^5.2.8",

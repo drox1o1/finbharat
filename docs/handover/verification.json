@@ -1,0 +1,23 @@
+{
+  "verifiedAt": "2026-10-15T16:12:29.091Z",
+  "environment": "Isolated WordPress Studio, PHP 8.3, fresh installation",
+  "checks": {
+    "pluginActivation": "passed",
+    "importPreview": "no changes",
+    "importExecution": "passed",
+    "pageTemplates": 12,
+    "blogs": 2,
+    "media": 2,
+    "caseStudies": 3,
+    "faqTopics": 15,
+    "legalContentRoundTrip": "passed after sanitization",
+    "faqContentRoundTrip": "passed after sanitization",
+    "articleTextRoundTrip": "passed",
+    "featuredImages": "7 images return HTTP 200 with image content type",
+    "latestFounderAndChoiceCopy": "passed",
+    "pendingContact": "remains unpublished",
+    "lint": "passed",
+    "unitTests": 28,
+    "productionBuild": "passed"
+  }
+}

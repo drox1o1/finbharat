@@ -43,7 +43,7 @@ Generated on 2 October 2026 with the built-in OpenAI image-generation tool, at t
 | `public/case-studies/meera-chennai.webp` | Meera, 42, homemaker in Chennai | Natural home portrait; ivory and teal cotton sari, dining table and notebook | `exec-2b1807c3-0f09-4733-8656-83ceece185b7.png` |
 | `public/case-studies/arjun-bengaluru.webp` | Arjun, 42, auto driver in Bengaluru | Natural street portrait; khaki shirt beside a parked green and yellow auto rickshaw | `exec-075fd0a9-c8e3-40c1-b804-be45fff87c34.png` |
 
-Original PNGs remain in the task's generated-images directory. Delivery assets are WebP, 900 pixels wide at quality 85. No real identity, logo, text or financial outcome was requested in the images. The stock photographs above remain on the Inclusion page; the new AI portraits are used for the fictional case studies. Founder photographs remain the originals supplied by the owner.
+Original PNGs remain in the task's generated-images directory. Delivery assets are WebP, 900 pixels wide at quality 85. No real identity, logo, text or financial outcome was requested in the images. The stock photographs above are retained as available assets. The Inclusion page and homepage now both show the fictional case studies with the generated portraits. Founder photographs remain the originals supplied by the owner.
 
 ## Original editorial covers for sample blogs
 

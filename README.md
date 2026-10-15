@@ -39,6 +39,7 @@ Upload `dist/` to a static host. All fixed pages and published articles have ful
 - `/calculators/fd/`
 - `/calculators/sip/`
 - `/calculators/goal/`
+- `/faq/` — 94 supplied questions in 15 expandable topics
 - `/privacy/`
 - `/terms/`
 - `/contact/`
@@ -65,7 +66,7 @@ Original risograph imagery was created with the built-in image generation tool. 
 
 ## Pending company information
 
-The owner supplied D. Ramanathan (CFP CM, cofounder, Managing Director & CEO) and Rakesh K (cofounder, IIMC alumnus), their locations and LinkedIn URLs. These appear on About and the homepage. Biographies use only supplied facts. Owner-supplied portraits of both cofounders appear on the homepage and About page. Company contact details, privacy policy, terms and official app store links remain visibly marked placeholders. App download buttons are disabled, with a nearby availability explanation. Store badges are the original official artwork and do not link to invented listings. No SoftwareApplication schema is emitted because app details and availability are unverified. Add it after verification.
+The owner supplied D. Ramanathan (CFP CM, cofounder, Managing Director & CEO) and Rakesh K (cofounder, IIMC alumnus), their locations and LinkedIn URLs. These appear on About and the homepage. Biographies use only supplied facts. Owner-supplied portraits of both cofounders appear on the homepage and About page. The supplied Terms and Privacy pages are published. Official contact details and app store links remain pending. App download buttons are disabled, with a nearby availability explanation. Store badges are the original official artwork and do not link to invented listings. No SoftwareApplication schema is emitted because app details and availability are unverified. Add it after verification.
 
 The product pages explain mutual funds and deposits without claiming available Finbharat investment products. Educational sources link directly to SEBI and RBI. This website does not accept investments or open deposits.
 
@@ -104,7 +105,7 @@ The current website supports a build-time headless WordPress source. Blog, Media
 - `npm run cms:package` produces the installable plugin at `output/cms/finbharat-content.zip`.
 - `CMS_URL=https://your-cms-host npm run build` fetches published content and prerenders all fixed and article routes.
 - Set `SITE_URL` to the actual public origin for canonicals. Vercel uses `vercel.json` (static prerendered output, not an SPA catch-all).
-- With no CMS configured, local development/preview uses the imported editorial defaults and empty Blog/Media states. Production builds require the CMS, approved Contact/Terms/Privacy and a confirmed domain.
+- With no CMS configured, the repository builds the committed demo snapshot, including sample blogs and press coverage. Final launch in WordPress mode requires a hosted CMS, approved Contact/Terms/Privacy and a confirmed domain.
 - Published content is sanitized and embedded per route for consistent hydration. Build errors never silently substitute stale or default CMS data. Vercel retains the last successful deployment on failure.
 
 See [the administrator and editor handover](docs/cms-setup.md) for hosting setup, roles, scheduled publishing, hook configuration, rollback and pending launch inputs. See [asset provenance](docs/assets-provenance.md) for exact Figma components and photograph licences. Permanent production CMS hosting, legal approval and official contact details remain client-owned setup steps. A [free hosted WordPress Studio client demo](docs/free-cms-demo.md) was verified on 10 October 2026; it is temporary and is not yet connected to Vercel publishing.
@@ -138,3 +139,7 @@ CMS_URL=http://127.0.0.1:8088 npm run cms:export-demo
 ```
 
 Review and commit `content/demo-content.json`, then push to rebuild Vercel. Local upload images must have matching bundled files in `public/`; the export fails if an image is missing or ambiguous. Live WordPress publishing will require separately hosted WordPress and its Vercel deploy hook.
+
+## Complete client handover
+
+See [the client handover guide](docs/handover/HANDOVER.md). After committing the complete source and running lint, tests and build, run `npm run handover:package`. The resulting ZIP in `output/handover/` includes tracked source, the verified static build, public editorial content, the installable WordPress plugin and importer, supplied reference documents, asset notices and SHA-256 checksums. Credentials and user databases are excluded. Set `HANDOVER_CMS_URL` to export the latest published CMS content; all uploaded images must have matching bundled public assets.
