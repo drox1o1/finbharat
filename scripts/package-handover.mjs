@@ -57,7 +57,11 @@ await writeFile(join(destination, 'cms/content.json'), JSON.stringify(content, n
 await cp('docs/handover/HANDOVER.md', join(destination, 'HANDOVER.md'));
 await cp('docs/handover/START-HERE.html', join(destination, 'START-HERE.html'));
 await mkdir(join(destination, 'reference-documents'), { recursive: true });
-for (const name of ['FAQ-Finbharat.docx', 'TC -FINBHARAT.docx']) await cp(resolve('..', name), join(destination, 'reference-documents', name));
+for (const name of ['FAQ-Finbharat.docx', 'TC -FINBHARAT.docx']) {
+  let source = resolve('..', name);
+  try { await access(source); } catch { source = resolve('..', 'reference-documents', name); }
+  await cp(source, join(destination, 'reference-documents', name));
+}
 const notices = ['Finbharat third party notices', '', 'Dependency versions and licences are recorded below. Full project assets and usage records are in website/docs/assets-provenance.md and website/docs/artwork.md.', ''];
 const lock = JSON.parse(await readFile('package-lock.json', 'utf8'));
 for (const [path, item] of Object.entries(lock.packages)) {
