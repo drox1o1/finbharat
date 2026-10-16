@@ -59,13 +59,19 @@
       "poster": "/video/intro-conversation-thumbnail.webp",
       "captions": "",
       "transcript": "",
-      "approved": false
+      "approved": false,
+      "visible": false
     },
     "assets": {
       "heroPoster": "/video/hero-poster-1s.jpg",
       "heroVideo": "/video/hero-scroll-from-1s.mp4",
       "footerImage": "/art/pathways.webp",
-      "footerAlt": "An illustrated winding path through teal hills toward a shared horizon"
+      "footerAlt": "An illustrated winding path through teal hills toward a shared horizon",
+      "logoBrand": "/brand/logo-brand.svg",
+      "logoReversed": "/brand/logo-reversed.svg",
+      "manifestoImage": "/art/community.webp",
+      "inclusionHeroImage": "/art/community.webp",
+      "inclusionHeroAlt": "Risograph artwork of overlapping teal and lavender circles forming a connected community"
     },
     "founders": [
       {
@@ -77,7 +83,10 @@
         "location": "Greater Chennai Area",
         "biography": "Managing Director & CEO at FinBharat Technology Private Limited. Reimagining wealth creation for Bharat.",
         "linkedin": "https://www.linkedin.com/in/d-ramanathan-cfp-cm-791b151b/",
-        "portrait": "/founders/d-ramanathan.png"
+        "portrait": "/founders/d-ramanathan.png",
+        "portraitAlt": "D. Ramanathan, founder of Finbharat",
+        "portraitPosition": "50% 10%",
+        "portraitZoom": "1"
       },
       {
         "name": "Rakesh K",
@@ -88,7 +97,10 @@
         "location": "Chennai, Tamil Nadu, India",
         "biography": "Co-founder at Finbharat Technology and an IIMC alumnus, based in Chennai, Tamil Nadu.",
         "linkedin": "https://www.linkedin.com/in/rakeshkgogetter/",
-        "portrait": "/founders/rakesh-k.png"
+        "portrait": "/founders/rakesh-finbharat.webp",
+        "portraitAlt": "Rakesh K, founder of Finbharat, wearing a red Finbharat polo",
+        "portraitPosition": "50% 10%",
+        "portraitZoom": "1.6"
       }
     ],
     "copy": {
@@ -145,7 +157,18 @@
       "FounderProfiles.38b44a9a": "Meet the Founders",
       "FounderProfiles.5ed93fb3": "The cofounders of",
       "FounderProfiles.8c3fd2b2": "FinBharat Technology Private Limited.",
-      "FounderProfiles.ddfd5488": "Connect on LinkedIn"
+      "FounderProfiles.ddfd5488": "Connect on LinkedIn",
+      "Navigation.mutual-funds": "Mutual funds",
+      "Navigation.fixed-deposits": "Fixed deposits",
+      "Navigation.calculators": "Calculators",
+      "Navigation.inclusion": "Inclusion",
+      "Navigation.about": "About",
+      "Navigation.case-studies": "Case studies",
+      "Navigation.blog": "Blog",
+      "Navigation.media": "Media",
+      "Navigation.contact": "Contact",
+      "Navigation.discover": "Discover",
+      "Navigation.download": "Download the app"
     }
   },
   "pages": {
@@ -371,6 +394,21 @@
           "ProductGateways.def73a6a": "Explore the basics. Try your numbers.",
           "ProductGateways.ac52c69b": "Make a considered next step.",
           "ProductGateways.b965ae66": "Explore"
+        },
+        "sections": {
+          "products": true,
+          "caseStudies": true,
+          "belief": true,
+          "mission": true,
+          "principles": true,
+          "inclusion": true,
+          "calculators": true,
+          "ai": true,
+          "gallery": true,
+          "founders": true,
+          "trust": true,
+          "downloads": true,
+          "faq": true
         }
       },
       "approved": true
@@ -478,7 +516,9 @@
               "This website provides educational information and illustrative calculators. It does not accept investments or list verified available funds. Product availability will be shared when confirmed."
             ]
           ],
-          "image": "/art/milestones.webp"
+          "image": "/art/milestones.webp",
+          "gatewayCopy": "A longer view. A little more understanding. Explore investing and plan with our SIP calculator.",
+          "imageAlt": "Risograph artwork of layered steps and a lavender sun representing goals and milestones"
         },
         "copy": {
           "PlanningSteps.d5098979": "A considered way forward",
@@ -504,6 +544,14 @@
           "ProductPage.fab12b4d": "Your assumptions. An illustrative estimate. No account needed.",
           "ProductPage.44252f77": "Keep exploring",
           "ProductPage.b965ae66": "Explore"
+        },
+        "sections": {
+          "understanding": true,
+          "planningSteps": true,
+          "calculator": true,
+          "motto": true,
+          "faq": true,
+          "nextProduct": true
         }
       },
       "approved": true
@@ -595,7 +643,9 @@
               "This website provides educational information and an illustrative FD calculator. It does not open deposits or advertise verified institution offers. Availability will be shared when confirmed."
             ]
           ],
-          "image": "/art/pathways.webp"
+          "image": "/art/pathways.webp",
+          "gatewayCopy": "Clear terms. Thoughtful planning. Understand deposits and explore your maturity estimate.",
+          "imageAlt": "Risograph illustration of an ivory path winding through layered teal hills towards a sun"
         },
         "copy": {
           "PlanningSteps.d5098979": "A considered way forward",
@@ -621,6 +671,14 @@
           "ProductPage.fab12b4d": "Your assumptions. An illustrative estimate. No account needed.",
           "ProductPage.44252f77": "Keep exploring",
           "ProductPage.b965ae66": "Explore"
+        },
+        "sections": {
+          "understanding": true,
+          "planningSteps": true,
+          "calculator": true,
+          "motto": true,
+          "faq": true,
+          "nextProduct": true
         }
       },
       "approved": true
@@ -663,6 +721,13 @@
           "AboutPage.ae883297": "Our purpose, in practice",
           "AboutPage.481d13e3": "Make room for everyone.",
           "AboutPage.428602cf": "Explore our inclusion principles"
+        },
+        "sections": {
+          "mission": true,
+          "founders": true,
+          "motto": true,
+          "values": true,
+          "inclusionLink": true
         }
       },
       "approved": true
@@ -720,6 +785,14 @@
           "InclusionPage.7dcbceda": "People behind the purpose",
           "InclusionPage.2e14849b": "A shared belief in Bharat.",
           "InclusionPage.a86ec138": "Meet the Founders"
+        },
+        "sections": {
+          "motto": true,
+          "principles": true,
+          "caseStudies": true,
+          "ai": true,
+          "products": true,
+          "foundersLink": true
         }
       },
       "approved": true

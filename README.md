@@ -143,3 +143,7 @@ Review and commit `content/demo-content.json`, then push to rebuild Vercel. Loca
 ## Complete client handover
 
 See [the client handover guide](docs/handover/HANDOVER.md). After committing the complete source and running lint, tests and build, run `npm run handover:package`. The resulting ZIP in `output/handover/` includes tracked source, the verified static build, public editorial content, the installable WordPress plugin and importer, supplied reference documents, asset notices and SHA-256 checksums. Credentials and user databases are excluded. Set `HANDOVER_CMS_URL` to export the latest published CMS content; all uploaded images must have matching bundled public assets.
+
+## Editorial controls in plugin 1.4.0
+
+The introduction section is currently hidden through `site.intro.visible`. Editors can restore it later without deleting its content. Optional sections on Home, About, Inclusion and product pages have visibility checkboxes. Main assets and logos, founder portraits/focus/zoom, navigation labels and product gateway descriptions are editable. See [the editor control map](docs/editor-controls.md) for exact locations and the remaining frontend-controlled behavior. The Vercel demo continues to use the committed snapshot until permanent CMS hosting and its publishing hook are connected.

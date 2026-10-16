@@ -50,6 +50,7 @@
       "ios": ""
     },
     "intro": {
+      "visible": false,
       "title": "A more natural conversation about wealth",
       "eyebrow": "Meet Finbharat",
       "description": "Every plan starts with a question. Get to know the thinking behind Finbharat, and the people we’re building it for.",
@@ -62,6 +63,11 @@
       "approved": false
     },
     "assets": {
+      "logoBrand": "/brand/logo-brand.svg",
+      "logoReversed": "/brand/logo-reversed.svg",
+      "manifestoImage": "/art/community.webp",
+      "inclusionHeroImage": "/art/community.webp",
+      "inclusionHeroAlt": "Risograph artwork of overlapping teal and lavender circles forming a connected community",
       "heroPoster": "/video/hero-poster-1s.jpg",
       "heroVideo": "/video/hero-scroll-from-1s.mp4",
       "footerImage": "/art/pathways.webp",
@@ -77,7 +83,10 @@
         "location": "Greater Chennai Area",
         "biography": "Managing Director & CEO at FinBharat Technology Private Limited. Reimagining wealth creation for Bharat.",
         "linkedin": "https://www.linkedin.com/in/d-ramanathan-cfp-cm-791b151b/",
-        "portrait": "/founders/d-ramanathan.png"
+        "portrait": "/founders/d-ramanathan.png",
+        "portraitAlt": "D. Ramanathan, founder of Finbharat",
+        "portraitPosition": "50% 10%",
+        "portraitZoom": "1"
       },
       {
         "name": "Rakesh K",
@@ -88,7 +97,10 @@
         "location": "Chennai, Tamil Nadu, India",
         "biography": "Co-founder at Finbharat Technology and an IIMC alumnus, based in Chennai, Tamil Nadu.",
         "linkedin": "https://www.linkedin.com/in/rakeshkgogetter/",
-        "portrait": "/founders/rakesh-k.png"
+        "portrait": "/founders/rakesh-finbharat.webp",
+        "portraitAlt": "Rakesh K, founder of Finbharat",
+        "portraitPosition": "50% 10%",
+        "portraitZoom": "1.6"
       }
     ],
     "copy": {
@@ -145,7 +157,18 @@
       "FounderProfiles.38b44a9a": "Meet the Founders",
       "FounderProfiles.5ed93fb3": "The cofounders of",
       "FounderProfiles.8c3fd2b2": "FinBharat Technology Private Limited.",
-      "FounderProfiles.ddfd5488": "Connect on LinkedIn"
+      "FounderProfiles.ddfd5488": "Connect on LinkedIn",
+      "Navigation.mutual-funds": "Mutual funds",
+      "Navigation.fixed-deposits": "Fixed deposits",
+      "Navigation.calculators": "Calculators",
+      "Navigation.inclusion": "Inclusion",
+      "Navigation.about": "About",
+      "Navigation.case-studies": "Case studies",
+      "Navigation.blog": "Blog",
+      "Navigation.media": "Media",
+      "Navigation.contact": "Contact",
+      "Navigation.discover": "Discover",
+      "Navigation.download": "Download the app"
     }
   },
   "pages": {
@@ -157,6 +180,21 @@
         "description": "Understand mutual funds, explore fixed deposits and plan with illustrative calculators. Thoughtful technology for a more inclusive financial future."
       },
       "fields": {
+        "sections": {
+          "products": true,
+          "caseStudies": true,
+          "belief": true,
+          "mission": true,
+          "principles": true,
+          "inclusion": true,
+          "calculators": true,
+          "ai": true,
+          "gallery": true,
+          "founders": true,
+          "trust": true,
+          "downloads": true,
+          "faq": true
+        },
         "heroTitle": "Wealth Simplified.",
         "heroPrefix": "For everyone in",
         "manifesto": "Finance becomes powerful when it becomes clear.",
@@ -382,6 +420,14 @@
         "description": "Understand mutual fund basics, SIP contributions, costs and investment risks. Explore an illustrative SIP calculator with your own assumptions."
       },
       "fields": {
+        "sections": {
+          "understanding": true,
+          "planningSteps": true,
+          "calculator": true,
+          "motto": true,
+          "faq": true,
+          "nextProduct": true
+        },
         "product": {
           "name": "Mutual funds",
           "path": "/mutual-funds/",
@@ -477,6 +523,8 @@
               "This website provides educational information and illustrative calculators. It does not accept investments or list verified available funds. Product availability will be shared when confirmed."
             ]
           ],
+          "gatewayCopy": "A longer view. A little more understanding. Explore investing and plan with our SIP calculator.",
+          "imageAlt": "Risograph artwork of layered steps and a lavender sun representing goals and milestones",
           "image": "/art/milestones.webp"
         },
         "copy": {
@@ -514,6 +562,14 @@
         "description": "See how deposit amount, tenure, rate and compounding affect estimated interest and maturity. Explore an illustrative FD calculator."
       },
       "fields": {
+        "sections": {
+          "understanding": true,
+          "planningSteps": true,
+          "calculator": true,
+          "motto": true,
+          "faq": true,
+          "nextProduct": true
+        },
         "product": {
           "name": "Fixed deposits",
           "path": "/fixed-deposits/",
@@ -593,6 +649,8 @@
               "This website provides educational information and an illustrative FD calculator. It does not open deposits or advertise verified institution offers. Availability will be shared when confirmed."
             ]
           ],
+          "gatewayCopy": "Clear terms. Thoughtful planning. Understand deposits and explore your maturity estimate.",
+          "imageAlt": "Risograph illustration of an ivory path winding through layered teal hills towards a sun",
           "image": "/art/pathways.webp"
         },
         "copy": {
@@ -630,6 +688,13 @@
         "description": "Meet D. Ramanathan and Rakesh K, cofounders of Finbharat. Learn about our ambition to make wealth creation simple, accessible and inclusive."
       },
       "fields": {
+        "sections": {
+          "mission": true,
+          "founders": true,
+          "motto": true,
+          "values": true,
+          "inclusionLink": true
+        },
         "values": [
           [
             "Clarity",
@@ -671,6 +736,14 @@
         "description": "Explore Finbharat’s inclusion principles across languages, incomes, abilities and digital confidence, with illustrative everyday planning scenarios."
       },
       "fields": {
+        "sections": {
+          "motto": true,
+          "principles": true,
+          "caseStudies": true,
+          "ai": true,
+          "products": true,
+          "foundersLink": true
+        },
         "commitments": [
           [
             "Different languages. Equal respect.",

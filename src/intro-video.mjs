@@ -13,6 +13,6 @@ export function youtubeVideoId(value) {
   } catch { return ''; }
 }
 export function introVideoReady(intro) {
-  if (!intro.approved || !intro.video || !intro.transcript) return false;
+  if (intro.visible !== true || !intro.approved || !intro.video || !intro.transcript) return false;
   return Boolean(youtubeVideoId(intro.video) || intro.captions && (/^\/(?!\/)/.test(intro.video) || /^https:\/\//.test(intro.video)) && !/youtu(?:be\.com|\.be)/i.test(intro.video));
 }

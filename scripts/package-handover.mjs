@@ -57,7 +57,7 @@ await writeFile(join(destination, 'cms/content.json'), JSON.stringify(content, n
 await cp('docs/handover/HANDOVER.md', join(destination, 'HANDOVER.md'));
 await cp('docs/handover/START-HERE.html', join(destination, 'START-HERE.html'));
 await mkdir(join(destination, 'reference-documents'), { recursive: true });
-for (const name of ['FAQ-Finbharat.docx', 'TC -FINBHARAT.docx']) {
+for (const name of ['FAQ-Finbharat.docx', 'TC -FINBHARAT.docx', 'founder2.jpeg']) {
   let source = resolve('..', name);
   try { await access(source); } catch { source = resolve('..', 'reference-documents', name); }
   await cp(source, join(destination, 'reference-documents', name));

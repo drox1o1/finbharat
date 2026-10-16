@@ -6,3 +6,5 @@
 .fb-group { background: #fff; border: 1px solid #d7ddd8; border-radius: 8px; padding: 16px; margin: 14px 0; }
 .fb-group > summary { font-weight: 600; cursor: pointer; color: #114c5a; }
 .fb-repeat-row { padding: 16px; margin: 16px 0; border: 1px solid #d7ddd8; border-radius: 8px; }
+
+.fb-preview { margin-top: 12px; }.fb-preview img { display: block; width: auto; max-width: 220px; max-height: 190px; object-fit: contain; border: 1px solid #d7ddd8; border-radius: 6px; }

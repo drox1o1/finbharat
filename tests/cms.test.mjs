@@ -81,7 +81,7 @@ test('production gate requires a real origin and approved contact and legal cont
   assert.throws(() => assertLaunchReady(content, 'https://www.finbharat.in'), /approval/);
   for (const path of ['/terms/', '/privacy/', '/contact/']) content.pages[path].approved = true;
   assert.doesNotThrow(() => assertLaunchReady(content, 'https://www.finbharat.in'));
-  content.site.intro.approved = true; content.site.intro.video = '/video/test.mp4';
+  content.site.intro.visible = true; content.site.intro.approved = true; content.site.intro.video = '/video/test.mp4';
   assert.throws(() => assertLaunchReady(content, 'https://www.finbharat.in'), /captions/);
 });
 test('failed prepare does not overwrite the last content snapshot or static deployment', async () => {
@@ -139,4 +139,25 @@ test('legal commission tables retain accessible structure without unsafe markup'
   assert.match(table, /<th scope="col">Category<\/th>/);
   assert.match(table, /<td>Equity<\/td>/);
   assert.doesNotMatch(table, /onclick|style=|script/);
+});
+
+
+test('section visibility, portrait crop and loopback media remain editorial with safe URLs', async () => {
+  const setup = config();
+  setup.site.intro.visible = false;
+  setup.site.founders[1].portrait = 'http://localhost:8088/wp-content/uploads/rakesh.webp';
+  setup.site.founders[1].portraitPosition = 'not a position';
+  setup.site.founders[1].portraitZoom = '99';
+  setup.site.assets.inclusionHeroImage = 'javascript:alert(1)';
+  setup.pages['/'].fields.sections.founders = false;
+  const fetcher = async url => Response.json(url.endsWith('/site') ? setup : []);
+  const local = await fetchContent('http://localhost:8088', fetcher);
+  assert.equal(local.site.intro.visible, false);
+  assert.equal(local.pages['/'].fields.sections.founders, false);
+  assert.equal(local.site.founders[1].portrait, setup.site.founders[1].portrait);
+  assert.equal(local.site.founders[1].portraitPosition, '50% 10%');
+  assert.equal(local.site.founders[1].portraitZoom, '1.6');
+  assert.equal(local.site.assets.inclusionHeroImage, '');
+  const hosted = await fetchContent('https://cms.example.test', fetcher);
+  assert.equal(hosted.site.founders[1].portrait, '');
 });

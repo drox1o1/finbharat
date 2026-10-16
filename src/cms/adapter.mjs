@@ -23,11 +23,13 @@ export function articleHTML(value) {
   });
 }
 const locked = new Set(['path', 'template', 'calculator', 'icon', 'visual', 'initials', 'company', 'art']);
-export function mergeFields(base, incoming, key = '') {
+export function mergeFields(base, incoming, key = '', cmsOrigin = '') {
   if (incoming === undefined || locked.has(key)) return structuredClone(base);
   if (typeof base === 'string') {
     if (typeof incoming !== 'string') throw new Error(`Expected text for ${key}`);
-    if (/^(image|portrait|poster|video|captions|source|href|link|linkedin|instagram|android|ios|footerImage|heroPoster|heroVideo)$/.test(key)) return safeURL(incoming);
+    if (/^(image|portrait|poster|video|captions|source|href|link|linkedin|instagram|android|ios|footerImage|heroPoster|heroVideo|logoBrand|logoReversed|manifestoImage|aiImage|inclusionHeroImage)$/.test(key)) return featuredImageURL(incoming, cmsOrigin);
+    if (key === 'portraitZoom') return Number(incoming) >= 1 && Number(incoming) <= 2.5 ? String(Number(incoming)) : base;
+    if (key === 'portraitPosition') return /^(?:100|[1-9]?\d)% (?:100|[1-9]?\d)%$/.test(incoming) ? incoming : base;
     if (key === 'body' && incoming.includes('<')) return articleHTML(incoming);
     return plainText(incoming);
   }
@@ -35,12 +37,12 @@ export function mergeFields(base, incoming, key = '') {
   if (Array.isArray(base)) {
     if (!Array.isArray(incoming) || incoming.length > 100 || (key !== 'faqs' && incoming.length !== base.length)) throw new Error(`Invalid list for ${key}`);
     if (!base.length) return [];
-    return incoming.map((item, index) => mergeFields(base[index] ?? base[0], item, key));
+    return incoming.map((item, index) => mergeFields(base[index] ?? base[0], item, key, cmsOrigin));
   }
   if (base && typeof base === 'object') {
     if (!incoming || typeof incoming !== 'object' || (Array.isArray(incoming) && incoming.length > 0)) throw new Error(`Expected fields for ${key}`);
     if (key === 'copy') return Object.fromEntries(Object.entries(incoming).filter(([, value]) => typeof value === 'string').map(([id, value]) => [id, plainText(value)]));
-    return Object.fromEntries(Object.entries(base).map(([name, value]) => [name, mergeFields(value, incoming[name], name)]));
+    return Object.fromEntries(Object.entries(base).map(([name, value]) => [name, mergeFields(value, incoming[name], name, cmsOrigin)]));
   }
   return base;
 }
@@ -118,9 +120,9 @@ export async function fetchContent(cmsURL, fetcher = fetch) {
   const config = (await request('/finbharat/v1/site')).value;
   if (config.schemaVersion !== 1 || !config.site || !config.pages) throw new Error('Unsupported or incomplete Finbharat CMS schema.');
   const content = structuredClone(defaultContent);
-  content.site = mergeFields(content.site, config.site);
+  content.site = mergeFields(content.site, config.site, '', origin.href);
   content.site.intro.poster = featuredImageURL(config.site.intro?.poster, origin.href) || content.site.intro.poster;
-  content.scenarios = mergeFields(content.scenarios, config.scenarios);
+  content.scenarios = mergeFields(content.scenarios, config.scenarios, '', origin.href);
   for (const [path, page] of Object.entries(content.pages)) {
     const remote = config.pages[path];
     if (!remote || remote.status !== 'publish') {
@@ -132,7 +134,7 @@ export async function fetchContent(cmsURL, fetcher = fetch) {
       throw new Error(`Required website page is not published: ${path}`);
     }
     if (remote.template !== page.template) throw new Error(`Unexpected template for ${path}`);
-    page.fields = mergeFields(page.fields, remote.fields);
+    page.fields = mergeFields(page.fields, remote.fields, '', origin.href);
     page.seo = mergeFields(page.seo, remote.seo);
     page.approved = remote.approved === true;
   }
@@ -158,5 +160,5 @@ export function assertLaunchReady(content, siteURL) {
   if (origin.protocol !== 'https:' || /(^|\.)example$/.test(origin.hostname) || origin.hostname === 'localhost') throw new Error('A confirmed HTTPS production SITE_URL is required.');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(content.site.contact.email) || !/^\+?[\d ()-]{7,25}$/.test(content.site.contact.phone)) throw new Error('Approved public email and phone are required before launch.');
   for (const path of ['/terms/', '/privacy/', '/contact/']) if (!content.pages[path]?.approved || !content.pages[path].fields.body.trim()) throw new Error(`Client approval is required before launch: ${path}`);
-  if (content.site.intro.approved && content.site.intro.video && !introVideoReady(content.site.intro)) throw new Error('Approved intro video requires captions and transcript.');
+  if (content.site.intro.visible && content.site.intro.approved && content.site.intro.video && !introVideoReady(content.site.intro)) throw new Error('Approved intro video requires captions and transcript.');
 }

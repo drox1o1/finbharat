@@ -53,7 +53,18 @@
     "FounderProfiles.38b44a9a": "Meet the Founders",
     "FounderProfiles.5ed93fb3": "The cofounders of",
     "FounderProfiles.8c3fd2b2": "FinBharat Technology Private Limited.",
-    "FounderProfiles.ddfd5488": "Connect on LinkedIn"
+    "FounderProfiles.ddfd5488": "Connect on LinkedIn",
+    "Navigation.mutual-funds": "Mutual funds",
+    "Navigation.fixed-deposits": "Fixed deposits",
+    "Navigation.calculators": "Calculators",
+    "Navigation.inclusion": "Inclusion",
+    "Navigation.about": "About",
+    "Navigation.case-studies": "Case studies",
+    "Navigation.blog": "Blog",
+    "Navigation.media": "Media",
+    "Navigation.contact": "Contact",
+    "Navigation.discover": "Discover",
+    "Navigation.download": "Download the app"
   },
   "pages": {
     "/": {
@@ -388,6 +399,17 @@
     "AboutPage.a16e821f": "About Page: A responsible direction.",
     "AboutPage.ae883297": "About Page: Our purpose, in practice",
     "AboutPage.481d13e3": "About Page: Make room for everyone.",
-    "AboutPage.428602cf": "About Page: Explore our inclusion principles"
+    "AboutPage.428602cf": "About Page: Explore our inclusion principles",
+    "Navigation.mutual-funds": "Navigation: Mutual funds",
+    "Navigation.fixed-deposits": "Navigation: Fixed deposits",
+    "Navigation.calculators": "Navigation: Calculators",
+    "Navigation.inclusion": "Navigation: Inclusion",
+    "Navigation.about": "Navigation: About",
+    "Navigation.case-studies": "Navigation: Case studies",
+    "Navigation.blog": "Navigation: Blog",
+    "Navigation.media": "Navigation: Media",
+    "Navigation.contact": "Navigation: Contact",
+    "Navigation.discover": "Navigation: Discover",
+    "Navigation.download": "Navigation: Download the app"
   }
 }

@@ -159,3 +159,7 @@ CMS_URL=http://127.0.0.1:8088 npm run cms:export-demo
 Review and commit the public snapshot, then push. The exporter fails on local images without a unique matching file in public/; bundle those images first. Local WordPress edits do not automatically update hosted demo deployments.
 
 For final launch, set CONTENT_MODE=wordpress, a public HTTPS CMS_URL, the approved SITE_URL and PRODUCTION_LAUNCH=1. This restores the hosted-CMS and legal/contact checks. A configured CMS failure always fails WordPress-mode builds; there is no automatic demo fallback. An explicit final-launch flag cannot use demo mode.
+
+## Optional sections and image controls 16 October 2026
+
+Plugin 1.4.0 adds **Website pages → Section visibility** for Home, About, Inclusion and product pages. Shared **Site → Intro → Show introduction video** hides/restores the whole intro section without deleting its content. It is currently off. **Site → Founders** supports the supplied Rakesh portrait, alt text, percentage focus position and zoom from 1 to 2.5. Main asset/logo fields use the native Media Library picker and previews. See [the editor control map](editor-controls.md) for supported content, protected frontend behavior and publishing setup.

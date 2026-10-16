@@ -77,3 +77,7 @@ Prompt: Original wide 16:9 premium editorial photograph in a contemporary Indian
 - SMEStreet header logo: https://img-cdn.publive.online/fit-in/580x326/filters:format(webp)/smstreet/media/agency_attachments/3LWGA69AjH55EG7xRGSA.png — converted to PNG. Local asset: `public/press/smestreet-logo.png`.
 - Logos identify the two owner-supplied press features and link directly to those articles. They are labelled “Finbharat in the press”; they do not represent security certification or publisher endorsement. Logos remain the publishers’ trademarks.
 - Trust icons are existing Lucide icons; no invented certification seals or regulator/bank partner logos were added.
+
+## Updated Rakesh founder portrait 16 October 2026
+
+Owner-supplied source: `founder2.jpeg` (3840 × 5760), showing Rakesh in a red Finbharat polo. Delivery asset: `public/founders/rakesh-finbharat.webp` (1600 × 2400), optimized at WebP quality 90 without retouching. Replaces his previous portrait on Home and About. The CMS Media Library contains the same asset. Portrait focus and zoom are editorial fields; framing is performed by CSS. The original previous asset is retained for recovery.

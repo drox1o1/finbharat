@@ -2,8 +2,12 @@
 document.addEventListener('click', event => {
   const media = event.target.closest('.fb-media');
   if (media) {
-    const frame = window.wp.media({ title: 'Choose an approved website asset', multiple: false });
-    frame.on('select', () => { document.getElementById(media.dataset.target).value = frame.state().get('selection').first().toJSON().url; });
+    const frame = window.wp.media({ title: media.dataset.type === 'image' ? 'Choose a website image' : 'Choose a website asset', multiple: false, ...(media.dataset.type ? { library: { type: media.dataset.type } } : {}) });
+    frame.on('select', () => {
+      const field = document.getElementById(media.dataset.target);
+      field.value = frame.state().get('selection').first().toJSON().url;
+      field.dispatchEvent(new Event('input', { bubbles: true }));
+    });
     frame.open();
   }
   const remove = event.target.closest('.fb-remove');
@@ -22,5 +26,16 @@ document.addEventListener('click', event => {
     }
     const button = document.createElement('button'); button.type = 'button'; button.className = 'button fb-remove'; button.textContent = 'Remove question'; row.append(button);
     list.append(row); row.querySelector('textarea').focus();
+  }
+});
+
+document.addEventListener('input', event => {
+  const field = event.target;
+  if (!(field instanceof HTMLTextAreaElement)) return;
+  const preview = [...document.querySelectorAll('.fb-preview')].find(item => item.dataset.field === field.id);
+  if (!preview) return;
+  preview.replaceChildren();
+  if (/^https?:\/\//.test(field.value)) {
+    const image = document.createElement('img'); image.src = field.value; image.alt = 'Selected website image'; preview.append(image);
   }
 });

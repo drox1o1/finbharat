@@ -122,3 +122,12 @@ Set `SITE_URL` to the confirmed domain before publishing. Default builds use the
 - Browser checks at desktop and 390px mobile width: FAQ topics expand, Enter toggles the focused summary, Terms and Privacy render, commission values match the source, no horizontal page overflow or console errors.
 - WordPress Studio hosted demo updated in place, preserving other client content. No full snapshot overwrite. FAQ rich-text fields and public legal-page approval verified.
 - Vercel remains in committed demo-snapshot mode; the supplied pages are also included in that snapshot.
+
+## Founder portrait and editor controls 16 October 2026
+
+- Replaced Rakesh’s Home/About portrait with the supplied red-polo photograph, optimized without retouching. Editable focus, alt text and bounded zoom handle portrait framing.
+- Introduction visibility is false in the CMS and deployment snapshot. Hidden markup and player are omitted; enabling the switch restores the retained content.
+- Plugin 1.4.0 adds per-page optional-section switches, remaining main asset/logo fields, image selection previews, navigation labels and product-card descriptions. Header and hero calculator links use standalone routes when the embedded section is hidden.
+- Lint, 29 tests and build passed; 22 routes prerendered. SSR fixtures verified hiding optional sections, retaining standalone calculators and suppressing hidden video embeds. Unsafe image URLs and invalid portrait crop/zoom values are rejected.
+- Hosted CMS plugin update and supplied-photo Media Library upload verified. A temporary case-study visibility change was saved, fetched through the production adapter and rendered without the section, then restored. Intro remains hidden.
+- Client control map: `docs/editor-controls.md`. Vercel remains in saved-snapshot mode; automatic publishing still requires permanent CMS hosting and its deployment hook.

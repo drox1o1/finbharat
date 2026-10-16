@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Finbharat Content
  * Description: Fixed editorial templates and published content for the Finbharat React website.
- * Version: 1.3.2
+ * Version: 1.4.0
  * Requires at least: 6.4
  * Requires PHP: 8.1
  */
@@ -95,11 +95,11 @@ final class Finbharat_Content {
             update_option('fb_press_imported', true, false);
         }
         update_option('fb_site', self::merge($seed['site'], get_option('fb_site', [])), false);
-        update_option('fb_content_version', '1.3.2', false);
+        update_option('fb_content_version', '1.4.0', false);
         flush_rewrite_rules();
     }
     public static function upgrade(): void {
-        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.3.2') { self::activate(); }
+        if (current_user_can('manage_options') && get_option('fb_content_version') !== '1.4.0') { self::activate(); }
     }
     public static function case_schema(): array {
         return json_decode(file_get_contents(__DIR__ . '/case-field-schema.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -141,7 +141,7 @@ final class Finbharat_Content {
     private static function label(string $key): string {
         static $labels;
         $labels ??= json_decode(file_get_contents(__DIR__ . '/copy-labels.json'), true);
-        $case_labels = ['fd' => 'Fixed deposit example', 'sip' => 'Mutual fund / SIP example', 'listingOrder' => 'Listing order (lower appears first)', 'personName' => 'Persona name', 'sourceLabel' => 'Publication name', 'imageCredit' => 'Image attribution', 'image' => 'Fallback image URL (featured image takes priority)', 'posterAlt' => 'Thumbnail description', 'placeholderLabel' => 'Video placeholder label', 'principal' => 'Deposit amount (INR)', 'monthly' => 'Monthly contribution (INR)', 'rate' => 'Annual rate / return assumption (%)', 'years' => 'Time horizon (years)', 'initial' => 'Initial investment (INR)', 'frequency' => 'Compounding frequency'];
+        $case_labels = ['sections' => 'Section visibility', 'visible' => 'Show introduction video', 'portraitZoom' => 'Portrait zoom (1 to 2.5)', 'portraitPosition' => 'Portrait focus position (horizontal% vertical%)', 'logoBrand' => 'Header logo on light backgrounds', 'logoReversed' => 'Logo on dark backgrounds', 'products' => 'Mutual fund and FD cards', 'caseStudies' => 'Case studies', 'belief' => 'Belief and purpose', 'principles' => 'Principles', 'inclusion' => 'Inclusion and motto', 'ai' => 'AI direction', 'downloads' => 'App coming soon', 'faq' => 'Frequently asked questions', 'fd' => 'Fixed deposit example', 'sip' => 'Mutual fund / SIP example', 'listingOrder' => 'Listing order (lower appears first)', 'personName' => 'Persona name', 'sourceLabel' => 'Publication name', 'imageCredit' => 'Image attribution', 'image' => 'Fallback image URL (featured image takes priority)', 'posterAlt' => 'Thumbnail description', 'placeholderLabel' => 'Video placeholder label', 'principal' => 'Deposit amount (INR)', 'monthly' => 'Monthly contribution (INR)', 'rate' => 'Annual rate / return assumption (%)', 'years' => 'Time horizon (years)', 'initial' => 'Initial investment (INR)', 'frequency' => 'Compounding frequency'];
         return $case_labels[$key] ?? $labels[$key] ?? ucwords(str_replace(['_', '-'], ' ', preg_replace('/([a-z])([A-Z])/', '$1 $2', $key)));
     }
     public static function fields(array $value, string $prefix, array $schema, string $parent = ''): void {
@@ -151,6 +151,7 @@ final class Finbharat_Content {
             $name = $prefix . '[' . $key . ']';
             $id = 'fb-' . substr(md5($name), 0, 12);
             $label = self::label((string)$key);
+            if (is_bool($default) && $parent === 'sections') { $label = 'Show ' . $label; }
             if (is_array($default)) {
                 echo '<details class="fb-group"><summary>' . esc_html($label) . '</summary>';
                 if ($key === 'faqs') {
@@ -165,6 +166,7 @@ final class Finbharat_Content {
                 echo '</details>';
             } elseif (is_bool($default)) {
                 echo '<p><label><input type="hidden" name="' . esc_attr($name) . '" value="0"><input type="checkbox" name="' . esc_attr($name) . '" value="1" ' . checked((bool)$item, true, false) . '> ' . esc_html($label) . '</label></p>';
+                if ($key === 'visible' && $parent === 'intro') { echo '<p class="description">Uncheck to hide the entire introduction section without deleting its copy, thumbnail or video. Re-enable later; playback still needs an approved accessible video.</p>'; }
                 if ($key === 'bankGradeApproved') { echo '<p class="description">Enable only after the client confirms the security claim. Add an approved description and a public HTTPS evidence link in Source. Publisher logos identify press coverage, not security certifications.</p>'; }
                 if ($key === 'approved') { echo '<p class="description">Check only after client approval. Intro videos need a transcript; enable YouTube captions or supply captions for a direct video file.</p>'; }
             } else {
@@ -175,8 +177,15 @@ final class Finbharat_Content {
                 } else {
                     $rows = strlen((string)$item) > 100 || in_array($key, ['body', 'copy', 'transcript', 'description'], true) ? 4 : 2;
                     echo '<textarea id="' . esc_attr($id) . '" name="' . esc_attr($name) . '" rows="' . (int)$rows . '">' . esc_textarea((string)$item) . '</textarea>';
-                    if (preg_match('/image|portrait|poster|video|captions|footerImage|heroPoster|heroVideo/i', (string)$key)) {
-                        echo '<button type="button" class="button fb-media" data-target="' . esc_attr($id) . '">Choose from media library</button>';
+                    if (in_array((string)$key, ['image', 'portrait', 'poster', 'video', 'captions', 'footerImage', 'heroPoster', 'heroVideo', 'logoBrand', 'logoReversed', 'manifestoImage', 'inclusionHeroImage'], true)) {
+                        $media_type = preg_match('/video$/i', (string)$key) ? 'video' : (preg_match('/captions/i', (string)$key) ? '' : 'image');
+                        echo '<button type="button" class="button fb-media" data-target="' . esc_attr($id) . '" data-type="' . esc_attr($media_type) . '">Choose from media library</button>';
+                        if ($media_type === 'image') {
+                            echo '<div class="fb-preview" data-field="' . esc_attr($id) . '">';
+                            if (preg_match('#^https?://#', (string)$item)) { echo '<img src="' . esc_url($item) . '" alt="Selected website image">'; }
+                            else { echo '<span class="description">Bundled website image. Choose a Media Library image to replace it.</span>'; }
+                            echo '</div>';
+                        }
                     }
                 }
                 echo '</div>';
@@ -325,8 +334,8 @@ final class Finbharat_Content {
     public static function assets(string $hook): void {
         if (!in_array($hook, ['post.php', 'post-new.php', 'toplevel_page_finbharat'], true)) { return; }
         wp_enqueue_media();
-        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.3.2');
-        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.3.2', true);
+        wp_enqueue_style('fb-editor', plugins_url('editor.css', __FILE__), [], '1.4.0');
+        wp_enqueue_script('fb-editor', plugins_url('editor.js', __FILE__), [], '1.4.0', true);
     }
 }
 register_activation_hook(__FILE__, [Finbharat_Content::class, 'activate']);

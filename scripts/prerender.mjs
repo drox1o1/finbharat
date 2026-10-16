@@ -28,11 +28,11 @@ const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;')
 for (const [path, [title, description]] of Object.entries(pages)) {
   const url = `${origin}${path}`;
   const product = content.pages[path]?.fields.product;
-  const pageFAQs = path === '/' ? content.pages['/'].fields.faqs : product?.faqs;
+  const pageFAQs = path === '/' ? (content.pages['/'].fields.sections?.faq === false ? undefined : content.pages['/'].fields.faqs) : (content.pages[path]?.fields.sections?.faq === false ? undefined : product?.faqs);
   const article = articles.find(item => item.path === path);
   const image = article?.image || `${origin}/art/social-preview.jpg`;
   const graph = [
-    { '@type': 'Organization', '@id': `${origin}/#organization`, name: 'Finbharat', legalName: content.site.legalName, description: content.site.mission, slogan: content.site.tagline, logo: `${origin}/brand/logo-brand.svg`, founder: founders.map(founder => ({ '@type': 'Person', name: founder.name, jobTitle: founder.role, sameAs: founder.linkedin })), ...(configuredOrigin ? { url: origin } : {}) },
+    { '@type': 'Organization', '@id': `${origin}/#organization`, name: 'Finbharat', legalName: content.site.legalName, description: content.site.mission, slogan: content.site.tagline, logo: new URL(content.site.assets.logoBrand || "/brand/logo-brand.svg", origin).href, founder: founders.map(founder => ({ '@type': 'Person', name: founder.name, jobTitle: founder.role, sameAs: founder.linkedin })), ...(configuredOrigin ? { url: origin } : {}) },
     { '@type': 'WebSite', '@id': `${origin}/#website`, name: 'Finbharat', url: origin, inLanguage: 'en-IN', publisher: { '@id': `${origin}/#organization` } },
     ...(pageFAQs ? [{ '@type': 'FAQPage', mainEntity: pageFAQs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) }] : []),
     ...(article ? [{ '@type': path.startsWith('/blog/') ? 'BlogPosting' : 'Article', headline: article.title, description: path.startsWith('/case-studies/') ? `Fictional, illustrative planning story with an AI-generated portrait. ${article.seo.description}` : article.seo.description, url, ...(article.date ? { datePublished: article.date } : {}), ...(article.modified ? { dateModified: article.modified } : {}), ...(article.image ? { image: article.image } : {}), ...(article.author ? { author: { '@type': 'Person', name: article.author } } : {}), publisher: { '@id': `${origin}/#organization` }, mainEntityOfPage: url, ...(article.source ? { isBasedOn: article.source } : {}) }] : []),

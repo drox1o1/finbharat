@@ -15,7 +15,7 @@ This package contains the Finbharat website, its current editorial content, the 
 | `THIRD-PARTY-NOTICES.txt` | Dependency notices and references to asset provenance |
 | `RELEASE.json` and `SHA256SUMS.txt` | Source commit, package contents, checks and file integrity hashes |
 
-The package includes two sample blogs, two attributed press entries, three fictional planning stories, 94 FAQ questions in 15 topics, and the supplied Terms and Privacy pages. The Inclusion page shares the homepage case studies. The current wording uses “Meet the Founders” and “Your choice, without pressure.”
+The package includes two sample blogs, two attributed press entries, three fictional planning stories, 94 FAQ questions in 15 topics, and the supplied Terms and Privacy pages. The Inclusion page shares the homepage case studies. The current wording uses “Meet the Founders” and “Your choice, without pressure.” Rakesh’s portrait is the supplied red-polo photograph, and the introduction section is hidden with a WordPress switch for restoring it later.
 
 Passwords, WordPress.com tokens, deploy-hook secrets, personal account settings, database user records, dependency caches and Git history are excluded. Create individual client accounts on the new host. This is an editable content migration and source handover; it does not preserve old user accounts, revisions, deleted items or server configuration.
 
@@ -90,7 +90,7 @@ SITE_URL=https://the-clients-public-website
 PRODUCTION_LAUNCH=1
 ```
 
-Use real origins without `/wp-admin/`. The final-launch build requires official public email and telephone details and approved, published Contact, Terms and Privacy pages. The supplied Terms and Privacy are currently published; official contact details and the production domain remain outstanding. The app is coming soon, with no store URLs. The intro video remains a thumbnail placeholder until an approved video, captions and transcript are supplied.
+Use real origins without `/wp-admin/`. The final-launch build requires official public email and telephone details and approved, published Contact, Terms and Privacy pages. The supplied Terms and Privacy are currently published; official contact details and the production domain remain outstanding. The app is coming soon, with no store URLs. The introduction section is hidden. Its content and thumbnail are retained, and the client can restore it using Site → Intro → Show introduction video. Playback needs an approved video, captions and transcript.
 
 Create a Vercel deploy hook for `main`. In WordPress, open Finbharat → Publishing configuration and save the secret hook and public frontend URL. Keep the hook in server-side WordPress settings. Never put it in GitHub, this ZIP or a `VITE_*` environment variable.
 
@@ -104,9 +104,9 @@ Published content changes then trigger a build. The new content appears after a 
 | Newsroom | Press coverage, announcements, source attribution and video entries |
 | Case studies | Story, persona, portrait, order, SEO and FD/SIP sample assumptions |
 | Website pages | Homepage copy, Inclusion, About, product content, FAQ topics, Terms, Privacy and Contact |
-| Finbharat | Global tagline, mission, founder profiles, approved links, intro media and trust text |
+| Finbharat | Global tagline, mission, founder profiles and portrait framing, main assets, navigation labels, approved links, intro visibility/media and trust text |
 
-Choose a relevant record, edit, preview, then publish. Use meaningful alt text for images. FAQs have rich-text body fields for each topic; headings and lists can be edited there. Typography, layout, animation and calculator formulas remain in frontend code. Case study disclosures identify imagined stories and do not claim customer results.
+Optional sections on Home, About, Inclusion and product pages can be hidden under each page’s Section visibility group. See `website/docs/editor-controls.md` for the complete control map and current publishing workflow. Choose a relevant record, edit, preview, then publish. Use meaningful alt text for images. FAQs have rich-text body fields for each topic; headings and lists can be edited there. Typography, layout, animation and calculator formulas remain in frontend code. Case study disclosures identify imagined stories and do not claim customer results.
 
 To manually refresh a saved demo snapshot after CMS edits:
 

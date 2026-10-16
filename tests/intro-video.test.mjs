@@ -8,8 +8,10 @@ test('YouTube links accept unlisted share URLs and reject unrelated or malformed
   for (const value of ['http://youtu.be/AbC_123-xyz', 'https://youtube.com.evil.test/watch?v=AbC_123-xyz', 'https://evil.test/watch?v=AbC_123-xyz', 'https://user:secret@youtube.com/watch?v=AbC_123-xyz', 'https://youtube.com:8443/watch?v=AbC_123-xyz', 'https://youtu.be/short', 'javascript:alert(1)']) assert.equal(youtubeVideoId(value), '');
 });
 test('Intro placeholder remains until an approved, accessible video is ready', () => {
-  const youtube = { approved: true, video: 'https://youtu.be/AbC_123-xyz', transcript: 'Approved transcript', captions: '' };
+  const youtube = { visible: true, approved: true, video: 'https://youtu.be/AbC_123-xyz', transcript: 'Approved transcript', captions: '' };
   assert.equal(introVideoReady(youtube), true);
+  assert.equal(introVideoReady({ ...youtube, visible: false }), false);
+  assert.equal(introVideoReady({ ...youtube, visible: undefined }), false);
   assert.equal(introVideoReady({ ...youtube, approved: false }), false);
   assert.equal(introVideoReady({ ...youtube, video: '' }), false);
   assert.equal(introVideoReady({ ...youtube, transcript: '' }), false);

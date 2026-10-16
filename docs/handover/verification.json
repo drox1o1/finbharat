@@ -19,5 +19,20 @@
     "lint": "passed",
     "unitTests": 28,
     "productionBuild": "passed"
+  },
+  "editorControls": {
+    "verifiedAt": "2026-10-16",
+    "pluginVersion": "1.4.0",
+    "checks": {
+      "unitTests": 29,
+      "lint": "passed",
+      "build": "22 routes",
+      "founderPortrait": "new supplied image on Home and About, loaded at desktop and mobile sizes",
+      "introduction": "hidden in DOM and CMS, no player markup",
+      "sectionVisibility": "WordPress save, fetch and SSR round trip passed; original settings restored",
+      "mediaLibrary": "supplied image uploaded, previews and selection buttons verified",
+      "assetURLs": "safe hosted HTTPS plus restricted local WordPress support",
+      "publishing": "demo snapshot deployed; permanent CMS hook still pending"
+    }
   }
 }
