@@ -16,7 +16,8 @@
     "cms:check": "node scripts/check-cms.mjs",
     "cms:watch": "node scripts/watch-cms.mjs",
     "handover:package": "node scripts/render-handover-guide.mjs && npm run cms:package && node scripts/package-handover.mjs",
-    "hostinger:package": "node scripts/package-hostinger.mjs"
+    "hostinger:package": "node scripts/package-hostinger.mjs",
+    "hostinger:guide": "node scripts/render-hostinger-guide.mjs"
   },
   "dependencies": {
     "@fontsource/noto-sans": "^5.2.8",

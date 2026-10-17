@@ -2,6 +2,8 @@
 
 This package contains the Finbharat website, its current editorial content, the WordPress integration and the files needed to run it on the client’s own systems. Open `START-HERE.html` for a readable copy of this guide. Begin with the local website, then restore the CMS on a fresh WordPress installation.
 
+**Hostinger is the selected destination.** The full setup instructions are in `website/docs/hostinger-implementation.html` (standalone and printable) and `website/docs/hostinger-implementation.md`. They cover two temporary domains, the website source upload, WordPress content import, manual publishing, the remaining Hostinger automation integration and the move to the final domain. The Vercel steps below describe the existing deployment and an optional alternative.
+
 ## What is included
 
 | Folder or file | Purpose |
@@ -9,13 +11,15 @@ This package contains the Finbharat website, its current editorial content, the 
 | `website/` | React source, locked dependencies, tests, assets, deployment configuration and technical documentation |
 | `website/dist/` | The verified static website build, ready for a static host |
 | `cms/finbharat-content.zip` | Installable Finbharat WordPress plugin |
-| `cms/content.json` | Portable snapshot of the current published content, plus pending contact content |
+| `cms/content.json` | Portable snapshot of the current published content, including approved Contact details |
 | `cms/import-content.php` | WP-CLI importer for fixed pages, blogs, newsroom, case studies, shared settings and featured images |
 | `reference-documents/` | Supplied FAQ and terms DOCX files, including the privacy policy |
 | `THIRD-PARTY-NOTICES.txt` | Dependency notices and references to asset provenance |
 | `RELEASE.json` and `SHA256SUMS.txt` | Source commit, package contents, checks and file integrity hashes |
 
 The package includes two sample blogs, two attributed press entries, three fictional planning stories, 94 FAQ questions in 15 topics, and the supplied Terms and Privacy pages. The Inclusion page shares the homepage case studies. The current wording uses “Meet the Founders” and “Your choice, without pressure.” Rakesh’s portrait is the supplied red-polo photograph, and the introduction section is hidden with a WordPress switch for restoring it later.
+
+The approved email is `contact@finbharat.org`. Both founder LinkedIn URLs are included. A public telephone and final website domain remain unconfirmed.
 
 Passwords, WordPress.com tokens, deploy-hook secrets, personal account settings, database user records, dependency caches and Git history are excluded. Create individual client accounts on the new host. This is an editable content migration and source handover; it does not preserve old user accounts, revisions, deleted items or server configuration.
 
@@ -27,7 +31,7 @@ Vercel currently publishes the committed `website/content/demo-content.json`. Wo
 
 A temporary WordPress Studio CMS demo is available at https://durgeshkukreti52-xdwnv-studio.wp.build/wp-admin/. Studio previews expire seven days after their last Studio snapshot update. Treat this URL as temporary; the package contains the portable content so the client does not depend on it. Dashboard edits do not automatically refresh the Studio expiry or synchronize back to the local Studio copy.
 
-WordPress requires a PHP-capable host with a supported database. Vercel hosts the React website separately. Hosting accounts, domain registration and subscriptions should belong to the client.
+WordPress requires a PHP-capable host with a supported database. Hostinger can host it as a separate website alongside the React Web App; the existing demo is on Vercel. Hostinger WordPress installation and publishing connectivity still need verification. Hosting accounts, domain registration and subscriptions should belong to the client.
 
 ## Run the website locally
 
@@ -67,13 +71,13 @@ Review the listed actions, then import:
 wp eval-file /private/handover/cms/import-content.php /private/handover/cms/content.json /private/handover/website/public import
 ```
 
-The importer copies featured images into the WordPress Media Library and assigns them to the corresponding articles and case studies. Layout images remain bundled with the React frontend. Supplied published pages are restored; Contact remains a draft until official details are provided. Sample posts are demonstration content for the client to review before final launch. Remove WordPress’s default “Hello world” post and Sample Page if present.
+The importer copies featured images into the WordPress Media Library and assigns them to the corresponding articles and case studies. Layout images remain bundled with the React frontend. Supplied published pages are restored, including Contact with the approved email. Sample posts are demonstration content for the client to review before final launch. Remove WordPress’s default “Hello world” post and Sample Page if present.
 
 On reruns, `import` preserves existing articles and edited template fields. `replace` explicitly replaces matching records from this package; use it only after a CMS backup. The importer does not delete unrelated content. Create a client Administrator for configuration and individual Editor accounts for content, using new passwords. Existing draft posts and revision history from the demo are not restored.
 
 For a local Docker demonstration, use `website/wordpress/compose.yml` and follow `website/docs/cms-setup.md`. Its loopback-only credentials are development examples. Use independently managed credentials and HTTPS on a public host.
 
-## Connect the client’s Vercel website
+## Optional: connect the client’s Vercel website
 
 Import the `website/` source into a client-owned GitHub repository. Create a Vercel project from it. If the repository root contains the whole package, set the Vercel Root Directory to `website`; if it contains only website files, use the repository root.
 
@@ -90,7 +94,7 @@ SITE_URL=https://the-clients-public-website
 PRODUCTION_LAUNCH=1
 ```
 
-Use real origins without `/wp-admin/`. The final-launch build requires official public email and telephone details and approved, published Contact, Terms and Privacy pages. The supplied Terms and Privacy are currently published; official contact details and the production domain remain outstanding. The app is coming soon, with no store URLs. The introduction section is hidden. Its content and thumbnail are retained, and the client can restore it using Site → Intro → Show introduction video. Playback needs an approved video, captions and transcript.
+Use real origins without `/wp-admin/`. The current final-launch build requires official public email and telephone details and approved, published Contact, Terms and Privacy pages. Contact, Terms and Privacy are published in the snapshot; the public email is supplied. A public telephone and the production domain remain outstanding. The app is coming soon, with no store URLs. The introduction section is hidden. Its content and thumbnail are retained, and the client can restore it using Site → Intro → Show introduction video. Playback needs an approved video, captions and transcript.
 
 Create a Vercel deploy hook for `main`. In WordPress, open Finbharat → Publishing configuration and save the secret hook and public frontend URL. Keep the hook in server-side WordPress settings. Never put it in GitHub, this ZIP or a `VITE_*` environment variable.
 

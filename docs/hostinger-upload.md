@@ -1,5 +1,9 @@
 # Finbharat on Hostinger
 
+For the complete temporary-domain setup, CMS import, publishing implementation,
+domain migration and client handover, use `hostinger-implementation.md` or its
+printable HTML edition. This file is the shorter upload checklist.
+
 ## 1. Upload the website
 
 The **Upload your app files** screen accepts the application source ZIP named
