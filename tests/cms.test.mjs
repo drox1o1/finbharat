@@ -78,6 +78,7 @@ test('production gate requires a real origin and approved contact and legal cont
   assert.throws(() => assertLaunchReady(content), /SITE_URL/);
   assert.throws(() => assertLaunchReady(content, 'https://www.finbharat.in'), /email and phone/);
   content.site.contact.email = 'editor@example.test'; content.site.contact.phone = '+91 99999 00000';
+  content.pages['/contact/'].approved = false;
   assert.throws(() => assertLaunchReady(content, 'https://www.finbharat.in'), /approval/);
   for (const path of ['/terms/', '/privacy/', '/contact/']) content.pages[path].approved = true;
   assert.doesNotThrow(() => assertLaunchReady(content, 'https://www.finbharat.in'));

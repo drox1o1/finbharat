@@ -23,6 +23,8 @@ Browser verification expects the production preview on port 4173 and Chromium ma
 
 ## Publish
 
+For Hostinger's **Web App → Upload your website files** screen, use `npm run hostinger:package` to create the application source ZIP. Follow [the Hostinger setup guide](docs/hostinger-upload.md) for the build settings and separate WordPress installation. The source upload does not automatically connect a CMS.
+
 ```sh
 CMS_URL=https://your-cms-host SITE_URL=https://your-confirmed-domain.in PRODUCTION_LAUNCH=1 npm run build
 ```

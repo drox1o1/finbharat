@@ -39,7 +39,7 @@
       "bankGradeApproved": false
     },
     "contact": {
-      "email": "",
+      "email": "contact@finbharat.org",
       "phone": "",
       "address": "",
       "linkedin": "",
@@ -854,14 +854,14 @@
     "/contact/": {
       "template": "contact",
       "title": "Contact",
-      "approved": false,
+      "approved": true,
       "seo": {
         "title": "Contact Finbharat | Start a conversation",
-        "description": "Find official Finbharat contact information. Public contact details are awaiting client approval."
+        "description": "Get in touch with Finbharat at contact@finbharat.org for questions about the website, our services or working together."
       },
       "fields": {
         "heading": "A conversation starts with a hello.",
-        "body": "Our public contact details are awaiting approval. Please check back for the official ways to reach Finbharat.",
+        "body": "Have a question about Finbharat, our services or working together? Write to us at contact@finbharat.org.",
         "copy": {}
       }
     },
