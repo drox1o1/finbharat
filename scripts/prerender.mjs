@@ -1,4 +1,5 @@
 import { isProductionBuild } from './build-environment.mjs';
+import { faqPageVisible } from '../src/cms/sections.mjs';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { render } from '../.ssr/entry-server.js';
@@ -12,7 +13,7 @@ const calculatorPages = {
   '/calculators/goal/': ['Goal-Based Calculator | Inflation & Monthly Investment | Finbharat', 'Estimate your future goal cost and required monthly investment, considering inflation, current savings and user-provided return assumptions.'],
 
 };
-const pages = Object.fromEntries(Object.entries(content.pages).map(([path, page]) => [path, [page.seo.title, page.seo.description]]));
+const pages = Object.fromEntries(Object.entries(content.pages).filter(([path]) => path !== '/faq/' || faqPageVisible(content)).map(([path, page]) => [path, [page.seo.title, page.seo.description]]));
 for (const [path, metadata] of Object.entries(calculatorPages)) if (path.startsWith('/calculators/')) pages[path] = metadata;
 for (const article of [...content.blog, ...content.media, ...content.caseStudies]) pages[article.path] = [article.seo.title, article.seo.description];
 const articles = [...content.blog, ...content.media, ...content.caseStudies];

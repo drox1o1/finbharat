@@ -105,9 +105,9 @@ async (page) => {
   await page.getByRole('tab', { name: 'Mutual fund / SIP' }).focus();
   await page.keyboard.press('ArrowRight');
   assert(await page.getByRole('tab', { name: 'Fixed deposit' }).getAttribute('aria-selected') === 'true', 'Arrow key tab navigation failed');
-  await page.getByText('Are calculator results guaranteed?', { exact: true }).click();
-  assert(await page.locator('.faq-item[open]').count() === 1, 'FAQ did not open');
-  report.interactions.push('Accordion, keyboard calculator tabs and native FAQ');
+  assert(await page.locator('#faq, a[href="/faq/"]').count() === 0, 'Hidden FAQ is still shown or linked');
+  assert((await page.request.get(origin + '/faq/')).status() === 404, 'Hidden FAQ page is still published');
+  report.interactions.push('Accordion, keyboard calculator tabs and hidden FAQ');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('button', { name: 'Open navigation' }).click();
   assert(await page.locator('#mobile-navigation').isVisible(), 'Mobile menu failed');

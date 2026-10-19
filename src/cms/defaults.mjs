@@ -1,4 +1,4 @@
-import { homeSections, aboutSections, inclusionSections, productSections } from './sections.mjs';
+import { homeSections, aboutSections, inclusionSections, productSections, faqPageSections } from './sections.mjs';
 import clientDocuments from './client-documents.json' with { type: 'json' };
 import { defaultPressCoverage } from './press-coverage.mjs';
 import { defaultCaseStudies } from './case-studies.mjs';
@@ -88,7 +88,7 @@ export const defaultContent = {
     '/contact/': { template: 'contact', title: 'Contact', approved: true, seo: seo('Contact Finbharat | Start a conversation', 'Get in touch with Finbharat at contact@finbharat.org for questions about the website, our services or working together.'), fields: { heading: 'A conversation starts with a hello.', body: 'Have a question about Finbharat, our services or working together? Write to us at contact@finbharat.org.', copy: {} } },
     '/terms/': { template: 'legal', title: 'Terms and conditions', approved: true, seo: seo('Terms and conditions | Finbharat', 'Read the supplied Finbharat terms of use, service conditions, payment terms and commission disclosures.'), fields: { heading: 'Terms of use of mobile app ‘Finbharat’', body: clientDocuments.termsBody, copy: {} } },
     '/privacy/': { template: 'legal', title: 'Privacy', approved: true, seo: seo('Privacy policy | Finbharat', 'Read how Finbharat collects, uses, shares and protects personal information.'), fields: { heading: 'Privacy policy', body: clientDocuments.privacyBody, copy: {} } },
-    '/faq/': { template: 'faq', title: 'Frequently asked questions', approved: true, seo: seo('Frequently asked questions | Finbharat', 'Find answers about mutual funds, fixed deposits, KYC, SIPs, NPS, insurance and account support.'), fields: { heading: 'A little clarity, at every step.', introduction: 'Explore a topic to find the answers you need.', groups: clientDocuments.faqGroups, copy: {} } },
+    '/faq/': { template: 'faq', title: 'Frequently asked questions', approved: true, seo: seo('Frequently asked questions | Finbharat', 'Find answers about mutual funds, fixed deposits, KYC, SIPs, NPS, insurance and account support.'), fields: { sections: faqPageSections, heading: 'A little clarity, at every step.', introduction: 'Explore a topic to find the answers you need.', groups: clientDocuments.faqGroups, copy: {} } },
   },
   scenarios: [
     { audience: 'A salaried professional', title: 'A good income. A plan with purpose.', body: 'An upper middle income professional may be balancing family priorities, a future purchase and longer-term financial freedom. Start by separating goals and exploring the time available for each.', cue: 'Give each goal its own starting point.', image: '/people/professional.webp', alt: 'A man seated in a contemporary office', credit: 'Amirul Islam', source: 'https://www.pexels.com/photo/portrait-of-a-young-south-asian-businessman-37556617/', href: '/calculators/goal/', action: 'Explore a goal' },

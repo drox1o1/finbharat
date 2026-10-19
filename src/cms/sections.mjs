@@ -3,3 +3,6 @@ export const homeSections = { products: true, caseStudies: true, belief: true, m
 export const aboutSections = { mission: true, founders: true, motto: true, values: true, inclusionLink: true };
 export const inclusionSections = { motto: true, principles: true, caseStudies: true, ai: true, products: true, foundersLink: true };
 export const productSections = { understanding: true, planningSteps: true, calculator: true, motto: true, faq: true, nextProduct: true };
+export const faqPageSections = { faqPage: true };
+// A hidden FAQ page is not prerendered, linked or listed in the sitemap.
+export const faqPageVisible = content => content.pages['/faq/']?.fields.sections?.faqPage !== false;

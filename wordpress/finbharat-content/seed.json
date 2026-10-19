@@ -894,6 +894,9 @@
         "description": "Find answers about mutual funds, fixed deposits, KYC, SIPs, NPS, insurance and account support."
       },
       "fields": {
+        "sections": {
+          "faqPage": true
+        },
         "heading": "A little clarity, at every step.",
         "introduction": "Explore a topic to find the answers you need.",
         "groups": [

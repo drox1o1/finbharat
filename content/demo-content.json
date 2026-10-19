@@ -408,7 +408,7 @@
           "founders": true,
           "trust": true,
           "downloads": true,
-          "faq": true
+          "faq": false
         }
       },
       "approved": true
@@ -550,7 +550,7 @@
           "planningSteps": true,
           "calculator": true,
           "motto": true,
-          "faq": true,
+          "faq": false,
           "nextProduct": true
         }
       },
@@ -677,7 +677,7 @@
           "planningSteps": true,
           "calculator": true,
           "motto": true,
-          "faq": true,
+          "faq": false,
           "nextProduct": true
         }
       },
@@ -902,6 +902,9 @@
         "description": "Find answers about mutual funds, fixed deposits, KYC, SIPs, NPS, insurance and account support."
       },
       "fields": {
+        "sections": {
+          "faqPage": false
+        },
         "heading": "A little clarity, at every step.",
         "introduction": "Explore a topic to find the answers you need.",
         "groups": [

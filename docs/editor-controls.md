@@ -12,6 +12,8 @@ To bring it back, check the same setting. With no approved accessible video, it 
 
 Open **Website pages**, select **Home**, **About**, **Inclusion**, **Mutual funds** or **Fixed deposits**, and expand **Section visibility**. Use the labelled Show checkboxes and update the page. Hiding a section removes its markup and media without deleting its content. Hide it independently on each page where it appears; for example, homepage case studies and Inclusion case studies have separate switches.
 
+FAQs are currently hidden everywhere: the homepage, Mutual funds and Fixed deposits **Frequently asked questions** sections are unchecked, and **Website pages → Frequently asked questions → Section visibility → Show FAQ page and footer link** is unchecked. While that page switch is off, `/faq/` is not built (it returns 404), is left out of the sitemap, and its footer and homepage links are removed. Check the four switches again to restore FAQs; their questions and topics are kept.
+
 The page hero, header/footer structure, required risk disclosures and regulatory identifiers remain frontend-controlled. The standalone calculator routes remain available if their embedded section is hidden. Main calculator links use that route when the homepage calculator section is hidden.
 
 ## Replace images and founder details
